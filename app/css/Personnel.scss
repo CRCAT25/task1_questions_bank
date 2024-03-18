@@ -1,0 +1,37 @@
+.sidebar-menu {
+    font-size: 16px;
+}
+.checkmark {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px; /* Bo góc */
+}
+
+.checkmark.checked {
+    background-color: #008000; /* Màu nền khi được chọn */
+    border: 2px solid #008000;
+
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+input[type="checkbox"]:checked + .checkmark:after {
+    display: block;
+}
+
+.checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}

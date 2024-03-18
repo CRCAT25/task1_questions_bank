@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -24,6 +25,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+    font-family: "Helvetica", sans-serif !important;
 }
 
 @layer utilities {
@@ -31,3 +33,12 @@ body {
     text-wrap: balance;
   }
 }
+
+.shadow1{
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+
+.shadow2{
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+}
+
