@@ -34,3 +34,18 @@ input[type="checkbox"]:checked + .checkmark:after {
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
 }
+
+.field-search{
+    padding: 14px 0;
+    border-top: 1px solid rgba(189, 194, 210); /* Border top color */
+    border-bottom: 1px solid rgba(189, 194, 210, 0.5); /* Border bottom color */
+}
+
+.three-dots{
+    border-left: 1px solid rgba(189, 194, 210, 0.5);
+    padding-top: 5px;
+}
+
+.bg-item-checked{
+    background-color: rgba(26, 102, 52, 0.7);
+}

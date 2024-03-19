@@ -1,0 +1,26 @@
+[
+    {
+        "id": "Q.001",
+        "question": "Hệ thống cửa hàng Hachi Hachi có mặt từ năm nào? Hiện nay có bao nhiêu cửa hàng ?",
+        "typeQuestion": "Dạng câu một lựa chọn",
+        "isChecked": false
+    },
+    {
+        "id": "Q.002",
+        "question": "Có phải Hachi Hachi là một chuỗi cửa hàng ẩm thực Nhật Bản?",
+        "typeQuestion": "Dạng câu một lựa chọn",
+        "isChecked": false
+    },
+    {
+        "id": "Q.003",
+        "question": "Có phải Hachi Hachi là một chuỗi cửa hàng ẩm thực Nhật Bản?",
+        "typeQuestion": "Dạng câu một lựa chọn",
+        "isChecked": false
+    },
+    {
+        "id": "Q.004",
+        "question": "Có phải Hachi Hachi là một chuỗi cửa hàng ẩm thực Nhật Bản?",
+        "typeQuestion": "Dạng câu một lựa chọn",
+        "isChecked": false
+    }
+]

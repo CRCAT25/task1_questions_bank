@@ -5,8 +5,8 @@ import ListPersonnel from './ListPersonnel'
 const Container = () => {
   return (
     <div className=''>
-        <Header/>
-        <ListPersonnel/>
+      <Header />
+      <ListPersonnel />
     </div>
   )
 }

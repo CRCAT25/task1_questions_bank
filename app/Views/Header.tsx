@@ -13,7 +13,7 @@ interface IconProps {
 
 
 const Header = () => {
-  const [selectedTab, setSelectedTab] = useState<number>(-1);
+  const [selectedTab, setSelectedTab] = useState<number>(7);
 
   const Icon: React.FC<IconProps> = ({ classIcon, color, size }) => {
     const iconSize = {
