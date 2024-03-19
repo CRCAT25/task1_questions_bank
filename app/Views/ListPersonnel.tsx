@@ -18,22 +18,28 @@ interface IconProps {
 }
 
 const ListPersonnel = () => {
-    const [checked, setChecked] = useState<string>('');
+    const [checked, setChecked] = useState<string[]>([]); // Change state type to string[] for multiple checkbox selection
     const [selectedTab, setSelectedTab] = useState<number>(-1);
 
     const Checkbox: React.FC<CheckboxProps> = ({ label }) => {
 
         const handleChange = (label: string) => {
-            setChecked(label);
-            if (label === checked) setChecked('')
+            const currentIndex = checked.indexOf(label);
+            const newChecked = [...checked];
+            if (currentIndex === -1) {
+                newChecked.push(label);
+            } else {
+                newChecked.splice(currentIndex, 1);
+            }
+            setChecked(newChecked);
         };
 
         return (
             <div className='flex gap-8 text-[#959DB3]' onClick={() => handleChange(label)}>
                 <div>{label}</div>
                 <label className='flex flex-col justify-center'>
-                    <input className='cursor-pointer' type="checkbox" checked={checked === label} onChange={() => handleChange(label)} disabled hidden />
-                    <span className={`checkmark cursor-pointer ${checked === label ? 'checked' : ''}`}></span>
+                    <input className='cursor-pointer' type="checkbox" checked={checked.includes(label)} onChange={() => handleChange(label)} disabled hidden />
+                    <span className={`checkmark cursor-pointer ${checked.includes(label) ? 'checked' : ''}`}></span>
                 </label>
             </div>
 
@@ -76,7 +82,7 @@ const ListPersonnel = () => {
                     {tabHeaderStatus.map((tab, index) => (
                         <div
                             key={index}
-                            className={`h-[46px] bg-white flex flex-col justify-center rounded-[24px] ${checked === tab ? 'border-[2px] border-[#008000]' : ''} cursor-pointer px-6 flex ${index === selectedTab ? '' : ''}`}
+                            className={`h-[46px] bg-white flex flex-col justify-center rounded-[24px] ${checked.includes(tab) ? 'border-[2px] border-[#008000]' : ''} cursor-pointer px-6 flex ${index === selectedTab ? '' : ''}`}
                             onClick={() => handleTabClick(index)}
                         >
                             <Checkbox label={tab} />
@@ -144,6 +150,17 @@ const ListPersonnel = () => {
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            {/* Phần danh sách các câu hỏi */}
+            <div className='mt-[30px]'>
+                <div className='flex gap-8 text-[#959DB3]'>
+                    <label className='flex flex-col justify-center'>
+                        <input className='cursor-pointer' type="checkbox" disabled hidden />
+                        <span className={`checkmark cursor-pointer`}></span>
+                    </label>
+                    <div>Câu hỏi</div>
                 </div>
             </div>
         </div>

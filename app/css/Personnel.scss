@@ -4,8 +4,8 @@
 .checkmark {
     position: relative;
     display: inline-block;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border: 2px solid #ccc;
     border-radius: 5px; /* Bo góc */
 }
@@ -13,7 +13,6 @@
 .checkmark.checked {
     background-color: #008000; /* Màu nền khi được chọn */
     border: 2px solid #008000;
-
 }
 
 .checkmark:after {
@@ -27,8 +26,8 @@ input[type="checkbox"]:checked + .checkmark:after {
 }
 
 .checkmark:after {
-    left: 6px;
-    top: 2px;
+    left: 5px;
+    top: 1px;
     width: 5px;
     height: 10px;
     border: solid white;
