@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import datajson from '../newdata.json'
 
+
 interface IconProps {
     classIcon: IconDefinition;
     color: string;
@@ -17,6 +18,7 @@ interface IconProps {
 
 interface ListItemMenu {
     selectedTabHeader: number;
+    onTabChange: (tabValue: string) => void;
 }
 
 interface ListTabMenu {
@@ -24,7 +26,7 @@ interface ListTabMenu {
     content: string;
 }
 
-const SideBarMenu: React.FC<ListItemMenu> = ({ selectedTabHeader }) => {
+const SideBarMenu: React.FC<ListItemMenu> = ({ selectedTabHeader, onTabChange }) => {
     const Icon: React.FC<IconProps> = ({ classIcon, color, size }) => {
         const iconSize = {
             width: size,
@@ -138,10 +140,14 @@ const SideBarMenu: React.FC<ListItemMenu> = ({ selectedTabHeader }) => {
                                         <div key={i}>
                                             <div
                                                 className={`h-[50px] cursor-pointer px-5 flex ${selectedSubTab === i ? 'border-l-[5px] border-[#fff] bg-[#474F63]' : 'border-l-[5px] border-[#5A6276]'}`}
-                                                onClick={() => handleTabClickTabLowerLV(i)}
+                                                onClick={() => {
+                                                    handleTabClickTabLowerLV(i);
+                                                    onTabChange(tabMenu.content)
+                                                }
+                                                }
                                             >
                                                 <div className='flex flex-col justify-center'>
-                                                    <img className='w-[16px] h-[16px]' src={tabMenu.icon}/>
+                                                    <img className='w-[16px] h-[16px]' src={tabMenu.icon} />
                                                 </div>
 
                                                 <div className='flex flex-col justify-center pt-[1px] mx-auto'>
