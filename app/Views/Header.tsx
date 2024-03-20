@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import {
-  faMagnifyingGlass,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
+import jsonData from '../newdata.json';
 
 interface IconProps {
   classIcon: IconDefinition;
@@ -11,9 +10,12 @@ interface IconProps {
   size: string;
 }
 
+interface HeaderProps {
+  onTabChange: (tabValue: number) => void;
+}
 
-const Header = () => {
-  const [selectedTab, setSelectedTab] = useState<number>(7);
+const Header: React.FC<HeaderProps> = ({ onTabChange }) => {
+  const [selectedTab, setSelectedTab] = useState<number>(0);
 
   const Icon: React.FC<IconProps> = ({ classIcon, color, size }) => {
     const iconSize = {
@@ -29,27 +31,25 @@ const Header = () => {
       </div>
     );
   };
+
   const handleTabClick = (index: number) => {
     setSelectedTab(index);
-    console.log(selectedTab);
+    onTabChange(index);
   };
 
-  const tabMenuHeader = [
-    '-----------',
-    '-----------',
-    '-----------',
-    '-----------',
-    '-----------',
-    '-----------',
-    '-----------',
-    'NHÂN SỰ',
-  ];
+  const tabMenuHeader: string[] = [];
+
+  jsonData.Modules.forEach(module => {
+    Object.keys(module).forEach(nameModule => {
+      tabMenuHeader.push(nameModule);
+    });
+  });
+
+
   return (
-    // Header
     <div className='h-[60px] bg-white text-[16px] px-[20px] shadow2 flex justify-between'>
       <div className='h-full flex flex-col justify-center'>
         <div className='flex gap-[20px]'>
-          {/* Hiển thị danh sách các models(tiêu đề) chính */}
           {tabMenuHeader.map((tab, index) => (
             <div className='flex gap-[20px]' key={index}>
               <div
@@ -62,35 +62,27 @@ const Header = () => {
                 <div className='h-full w-[2px] rounded-[3px] bg-[#BBBBBB]'></div>
               ) : (<></>)}
             </div>
-
           ))}
-
         </div>
       </div>
 
       <div className='h-full flex flex-col justify-center'>
         <div className='flex gap-[40px]'>
-          {/* Icon tìm kiếm trên header */}
           <div className='flex flex-col justify-center cursor-pointer'>
-            <img src='./iconsearch.svg'/>
+            <Icon classIcon={faSearch} color='#000' size='18px' />
           </div>
-
-          {/* Icon chuông thông báo */}
           <div className='flex flex-col justify-center relative cursor-pointer'>
-            <img src='./iconbell.svg'/>
+            <Icon classIcon={faBell} color='#000' size='18px' />
             <div className='absolute text-[12px] text-white top-[-5px] right-[-16px] w-[22px] h-[22px] flex flex-col justify-center text-center bg-[#F1802E] rounded-[100px]'>15</div>
           </div>
-          
-          {/* Ảnh đại diện của người dùng */}
-          <div className='w-[35px] h-[35px] rounded-[100px] cursor-pointer relative'> 
+          <div className='w-[35px] h-[35px] rounded-[100px] cursor-pointer relative'>
             <img src="./dark-eyes-face-865636.png" alt="" />
             <div className='absolute bottom-[-3px] right-[1px] w-[12px] h-[12px] bg-[#05D103] rounded-[100px]'></div>
           </div>
-
         </div>
       </div>
     </div>
   )
 }
 
-export default Header
+export default Header;
