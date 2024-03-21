@@ -57,6 +57,8 @@ interface TabMenuItem {
     content: string;
 }
 
+const listNumItem = [25, 50, 75, 100];
+
 
 const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const [checked, setChecked] = useState<string[]>([]); // Khởi tạo cho các checkbox tại filter
@@ -71,6 +73,11 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const [listQuestionDeleted, setListQuestionDeleted] = useState<string[]>([]); // Khởi tạo danh sách các câu hỏi cần xóa
     const [questionDel, setQuestionDel] = useState<string>('');
     const [statusMessages, setStatusMessages] = useState<TabMenuItem[]>([]);
+    const [numQues, setNumQues] = useState<number>(25);
+    const [openNumQues, setOpenNumQues] = useState<boolean>(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(numQues);
+
 
     // Reset toàn bộ nếu chuyển sang Module khác
     useEffect(() => {
@@ -86,6 +93,9 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         setChecked([]);
         setQuestionDel('');
         setListQuestionDeleted([]);
+        setCurrentPage(1);
+        setOpenNumQues(false);
+        setNumQues(25);
     }, [selectedSideBar]);
 
     // Tạo danh sách các trạng thái tại filter
@@ -619,6 +629,113 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         setCheckAll(false);
     }
 
+    const handleItemsPerPageChange = (num: number) => {
+        const newItemsPerPage = num;
+        setItemsPerPage(newItemsPerPage);
+        // Tính lại totalPages dựa trên số lượng mục muốn hiển thị mới
+        const newTotalPages = Math.ceil(questions.length / newItemsPerPage);
+        setTotalPages(newTotalPages);
+        // Nếu trang hiện tại vượt quá số trang mới, chuyển đến trang cuối cùng
+        if (currentPage > newTotalPages) {
+            setCurrentPage(newTotalPages);
+        }
+    };
+
+    const [totalPages, setTotalPages] = useState(1);
+
+    useEffect(() => {
+        const totalPagesCount = Math.ceil(questions.length / itemsPerPage);
+        setTotalPages(totalPagesCount);
+    }, [questions.length, itemsPerPage]);
+
+    // Tính tổng số trang dựa trên số lượng câu hỏi và số lượng câu hỏi trên mỗi trang
+
+    // Tính chỉ số của item đầu tiên trên trang hiện tại
+    const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
+
+    // Tính chỉ số của item cuối cùng trên trang hiện tại
+    const indexOfLastItem = currentPage * itemsPerPage;
+
+    // Lấy dữ liệu của trang hiện tại bằng cách slice mảng dữ liệu ban đầu
+    const currentItems = questions
+        .filter(isQuestionInCheckedStatus)
+        .filter(question => searched ? isQuestionMatchSearch(question) : true)
+        .slice(indexOfFirstItem, indexOfLastItem);
+
+    // Chuyển trang
+    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+    // Render các nút phân trang
+    const renderPagination = () => {
+        const pageNumbers = [];
+        for (let i = 1; i <= totalPages; i++) {
+            pageNumbers.push(i);
+        }
+
+        // Xác định xem có cần hiển thị dấu ba chấm hay không
+        const shouldRenderEllipsis = totalPages > 3;
+
+        // Tính chỉ số của trang đầu tiên để hiển thị
+        let startPage = 1;
+        if (currentPage > 2) {
+            startPage = currentPage - 1;
+        }
+
+        return (
+            <ul className="pagination flex gap-2">
+                {/* Nút quay lại */}
+                <li className=' flex flex-col justify-center bg-[#F4F5F7]'>
+                    <div className="px-3 py-2 rounded-[5px] shadow4 text-[#959DB3] cursor-pointer" onClick={() => paginate(1)}>
+                        Đầu
+                    </div>
+                </li>
+                {currentPage > 1 && (
+                    <li className=' flex flex-col justify-center'>
+                        <div className="px-2 py-2 rounded-[5px] text-[#959DB3] cursor-pointer" onClick={() => paginate(currentPage - 1)}>
+                            <img src='./iconback.svg' />
+                        </div>
+                    </li>
+                )}
+
+                {/* Hiển thị các trang */}
+                {pageNumbers.slice(startPage - 1, startPage + 2).map((number) => (
+                    <li key={number}>
+                        <div className={`px-2 py-2 rounded-[5px] text-[#959DB3] cursor-pointer ${number === currentPage ? 'bg-[#959DB3] text-white shadow4 active' : ''}`} onClick={() => paginate(number)}>
+                            {number}
+                        </div>
+                    </li>
+                ))}
+                {/* Nút tiếp theo */}
+                {totalPages > 3 && (
+                    <li className=' flex flex-col justify-center'>
+                        <div className="px-2 py-2 rounded-[5px] text-[#959DB3] cursor-pointer" onClick={() => paginate(currentPage + 1)}>
+                            ...
+                        </div>
+                    </li>
+                )}
+                {/* Nút tiếp theo */}
+                {currentPage < totalPages && (
+                    <li className=' flex flex-col justify-center bg-[#F4F5F7]'>
+                        <div className="px-2 py-2 rounded-[6px] shadow4 text-[#959DB3] cursor-pointer" onClick={() => paginate(currentPage + 1)}>
+                            <img src='./iconnext.svg' />
+                        </div>
+                    </li>
+                )}
+                {currentPage < totalPages && (
+                    <li className=' flex flex-col justify-center bg-[#F4F5F7]'>
+                        <div className="px-3 py-2 shadow4 rounded-[6px] text-[#959DB3] cursor-pointer" onClick={() => paginate(totalPages)}>
+                            Cuối
+                        </div>
+                    </li>
+                )}
+            </ul>
+        );
+    };
+
+
+
+
+
 
     return (
         <>
@@ -719,23 +836,19 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         {/* Danh sách các câu hỏi */}
                         <div className=' h-[63vh] overflow-y-auto'>
                             <div className='mt-[7px] h-[80px]'>
-                                {questions
-                                    .filter(isQuestionInCheckedStatus)
-                                    .filter(question => searched ? isQuestionMatchSearch(question) : true)// Lọc danh sách theo từ khóa tìm kiếm
-                                    .map((question, index) => (
-                                        <CheckboxEachQuestion
-                                            key={index}
-                                            id={question.id}
-                                            question={question.question}
-                                            typeQuestion={question.typeQuestion}
-                                            group={question.group}
-                                            time={question.time}
-                                            status={question.status}
-                                            isChecked={question.isChecked}
-                                            className={question.isChecked ? 'bg-item-checked' : 'bg-white'} // Thêm className dựa trên trạng thái isChecked
-                                        />
-                                    ))
-                                }
+                                {currentItems.map((question, index) => (
+                                    <CheckboxEachQuestion
+                                        key={index}
+                                        id={question.id}
+                                        question={question.question}
+                                        typeQuestion={question.typeQuestion}
+                                        group={question.group}
+                                        time={question.time}
+                                        status={question.status}
+                                        isChecked={question.isChecked}
+                                        className={question.isChecked ? 'bg-item-checked' : 'bg-white'} // Thêm className dựa trên trạng thái isChecked
+                                    />
+                                ))}
                             </div>
                         </div>
 
@@ -759,6 +872,38 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                 </div>
                             </div>
                         )}
+
+                        <div className='mt-5 ml-3 flex justify-between'>
+                            <div className='flex gap-5'>
+                                <div className='text-[#959DB3]'>Hiển thị mỗi trang</div>
+                                <div className='flex gap-3 cursor-pointer' onClick={() => setOpenNumQues(!openNumQues)}>
+                                    <div>{numQues}</div>
+                                    <img className='mb-[15px]' src='./iconhienlen.svg' />
+                                </div>
+
+                                {openNumQues && (
+                                    <div className='absolute flex flex-col gap-2 rounded-[6px] bottom-[45px] left-[158px] bg-white shadow4'>
+                                        {listNumItem
+                                            .filter(num => num !== numQues)
+                                            .sort((a, b) => b - a) // Sắp xếp giảm dần
+                                            .map((num, i) => (
+                                                <div className='cursor-pointer w-[60px] py-[1px] pl-2 hover:bg-slate-200' key={i} onClick={() => { handleItemsPerPageChange(num); setOpenNumQues(!openNumQues); }}>
+                                                    {num}
+                                                </div>
+                                            ))}
+                                    </div>
+                                )}
+                            </div>
+                            <div className='flex'>
+                                {currentItems.map((item, index) => (
+                                    <div key={index}>{/* Hiển thị thông tin của mỗi item */}</div>
+                                ))}
+                                {/* Hiển thị các nút phân trang */}
+                                <div className="pagination-container">
+                                    {renderPagination()}
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
