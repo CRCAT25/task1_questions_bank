@@ -39,7 +39,7 @@ input[type="checkbox"]:checked+.checkmark:after {
 }
 
 .field-search {
-    padding: 14px 0;
+    padding: 10px 0;
     border-top: 1px solid rgba(189, 194, 210);
     /* Border top color */
     border-bottom: 1px solid rgba(189, 194, 210, 0.5);
@@ -67,23 +67,16 @@ input[type="checkbox"]:checked+.checkmark:after {
 }
 
 .text-group {
-    max-height: 100px;
-    /* Định chiều cao tối đa */
+    width: 250px;
+    /* Độ rộng của div */
+    white-space: nowrap;
+    /* Ngăn không cho văn bản xuống dòng */
     overflow: hidden;
-    /* Ẩn nội dung vượt quá chiều cao */
-    position: relative;
+    /* Ẩn nội dung vượt quá chiều rộng */
+    text-overflow: ellipsis;
+    /* Thêm dấu "..." khi vượt quá */
 }
 
-.text-group:after {
-    content: '...';
-    /* Thêm dấu ba chấm */
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: white;
-    padding: 0 5px;
-    /* Thêm khoảng cách giữa dấu chấm và nội dung */
-}
 
 @keyframes widthAnimation {
     from {
@@ -96,5 +89,43 @@ input[type="checkbox"]:checked+.checkmark:after {
 }
 
 .animate-width {
-    animation: widthAnimation 0.2s ease-out;
+    animation: widthAnimation 0.3s ease-out;
+}
+
+.div1 {
+    max-height: 100px; /* Đặt chiều cao tối đa ở đây */
+    overflow-y: auto; /* Cho phép nội dung tràn dòng và cuộn */
+}
+
+.status-message {
+    transform: translateX(-50%);
+    background-color: #1A6634;
+    color: white;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    left: 230px;
+    gap: 8px;
+    animation: slideInFromBottom 0.4s ease-out forwards, fadeOut 0.7s ease-in forwards 0.5s;
+    z-index: 10;
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        opacity: 0;
+        bottom: 0;
+    }
+    100% {
+        opacity: 1;
+        bottom: 90px;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }
