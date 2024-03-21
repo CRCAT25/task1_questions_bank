@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -55,6 +55,10 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
     const [searchValue, setSearchValue] = useState<string>('');
     const [searched, setSearched] = useState<boolean>(false);
+
+    useEffect(() => {
+        console.log(selectedSideBar)
+    }, [selectedSideBar]);
 
     {/* Tạo danh sách các trạng thái tại filter */ }
     const tabHeaderStatus = [
@@ -242,7 +246,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             }
         };
 
-
         // Trả về nội dung từng hàng chứa nội dung câu hỏi trong bảng
         return (
             <div className={`grid grid-cols-12 mt-[7px] ${className} item${id}`}>
@@ -253,7 +256,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                             <span className={`checkmark cursor-pointer ${checked ? 'checked' : ''}`}></span>
                         </label>
                         <div className='flex flex-col justify-center gap-1'>
-                            <div className='text-[#26282E] font-[600]'>{question}</div>
+                            <div className='text-[#26282E] font-[600] text-question'>{question}</div>
                             <div className='flex gap-2'>
                                 <div className='text-[#26282E]'>{id}</div>
                                 <div className='w-[1px] bg-[#BDC2D2]'></div>
@@ -264,11 +267,11 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 </div>
                 <div className={`col-span-6 relative ${selectedItemId === id ? 'z-10' : 'z-0'}`}>
                     <div className='grid grid-cols-3 w-full'>
-                        <div className="col-span-1 flex flex-col justify-center">{group}</div>
+                        <div className="col-span-1 flex flex-col justify-center text-group text-wrap">{group}</div>
                         <div className="col-span-1 flex flex-col justify-center text-center">{time}</div>
                         <div className="col-span-1 gap-[20px] text-center flex justify-end h-full">
                             <div className={`flex flex-col justify-center ${ColorStatus(status)}`}>{status}</div>
-                            <div className={`px-[20px] three-dots h-[80px] flex flex-col justify-center`} onClick={() => handleItemClick(id)}>
+                            <div title='Settings' className={`px-[20px] three-dots h-[80px] flex flex-col justify-center`} onClick={() => handleItemClick(id)}>
                                 <span>
                                     <FontAwesomeIcon icon={faEllipsis} style={{
                                         width: '20px',
@@ -338,7 +341,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     return (
         <>
             {selectedSideBar === "Ngân hàng câu hỏi" ? (<>
-                <div className='h-[100vh] py-[15px] mr-[20px]'>
+                <div className='h-[93vh] py-[15px] mr-[20px]'>
                     <div className='flex justify-between'>
                         {/* Phần header bao gồm các checkbox trạng thái */}
                         <div className='flex gap-5'>
@@ -356,14 +359,14 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         {/* Phần header có import export add */}
                         <div className='flex gap-5'>
                             {/* Button export file */}
-                            <div className='flex flex-col justify-center bg-[#fff] rounded-[4px] cursor-pointer'>
+                            <div className='flex flex-col justify-center bg-[#fff] rounded-[4px] cursor-pointer shadow3' title='Upload file here'>
                                 <div className='flex gap-2 px-[16px]'>
                                     <Icon classIcon={faUpload} color='#959DB3' size={'20px'} />
                                 </div>
                             </div>
 
                             {/* Button import file */}
-                            <div className='flex flex-col justify-center bg-[#fff] rounded-[4px] cursor-pointer'>
+                            <div className='flex flex-col justify-center bg-[#fff] rounded-[4px] cursor-pointer shadow3'>
                                 <div className='flex gap-2 px-[16px]'>
                                     <Icon classIcon={faDownload} color='#959DB3' size={'20px'} />
                                     <div className='font-600 text-[#959DB3]'>Template</div>
@@ -371,7 +374,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                             </div>
 
                             {/* Button Add */}
-                            <div className='flex flex-col justify-center bg-[#1A6634] rounded-[4px] cursor-pointer'>
+                            <div className='flex flex-col justify-center bg-[#1A6634] rounded-[4px] cursor-pointer shadow-blue'>
                                 <div className='flex gap-2 px-[16px]'>
                                     <Icon classIcon={faAdd} color='white' size={'20px'} />
                                     <div className='text-white font-[600]'>THÊM MỚI</div>

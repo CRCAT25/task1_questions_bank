@@ -1,36 +1,12 @@
 import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faBell, faSearch } from "@fortawesome/free-solid-svg-icons";
 import jsonData from '../newdata.json';
-
-interface IconProps {
-  classIcon: IconDefinition;
-  color: string;
-  size: string;
-}
 
 interface HeaderProps {
   onTabChange: (tabValue: number) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ onTabChange }) => {
-  const [selectedTab, setSelectedTab] = useState<number>(0);
-
-  const Icon: React.FC<IconProps> = ({ classIcon, color, size }) => {
-    const iconSize = {
-      width: size,
-      height: size,
-      color: color,
-      cursor: "pointer"
-    };
-
-    return (
-      <div>
-        <FontAwesomeIcon icon={classIcon} style={iconSize} />
-      </div>
-    );
-  };
+  const [selectedTab, setSelectedTab] = useState<number>(-1);
 
   const handleTabClick = (index: number) => {
     setSelectedTab(index);
@@ -51,33 +27,41 @@ const Header: React.FC<HeaderProps> = ({ onTabChange }) => {
       <div className='h-full flex flex-col justify-center'>
         <div className='flex gap-[20px]'>
           {tabMenuHeader.map((tab, index) => (
-            <div className='flex gap-[20px]' key={index}>
-              <div
-                className={`cursor-pointer ${index === selectedTab ? 'text-[#008000] font-[600]' : 'text-[#BBBBBB] '}`}
-                onClick={() => handleTabClick(index)}
-              >
-                {tab}
+            <div className='flex flex-col justify-between h-[60px] pt-[18px]' key={index}>
+              <div className='flex gap-5'>
+                <div
+                  className={`cursor-pointer ${index === selectedTab ? 'text-[#008000] font-[600]' : 'text-[#BBBBBB] '}`}
+                  onClick={() => handleTabClick(index)}
+                >
+                  {tab}
+                </div>
+                {index < (tabMenuHeader.length - 1) ? (
+                  <div className='h-full w-[2px] rounded-[3px] bg-[#BBBBBB]'></div>
+                ) : (<></>)}
               </div>
-              {index < (tabMenuHeader.length - 1) ? (
-                <div className='h-full w-[2px] rounded-[3px] bg-[#BBBBBB]'></div>
+
+
+              {index === selectedTab ? (
+                <div className={`h-[3px] bg-[#008000] rounded-[3px] ${index < (tabMenuHeader.length - 1) ? 'mr-5' : ''} animate-width`}></div>
               ) : (<></>)}
             </div>
           ))}
         </div>
+
       </div>
 
       <div className='h-full flex flex-col justify-center'>
         <div className='flex gap-[40px]'>
-          <div className='flex flex-col justify-center cursor-pointer'>
-            <Icon classIcon={faSearch} color='#000' size='18px' />
+          <div className='flex flex-col justify-center cursor-pointer' title='Tìm kiếm'>
+            <img className='w-[20px]' src='./iconsearch.svg' />
           </div>
-          <div className='flex flex-col justify-center relative cursor-pointer'>
-            <Icon classIcon={faBell} color='#000' size='18px' />
+          <div className='flex flex-col justify-center relative cursor-pointer' title='Thông báo'>
+            <img className='w-[18px]' src='./iconbell.svg' />
             <div className='absolute text-[12px] text-white top-[-5px] right-[-16px] w-[22px] h-[22px] flex flex-col justify-center text-center bg-[#F1802E] rounded-[100px]'>15</div>
           </div>
-          <div className='w-[35px] h-[35px] rounded-[100px] cursor-pointer relative'>
-            <img src="./dark-eyes-face-865636.png" alt="" />
-            <div className='absolute bottom-[-3px] right-[1px] w-[12px] h-[12px] bg-[#05D103] rounded-[100px]'></div>
+          <div className='w-[40px] h-[40px] rounded-[100px] cursor-pointer relative' title='Thông tin cá nhân'>
+            <img className='w-full h-full' src="./dark-eyes-face-865636.png" alt="" />
+            <div className='absolute bottom-[-2px] right-[2px] w-[12px] h-[12px] bg-[#05D103] rounded-[100px]'></div>
           </div>
         </div>
       </div>

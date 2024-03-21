@@ -5,7 +5,6 @@ import {
     faChevronDown,
     faChevronUp,
     faListCheck,
-    faQuestion
 } from "@fortawesome/free-solid-svg-icons";
 import datajson from '../newdata.json'
 
@@ -74,6 +73,8 @@ const SideBarMenu: React.FC<ListItemMenu> = ({ selectedTabHeader, onTabChange })
     });
 
 
+
+
     // Khởi tạo danh sách với phần tử ban đầu
     const tabMenuDanhGiaNhanSu: ListTabMenu[] = [];
 
@@ -94,6 +95,15 @@ const SideBarMenu: React.FC<ListItemMenu> = ({ selectedTabHeader, onTabChange })
             });
         }
     });
+
+    useEffect(() => {
+        if (selectedTabHeader !== 7) {
+            onTabChange('');
+            setSelectedTab(-1);
+            setSelectedTabLowerLV(false);
+            setSelectedSubTab(-1);
+        }
+    }, [selectedTabHeader]);
 
 
     return (

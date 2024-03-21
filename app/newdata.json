@@ -31,14 +31,14 @@
                                     "id": "Q.001",
                                     "question": "Hệ thống cửa hàng Hachi Hachi có mặt từ năm nào? Hiện nay có bao nhiêu cửa hàng ?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
-                                    "group": "Thương hiệu, văn hóa cty",
+                                    "group": "ctyThươngádasdasdctyThươngádasdasdctyThươngádasdasdctyTh",
                                     "time": "30",
                                     "status": "Đang soạn thảo",
                                     "isChecked": false
                                 },
                                 {
                                     "id": "Q.002",
-                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa  tại là bao nhiêu?",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa  tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
                                     "time": "30",
@@ -56,7 +56,7 @@
                                 },
                                 {
                                     "id": "Q.004",
-                                    "question": "Hệ thống cửa hàng Hachi Hachi ra đời vào năm nào? Hiện nay số  hàng là bao nhiêu?",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi ra đời vào năm nào? Hiện nay số  hàng là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
                                     "time": "30",
@@ -74,7 +74,7 @@
                                 },
                                 {
                                     "id": "Q.006",
-                                    "question": "Từ khi nào Hachi Hachi có mặt trên thị trường? Số  hàng hiện tại là bao nhiêu?",
+                                    "question": "Từ khi nào Hachi Hachi có mặt trên thị trường? Số  hàng hiện tại là bao nhiêu? Hiện nay có bao nhiêu cửa hàng ?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
                                     "time": "30",

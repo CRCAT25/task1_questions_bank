@@ -18,6 +18,14 @@ body {
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }
 
+.shadow3{
+  box-shadow: rgba(156, 156, 165, 0.2) 0px 5px 20px 0px;
+}
+
+.shadow-blue{
+  box-shadow: rgba(65, 179, 255, 0.4) 0px 7px 15px 0px;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 5px;
