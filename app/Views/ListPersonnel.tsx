@@ -632,6 +632,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const handleItemsPerPageChange = (num: number) => {
         const newItemsPerPage = num;
         setItemsPerPage(newItemsPerPage);
+        setNumQues(num);
         // Tính lại totalPages dựa trên số lượng mục muốn hiển thị mới
         const newTotalPages = Math.ceil(questions.length / newItemsPerPage);
         setTotalPages(newTotalPages);
