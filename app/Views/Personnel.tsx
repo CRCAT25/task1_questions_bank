@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import SideBarMenu from './SideBarMenu';
 import "../css/Personnel.scss";
+import "../responsive/Personnel.css";
 import Header from './Header';
 import ListPersonnel from './ListPersonnel';
 

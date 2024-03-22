@@ -6,7 +6,7 @@ import {
     faChevronUp,
     faListCheck,
 } from "@fortawesome/free-solid-svg-icons";
-import datajson from '../newdata.json'
+import datajson from '../Models/newdata.json'
 
 
 interface IconProps {

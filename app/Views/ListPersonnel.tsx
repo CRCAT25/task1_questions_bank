@@ -8,7 +8,7 @@ import {
     faEllipsis,
     faXmark
 } from "@fortawesome/free-solid-svg-icons";
-import jsonData from '../newdata.json';
+import jsonData from '../Models/newdata.json';
 
 interface CheckboxProps {
     label: string;
@@ -246,7 +246,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         if (newStatus === "Xóa câu hỏi") {
             // Nếu hoạt động là xóa câu hỏi, mở xác nhận xóa
             setDeleteConfirm(true);
-
             // Cài đặt câu hỏi cần xóa
             setListQuestionDeleted(questions.filter(question => question.isChecked).map(question => question.id))
         }
@@ -599,7 +598,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
     // Tạo sự kiện xóa câu hỏi được chọn
     const deleteQuestion = () => {
-        setListQuestionDeleted(questions.filter(question => question.isChecked).map(question => question.question))
+        console.log(questionDel);
         const updatedQuestions = questions.filter(question => question.question !== questionDel); // Sử dụng selectedItemId
         setQuestions(updatedQuestions);
     };
@@ -684,16 +683,27 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
         return (
             <ul className="pagination flex gap-2">
-                {/* Nút quay lại */}
+                {/* Nút đầu */}
                 <li className=' flex flex-col justify-center bg-[#F4F5F7]'>
                     <div className="px-3 py-2 rounded-[5px] shadow4 text-[#959DB3] cursor-pointer" onClick={() => paginate(1)}>
                         Đầu
                     </div>
                 </li>
+
+                {/* Nút quay lại */}
                 {currentPage > 1 && (
                     <li className=' flex flex-col justify-center'>
                         <div className="px-2 py-2 rounded-[5px] text-[#959DB3] cursor-pointer" onClick={() => paginate(currentPage - 1)}>
                             <img src='./iconback.svg' />
+                        </div>
+                    </li>
+                )}
+
+                {/* Nút ... quay lại */}
+                {currentPage > 3 && (
+                    <li className=' flex flex-col justify-center'>
+                        <div className="px-2 py-2 rounded-[5px] text-[#959DB3] cursor-pointer" onClick={() => paginate(currentPage - 1)}>
+                            ...
                         </div>
                     </li>
                 )}
@@ -706,8 +716,9 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         </div>
                     </li>
                 ))}
-                {/* Nút tiếp theo */}
-                {totalPages > 3 && (
+
+                {/* Nút ... tiếp theo */}
+                {(totalPages > 3 && totalPages - currentPage > 1) && (
                     <li className=' flex flex-col justify-center'>
                         <div className="px-2 py-2 rounded-[5px] text-[#959DB3] cursor-pointer" onClick={() => paginate(currentPage + 1)}>
                             ...
@@ -715,20 +726,19 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                     </li>
                 )}
                 {/* Nút tiếp theo */}
-                {currentPage < totalPages && (
+                {totalPages - currentPage > 1 && (
                     <li className=' flex flex-col justify-center bg-[#F4F5F7]'>
                         <div className="px-2 py-2 rounded-[6px] shadow4 text-[#959DB3] cursor-pointer" onClick={() => paginate(currentPage + 1)}>
                             <img src='./iconnext.svg' />
                         </div>
                     </li>
                 )}
-                {currentPage < totalPages && (
-                    <li className=' flex flex-col justify-center bg-[#F4F5F7]'>
-                        <div className="px-3 py-2 shadow4 rounded-[6px] text-[#959DB3] cursor-pointer" onClick={() => paginate(totalPages)}>
-                            Cuối
-                        </div>
-                    </li>
-                )}
+                {/* Nút cuối */}
+                <li className=' flex flex-col justify-center bg-[#F4F5F7]'>
+                    <div className="px-3 py-2 shadow4 rounded-[6px] text-[#959DB3] cursor-pointer" onClick={() => paginate(totalPages)}>
+                        Cuối
+                    </div>
+                </li>
             </ul>
         );
     };
@@ -744,7 +754,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 <div className='h-[100vh] mr-[20px] relative'>
                     <div className='flex mt-[15px] justify-between'>
                         {/* Phần header bao gồm các checkbox trạng thái */}
-                        <div className='flex gap-5'>
+                        <div className='flex gap-5 overflow-x-auto'>
                             {tabHeaderStatus.map((tab, index) => (
                                 <div
                                     key={index}
@@ -958,10 +968,17 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                             <div
                                                 className='flex justify-center gap-[10px]'
                                                 onClick={() => {
-                                                    deleteQuestion();
-                                                    setDeleteConfirm(false); // Đóng giao diện xác nhận xóa
-                                                    deleteListQuestion(listQuestionDeleted);
-                                                    handleButtonClick('icondelete.svg', 'Xóa thành công');
+                                                    if (listQuestionDeleted.length > 0 && questionDel === '') {
+                                                        deleteListQuestion(listQuestionDeleted);
+                                                        setDeleteConfirm(false); // Đóng giao diện xác nhận xóa
+                                                        handleButtonClick('icondelete.svg', 'Xóa thành công');
+                                                    }
+                                                    else {
+                                                        deleteQuestion();
+                                                        setDeleteConfirm(false); // Đóng giao diện xác nhận xóa
+                                                        handleButtonClick('icondelete.svg', 'Xóa thành công');
+                                                    }
+
                                                 }}
                                             >
                                                 <img className='w-[20px]' src='./icondelete.svg' />

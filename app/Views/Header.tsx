@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import jsonData from '../newdata.json';
+import jsonData from '../Models/newdata.json';
 
 interface HeaderProps {
   onTabChange: (tabValue: number) => void;
@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ onTabChange }) => {
 
   return (
     <div className='h-[60px] bg-white text-[16px] px-[20px] shadow2 flex justify-between relative z-10'>
-      <div className='h-full flex flex-col justify-center'>
+      <div className='h-full flex flex-col justify-center overflow-y-hidden w-[950px] overflow-x-auto res-tab text-nowrap'>
         <div className='flex gap-[20px]'>
           {tabMenuHeader.map((tab, index) => (
             <div className='flex flex-col justify-between h-[60px] pt-[18px]' key={index}>
