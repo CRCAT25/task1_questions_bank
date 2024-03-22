@@ -57,6 +57,10 @@ interface TabMenuItem {
     content: string;
 }
 
+interface StatusChangeActions {
+    [key: string]: string;
+}
+
 const listNumItem = [25, 50, 75, 100];
 
 
@@ -68,6 +72,15 @@ const tabHeaderStatus = [
     'Ngưng áp dụng',
 ];
 
+const statusChangeActions: StatusChangeActions = {
+    "Đang soạn thảo_Gửi duyệt": "Gửi duyệt",
+    "Đang soạn thảo_Trả về": "Trả về",
+    "Ngưng áp dụng_Phê duyệt": "Duyệt áp dụng",
+    "Gửi duyệt_Phê duyệt": "Duyệt áp dụng",
+    "Ngưng áp dụng_Trả về": "Trả về",
+    "Đang soạn thảo_Xóa câu hỏi": "Xóa câu hỏi",
+    "Duyệt áp dụng_Ngưng hiển thị": "Ngưng áp dụng"
+};
 
 const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const [checked, setChecked] = useState<string[]>([tabHeaderStatus[0]]); // Khởi tạo cho các checkbox tại filter
@@ -236,40 +249,46 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
     // Hàm xử lý các action cho nhiều item cùng 1 lúc
     const handleMultipleQuestionStatusChange = (newStatus: string) => {
-        let updatedStatus: string;
-
-        if (newStatus === "Xóa câu hỏi") {
-            // Nếu hoạt động là xóa câu hỏi, mở xác nhận xóa
-            setDeleteConfirm(true);
-            // Cài đặt câu hỏi cần xóa
-            setListQuestionDeleted(questions.filter(question => question.isChecked).map(question => question.id))
-        }
-        else {
-            switch (newStatus) {
-                case "Phê duyệt":
-                    updatedStatus = "Duyệt áp dụng";
-                    break;
-                case "Ngưng hiển thị":
-                    updatedStatus = "Ngưng áp dụng";
-                    break;
-                default:
-                    updatedStatus = newStatus;
-                    break;
-            }
-
-            const updatedQuestions = questions.map(question => {
-                if (question.isChecked) {
-                    // Nếu câu hỏi đang được chọn, cập nhật trạng thái của nó
+        const updatedQuestions = questions.map(question => {
+            if (question.isChecked) {
+                const key = `${question.status}_${newStatus}`;
+                const updatedStatus = statusChangeActions[key];
+                if (updatedStatus) {
                     return {
                         ...question,
-                        status: updatedStatus
+                        status: updatedStatus,
+                        isChecked: false
                     };
+                } else {
+                    // Trạng thái không thay đổi
+                    return {
+                        ...question, isChecked: false
+                    }
                 }
-                return question;
-            });
-
-            setQuestions(updatedQuestions);
+            }
+            return question;
+        });
+        switch (newStatus) {
+            case "Phê duyệt":
+                handleButtonClick('icontick.svg', 'Duyệt áp dụng thành công');
+                break;
+            case "Ngưng hiển thị":
+                handleButtonClick('iconstop.svg', 'Ngưng áp dụng thành công');
+                break;
+            case "Trả về":
+                handleButtonClick('iconreturn.svg', 'Trả về thành công');
+                break;
+            case "Gửi duyệt":
+                handleButtonClick('iconsend.svg', 'Gửi duyệt thành công');
+                break;
+            case "Xóa câu hỏi":
+                setDeleteConfirm(true);
+                // Cài đặt câu hỏi cần xóa
+                setListQuestionDeleted(questions.filter(question => question.isChecked).map(question => question.id))
+                break;
         }
+        setCheckAll(false);
+        setQuestions(updatedQuestions);
     };
 
     const handleActivityClick = (activity: string) => {
@@ -334,59 +353,36 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         { icon: 'icontrashred.svg', content: 'Xóa câu hỏi' },
     ];
 
-    // Lấy danh sách các action khả dụng cho cùng lúc nhiều item
+    // Lấy danh sách các action khi chọn cùng lúc nhiều item
     const CheckListCommonActive: React.FC<CommonStatus> = ({ listCommonStatus }) => {
         let list: TabMenuItem[] = [];
-        let listTemp: TabMenuItem[] = [];
 
         listCommonStatus.forEach(status => {
+            let listTemp: TabMenuItem[] = [];
             switch (status) {
                 case "Đang soạn thảo":
                     listTemp = tabMenuActiveBlack.filter(tab => tab.content === 'Gửi duyệt' || tab.content === 'Trả về' || tab.content === 'Xóa câu hỏi');
-                    if (list.length === 0) {
-                        list = listTemp;
-                        break;
-                    } else {
-                        list = list.filter(item => listTemp.some(tempItem => tempItem.content === item.content));
-                    }
                     break;
                 case "Gửi duyệt":
                     listTemp = tabMenuActiveBlack.filter(tab => tab.content === 'Phê duyệt' || tab.content === 'Trả về');
-                    if (list.length === 0) {
-                        list = listTemp;
-                        break;
-                    } else {
-                        list = list.filter(item => listTemp.some(tempItem => tempItem.content === item.content));
-                    }
                     break;
                 case "Duyệt áp dụng":
                     listTemp = tabMenuActiveBlack.filter(tab => tab.content === 'Ngưng hiển thị');
-                    if (list.length === 0) {
-                        list = listTemp;
-                        break;
-                    } else {
-                        list = list.filter(item => listTemp.some(tempItem => tempItem.content === item.content));
-                    }
                     break;
                 case "Ngưng áp dụng":
                     listTemp = tabMenuActiveBlack.filter(tab => tab.content === 'Phê duyệt' || tab.content === 'Trả về');
-                    if (list.length === 0) {
-                        list = listTemp;
-                        break;
-                    } else {
-                        list = list.filter(item => listTemp.some(tempItem => tempItem.content === item.content));
-                    }
                     break;
                 case "Trả về":
                     listTemp = tabMenuActiveBlack.filter(tab => tab.content === 'Gửi duyệt');
-                    if (list.length === 0) {
-                        list = listTemp;
-                        break;
-                    } else {
-                        list = list.filter(item => listTemp.some(tempItem => tempItem.content === item.content));
-                    }
                     break;
             }
+
+            // Kiểm tra từng phần tử trong listTemp trước khi thêm vào list
+            listTemp.forEach(item => {
+                if (!list.some(existingItem => existingItem.content === item.content)) {
+                    list.push(item); // Thêm phần tử vào list nếu chưa tồn tại trong list
+                }
+            });
         });
 
         return (
@@ -596,6 +592,17 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         setQuestions(updatedQuestions);
     };
 
+    // Hàm tìm kiếm câu hỏi
+    const searchQuestions = () => {
+        const filteredQuestions = questions.filter((question) =>
+            question.id.toLowerCase().includes(searchValue.toLowerCase()) ||
+            question.question.toLowerCase().includes(searchValue.toLowerCase())
+        );
+        // Cập nhật danh sách câu hỏi hiển thị sau khi tìm kiếm
+        setQuestions(filteredQuestions);
+        if (searchValue === '') setQuestions(getQuestionsFromData(jsonData));
+    };
+
     // Kiểm tra xem có câu hỏi nào đang được check hay không
     const isAnyQuestionChecked = () => {
         return questions.some(question => question.isChecked);
@@ -631,7 +638,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     useEffect(() => {
         const totalPagesCount = Math.ceil(questions.length / itemsPerPage);
         setTotalPages(totalPagesCount);
-    }, [questions.length, itemsPerPage]);
+    }, [questions, itemsPerPage]);
 
 
     // Tính chỉ số của item đầu tiên trên trang hiện tại
@@ -644,22 +651,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const currentItems = questions
         .filter(isQuestionInCheckedStatus)
         .slice(indexOfFirstItem, indexOfLastItem);
-
-    // Hàm tìm kiếm câu hỏi
-    const searchQuestions = () => {
-        // Áp dụng logic tìm kiếm vào danh sách câu hỏi
-        // Ở đây bạn có thể sử dụng biến searchValue để tìm kiếm câu hỏi
-        // Ví dụ: filter danh sách câu hỏi dựa trên searchValue
-        const filteredQuestions = questions.filter((question) =>
-            question.id.toLowerCase().includes(searchValue.toLowerCase()) ||
-            question.question.toLowerCase().includes(searchValue.toLowerCase())
-        );
-
-        
-        // Cập nhật danh sách câu hỏi hiển thị sau khi tìm kiếm
-        setQuestions(filteredQuestions);
-        if(searchValue === '') setQuestions(getQuestionsFromData(jsonData));
-    };
 
     // Chuyển trang
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
