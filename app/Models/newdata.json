@@ -32,7 +32,7 @@
                                     "question": "Hệ thống cửa hàng Hachi Hachi có mặt từ năm nào? Hiện nay có bao nhiêu cửa hàng ?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty thương hiệu, văn hóa cty",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Đang soạn thảo",
                                     "isChecked": false
                                 },
@@ -41,7 +41,7 @@
                                     "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa  tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Gửi duyệt",
                                     "isChecked": false
                                 },
@@ -50,7 +50,7 @@
                                     "question": "Khi nào Hệ thống cửa hàng Hachi Hachi bắt đầu hoạt động? Có bao  đang hoạt động?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Duyệt áp dụng",
                                     "isChecked": false
                                 },
@@ -59,7 +59,7 @@
                                     "question": "Hệ thống cửa hàng Hachi Hachi ra đời vào năm nào? Hiện nay số  hàng là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Ngưng áp dụng",
                                     "isChecked": false
                                 },
@@ -68,7 +68,7 @@
                                     "question": "Từ khi nào Hachi Hachi có mặt trên thị trường? Số  hàng hiện tại là bao nhiêu?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -77,7 +77,7 @@
                                     "question": "Từ khi nào Hachi Hachi có mặt trên thị trường? Số  hàng hiện tại là bao nhiêu? Hiện nay có bao nhiêu cửa hàng ?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Đang soạn thảo",
                                     "isChecked": false
                                 },
@@ -86,7 +86,7 @@
                                     "question": "Từ khi nào Hachi Hachi có mặt trên thị trường? Số  hàng hiện tại là bao nhiêu?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -95,7 +95,7 @@
                                     "question": "Từ khi nào Hachi Hachi có mặt trên thị trường? Số  hàng hiện tại là bao nhiêu?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -104,7 +104,7 @@
                                     "question": "Hệ thống cửa hàng Hachi Hachi ra đời vào năm nào? Hiện nay số  hàng là bao nhiêu?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Ngưng áp dụng",
                                     "isChecked": false
                                 },
@@ -113,7 +113,7 @@
                                     "question": "Từ khi nào Hachi Hachi có mặt trên thị trường? Số  hàng hiện tại là bao nhiêu?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -122,7 +122,7 @@
                                     "question": "Từ khi nào Hachi Hachi có mặt trên thị trường? Số  hàng hiện tại là bao nhiêu?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -131,7 +131,7 @@
                                     "question": "Từ khi nào Hachi Hachi có mặt trên thị trường? Số  hàng hiện tại là bao nhiêu?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -140,7 +140,7 @@
                                     "question": "Từ khi nào Hachi Hachi có mặt trên thị trường? Số  hàng hiện tại là bao nhiêu?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -149,7 +149,7 @@
                                     "question": "Nêu những điểm mạnh của Hệ thống cửa hàng Hachi Hachi?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Đang soạn thảo",
                                     "isChecked": false
                                 },
@@ -158,7 +158,7 @@
                                     "question": "Đánh giá việc quản lý nhân sự trong Hệ thống cửa hàng Hachi Hachi?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Gửi duyệt",
                                     "isChecked": false
                                 },
@@ -167,7 +167,7 @@
                                     "question": "Những phương pháp đào tạo nhân viên nào đã được áp dụng trong Hệ thống cửa hàng Hachi Hachi?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Duyệt áp dụng",
                                     "isChecked": false
                                 },
@@ -176,7 +176,7 @@
                                     "question": "Có bất kỳ chính sách phúc lợi nào dành cho nhân viên của Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Chính sách phúc lợi",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Ngưng áp dụng",
                                     "isChecked": false
                                 },
@@ -185,7 +185,7 @@
                                     "question": "Đánh giá hiệu suất làm việc của nhân viên trong Hệ thống cửa hàng Hachi Hachi?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Gửi duyệt",
                                     "isChecked": false
                                 },
@@ -194,7 +194,7 @@
                                     "question": "Những biện pháp nào đã được thực hiện để nâng cao chất lượng dịch vụ của Hệ thống cửa hàng Hachi Hachi?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Duyệt áp dụng",
                                     "isChecked": false
                                 },
@@ -203,7 +203,7 @@
                                     "question": "Chính sách thưởng phạt đối với nhân viên của Hệ thống cửa hàng Hachi Hachi như thế nào?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Chính sách phúc lợi",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Ngưng áp dụng",
                                     "isChecked": false
                                 },
@@ -212,7 +212,7 @@
                                     "question": "Có bất kỳ khóa đào tạo nào dành cho quản lý của Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -221,7 +221,7 @@
                                     "question": "Những biện pháp nào đã được thực hiện để đảm bảo an toàn lao động tại Hệ thống cửa hàng Hachi Hachi?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "An toàn lao động",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -230,7 +230,7 @@
                                     "question": "Có chính sách nghỉ phép nào dành cho nhân viên của Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Chính sách phúc lợi",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -239,7 +239,7 @@
                                     "question": "Đánh giá mức độ hài lòng của nhân viên đối với môi trường làm việc tại Hệ thống cửa hàng Hachi Hachi?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -248,7 +248,7 @@
                                     "question": "Có bất kỳ chính sách nào về phát triển sự nghiệp cho nhân viên của Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Đang soạn thảo",
                                     "isChecked": false
                                 },
@@ -257,7 +257,7 @@
                                     "question": "Những biện pháp nào đã được thực hiện để giảm thiểu lượng cô lập tại nơi làm việc trong Hệ thống cửa hàng Hachi Hachi?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Gửi duyệt",
                                     "isChecked": false
                                 },
@@ -266,7 +266,7 @@
                                     "question": "Có bất kỳ khóa đào tạo nào dành cho nhân viên mới của Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Duyệt áp dụng",
                                     "isChecked": false
                                 },
@@ -275,7 +275,7 @@
                                     "question": "Chính sách bảo hiểm y tế và xã hội của Hệ thống cửa hàng Hachi Hachi như thế nào?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Chính sách phúc lợi",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Ngưng áp dụng",
                                     "isChecked": false
                                 },
@@ -284,7 +284,7 @@
                                     "question": "Đánh giá mức độ hài lòng của khách hàng đối với dịch vụ của Hệ thống cửa hàng Hachi Hachi?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -293,7 +293,7 @@
                                     "question": "Có bất kỳ biện pháp nào để giải quyết khiếu nại của khách hàng tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -302,7 +302,7 @@
                                     "question": "Có những chính sách nào để thúc đẩy sự sáng tạo và đóng góp ý kiến của nhân viên trong Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Đang soạn thảo",
                                     "isChecked": false
                                 },
@@ -311,7 +311,7 @@
                                     "question": "Có bất kỳ biện pháp nào để tăng cường tinh thần đồng đội trong Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Gửi duyệt",
                                     "isChecked": false
                                 },
@@ -320,7 +320,7 @@
                                     "question": "Những biện pháp nào đã được thực hiện để nâng cao kỹ năng làm việc nhóm của nhân viên trong Hệ thống cửa hàng Hachi Hachi?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Duyệt áp dụng",
                                     "isChecked": false
                                 },
@@ -329,7 +329,7 @@
                                     "question": "Có bất kỳ chính sách nào về tiền thưởng và khen ngợi dành cho nhân viên của Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Chính sách phúc lợi",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Ngưng áp dụng",
                                     "isChecked": false
                                 },
@@ -338,7 +338,7 @@
                                     "question": "Những biện pháp nào đã được thực hiện để giảm stress tại nơi làm việc trong Hệ thống cửa hàng Hachi Hachi?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -347,7 +347,7 @@
                                     "question": "Có bất kỳ biện pháp nào để thúc đẩy tính tự chủ và trách nhiệm cá nhân của nhân viên không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Đang soạn thảo",
                                     "isChecked": false
                                 },
@@ -356,7 +356,7 @@
                                     "question": "Những biện pháp nào đã được thực hiện để duy trì sự hài lòng của nhân viên trong Hệ thống cửa hàng Hachi Hachi?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Gửi duyệt",
                                     "isChecked": false
                                 },
@@ -365,7 +365,7 @@
                                     "question": "Có chính sách đào tạo nào dành cho việc phát triển kỹ năng chuyên môn của nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Duyệt áp dụng",
                                     "isChecked": false
                                 },
@@ -374,7 +374,7 @@
                                     "question": "Có bất kỳ chính sách nào về thăng tiến và phát triển sự nghiệp của nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Ngưng áp dụng",
                                     "isChecked": false
                                 },
@@ -383,7 +383,7 @@
                                     "question": "Có chính sách nào về việc thúc đẩy việc học tập liên tục và tự phát triển cá nhân của nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Đang soạn thảo",
                                     "isChecked": false
                                 },
@@ -392,7 +392,7 @@
                                     "question": "Có những biện pháp nào đã được thực hiện để thúc đẩy sự đa dạng và công bằng trong tuyển dụng tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Gửi duyệt",
                                     "isChecked": false
                                 },
@@ -401,7 +401,7 @@
                                     "question": "Có chính sách nào về việc cung cấp cơ hội thăng tiến và phát triển sự nghiệp cho nhân viên trong Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Duyệt áp dụng",
                                     "isChecked": false
                                 },
@@ -410,7 +410,7 @@
                                     "question": "Có chính sách nào về việc tạo điều kiện làm việc linh hoạt và thuận tiện cho nhân viên không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Ngưng áp dụng",
                                     "isChecked": false
                                 },
@@ -419,7 +419,7 @@
                                     "question": "Có chính sách nào về việc thúc đẩy sự cải tiến và đổi mới trong công việc của nhân viên không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -428,7 +428,7 @@
                                     "question": "Có bất kỳ chính sách nào về quản lý hiệu suất làm việc và đánh giá kết quả công việc của nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -437,7 +437,7 @@
                                     "question": "Có bất kỳ chính sách nào về việc tạo điều kiện làm việc an toàn và lành mạnh cho nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "An toàn lao động",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -446,7 +446,7 @@
                                     "question": "Có những biện pháp nào đã được thực hiện để thúc đẩy sự phát triển cá nhân và chuyên môn của nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -455,7 +455,7 @@
                                     "question": "Có bất kỳ chính sách nào về việc tạo điều kiện làm việc thoải mái và năng động cho nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -464,7 +464,7 @@
                                     "question": "Có bất kỳ chính sách nào về việc thúc đẩy sự cộng tác và làm việc nhóm hiệu quả tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -473,7 +473,7 @@
                                     "question": "Có chính sách nào về việc thúc đẩy việc học tập liên tục và tự phát triển cá nhân của nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Đang soạn thảo",
                                     "isChecked": false
                                 },
@@ -482,7 +482,7 @@
                                     "question": "Có những biện pháp nào đã được thực hiện để thúc đẩy sự đa dạng và công bằng trong tuyển dụng tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Gửi duyệt",
                                     "isChecked": false
                                 },
@@ -491,7 +491,7 @@
                                     "question": "Có chính sách nào về việc cung cấp cơ hội thăng tiến và phát triển sự nghiệp cho nhân viên trong Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Duyệt áp dụng",
                                     "isChecked": false
                                 },
@@ -500,7 +500,7 @@
                                     "question": "Có chính sách nào về việc tạo điều kiện làm việc linh hoạt và thuận tiện cho nhân viên không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Ngưng áp dụng",
                                     "isChecked": false
                                 },
@@ -509,7 +509,7 @@
                                     "question": "Có chính sách nào về việc thúc đẩy sự cải tiến và đổi mới trong công việc của nhân viên không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -518,7 +518,7 @@
                                     "question": "Có bất kỳ chính sách nào về quản lý hiệu suất làm việc và đánh giá kết quả công việc của nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -527,7 +527,7 @@
                                     "question": "Có bất kỳ chính sách nào về việc tạo điều kiện làm việc an toàn và lành mạnh cho nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "An toàn lao động",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -536,7 +536,7 @@
                                     "question": "Có những biện pháp nào đã được thực hiện để thúc đẩy sự phát triển cá nhân và chuyên môn của nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -545,7 +545,7 @@
                                     "question": "Có bất kỳ chính sách nào về việc tạo điều kiện làm việc thoải mái và năng động cho nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -554,7 +554,7 @@
                                     "question": "Có bất kỳ chính sách nào về việc thúc đẩy sự cộng tác và làm việc nhóm hiệu quả tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -563,7 +563,7 @@
                                     "question": "Có chính sách nào về việc thúc đẩy việc học tập liên tục và tự phát triển cá nhân của nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Đang soạn thảo",
                                     "isChecked": false
                                 },
@@ -572,7 +572,7 @@
                                     "question": "Có những biện pháp nào đã được thực hiện để thúc đẩy sự đa dạng và công bằng trong tuyển dụng tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Gửi duyệt",
                                     "isChecked": false
                                 },
@@ -581,7 +581,7 @@
                                     "question": "Có chính sách nào về việc cung cấp cơ hội thăng tiến và phát triển sự nghiệp cho nhân viên trong Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Duyệt áp dụng",
                                     "isChecked": false
                                 },
@@ -590,7 +590,7 @@
                                     "question": "Có chính sách nào về việc tạo điều kiện làm việc linh hoạt và thuận tiện cho nhân viên không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Ngưng áp dụng",
                                     "isChecked": false
                                 },
@@ -599,7 +599,7 @@
                                     "question": "Có chính sách nào về việc thúc đẩy sự cải tiến và đổi mới trong công việc của nhân viên không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -608,7 +608,7 @@
                                     "question": "Có bất kỳ chính sách nào về quản lý hiệu suất làm việc và đánh giá kết quả công việc của nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -617,7 +617,7 @@
                                     "question": "Có bất kỳ chính sách nào về việc tạo điều kiện làm việc an toàn và lành mạnh cho nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "An toàn lao động",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -626,7 +626,7 @@
                                     "question": "Có những biện pháp nào đã được thực hiện để thúc đẩy sự phát triển cá nhân và chuyên môn của nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -635,7 +635,7 @@
                                     "question": "Có bất kỳ chính sách nào về việc tạo điều kiện làm việc thoải mái và năng động cho nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -644,7 +644,7 @@
                                     "question": "Có bất kỳ chính sách nào về việc thúc đẩy sự cộng tác và làm việc nhóm hiệu quả tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -653,7 +653,7 @@
                                     "question": "Có chính sách nào về việc thúc đẩy việc học tập liên tục và tự phát triển cá nhân của nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Đang soạn thảo",
                                     "isChecked": false
                                 },
@@ -662,7 +662,7 @@
                                     "question": "Có những biện pháp nào đã được thực hiện để thúc đẩy sự đa dạng và công bằng trong tuyển dụng tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Gửi duyệt",
                                     "isChecked": false
                                 },
@@ -671,7 +671,7 @@
                                     "question": "Có chính sách nào về việc cung cấp cơ hội thăng tiến và phát triển sự nghiệp cho nhân viên trong Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Duyệt áp dụng",
                                     "isChecked": false
                                 },
@@ -680,7 +680,7 @@
                                     "question": "Có chính sách nào về việc tạo điều kiện làm việc linh hoạt và thuận tiện cho nhân viên không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Ngưng áp dụng",
                                     "isChecked": false
                                 },
@@ -689,7 +689,7 @@
                                     "question": "Có chính sách nào về việc thúc đẩy sự cải tiến và đổi mới trong công việc của nhân viên không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -698,7 +698,7 @@
                                     "question": "Có bất kỳ chính sách nào về quản lý hiệu suất làm việc và đánh giá kết quả công việc của nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -707,7 +707,7 @@
                                     "question": "Có bất kỳ chính sách nào về việc tạo điều kiện làm việc an toàn và lành mạnh cho nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "An toàn lao động",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -716,7 +716,7 @@
                                     "question": "Có những biện pháp nào đã được thực hiện để thúc đẩy sự phát triển cá nhân và chuyên môn của nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -725,7 +725,7 @@
                                     "question": "Có bất kỳ chính sách nào về việc tạo điều kiện làm việc thoải mái và năng động cho nhân viên tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Quản lý nhân sự",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 },
@@ -734,7 +734,7 @@
                                     "question": "Có bất kỳ chính sách nào về việc thúc đẩy sự cộng tác và làm việc nhóm hiệu quả tại Hệ thống cửa hàng Hachi Hachi không?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Phát triển nhân viên",
-                                    "time": "30",
+                                    "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
                                 }

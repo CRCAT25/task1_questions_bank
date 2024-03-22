@@ -41,9 +41,9 @@ const SideBarMenu: React.FC<ListItemMenu> = ({ selectedTabHeader, onTabChange })
         );
     };
 
-    const [selectedTab, setSelectedTab] = useState<number>(-1);
+    const [selectedTab, setSelectedTab] = useState<number>(0);
     const [selectedTabLowerLV, setSelectedTabLowerLV] = useState<boolean>(false);
-    const [selectedSubTab, setSelectedSubTab] = useState<number>(-1); // New state to track selected sub-tab
+    const [selectedSubTab, setSelectedSubTab] = useState<number>(0); // New state to track selected sub-tab
 
     const handleTabClick = (index: number) => {
         if (index === selectedTab) {

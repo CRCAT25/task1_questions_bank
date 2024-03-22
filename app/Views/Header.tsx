@@ -6,7 +6,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ onTabChange }) => {
-  const [selectedTab, setSelectedTab] = useState<number>(-1);
+  const [selectedTab, setSelectedTab] = useState<number>(7);
 
   const handleTabClick = (index: number) => {
     setSelectedTab(index);

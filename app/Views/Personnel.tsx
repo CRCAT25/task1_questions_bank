@@ -8,8 +8,8 @@ import Header from './Header';
 import ListPersonnel from './ListPersonnel';
 
 const Personnel: React.FC = () => {
-    const [selectedTab, setSelectedTab] = useState<number>(-1);
-    const [selectedSideBar, setSelectedSideBar] = useState<string>('');
+    const [selectedTab, setSelectedTab] = useState<number>(7);
+    const [selectedSideBar, setSelectedSideBar] = useState<string>('Ngân hàng câu hỏi');
 
     const handleTabChange = (tabValue: number) => {
         setSelectedTab(tabValue);
