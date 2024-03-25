@@ -147,7 +147,7 @@ const SideBarMenu: React.FC<ListItemMenu> = ({ selectedTabHeader, onTabChange })
                             {selectedTab == 0 ?
                                 (<>
                                     {tabMenuDanhGiaNhanSu.map((tabMenu, i) => (
-                                        <div key={i}>
+                                        <div key={i} className='item-con'>
                                             <div
                                                 className={`h-[50px] cursor-pointer px-5 flex ${selectedSubTab === i ? 'border-l-[5px] border-[#fff] bg-[#474F63]' : 'border-l-[5px] border-[#5A6276]'}`}
                                                 onClick={() => {
