@@ -75,8 +75,8 @@ const tabHeaderStatus = [
 const statusChangeActions: StatusChangeActions = {
     "Đang soạn thảo_Gửi duyệt": "Gửi duyệt",
     "Đang soạn thảo_Trả về": "Trả về",
-    "Ngưng áp dụng_Phê duyệt": "Duyệt áp dụng",
-    "Gửi duyệt_Phê duyệt": "Duyệt áp dụng",
+    "Ngưng áp dụng_Duyệt áp dụng": "Duyệt áp dụng",
+    "Gửi duyệt_Duyệt áp dụng": "Duyệt áp dụng",
     "Ngưng áp dụng_Trả về": "Trả về",
     "Đang soạn thảo_Xóa câu hỏi": "Xóa câu hỏi",
     "Duyệt áp dụng_Ngưng hiển thị": "Ngưng áp dụng"
@@ -269,7 +269,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             return question;
         });
         switch (newStatus) {
-            case "Phê duyệt":
+            case "Duyệt áp dụng":
                 handleButtonClick('icontick.svg', 'Duyệt áp dụng thành công');
                 break;
             case "Ngưng hiển thị":
@@ -347,7 +347,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     // Danh sách các actions
     const tabMenuActiveBlack = [
         { icon: 'iconsendblack.svg', content: 'Gửi duyệt' },
-        { icon: 'iconcheckedblack.svg', content: 'Phê duyệt' },
+        { icon: 'iconcheckedblack.svg', content: 'Duyệt áp dụng' },
         { icon: 'iconstopblack.svg', content: 'Ngưng hiển thị' },
         { icon: 'iconreturnblack.svg', content: 'Trả về' },
         { icon: 'icontrashred.svg', content: 'Xóa câu hỏi' },
@@ -356,7 +356,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     // Lấy danh sách các action khi chọn cùng lúc nhiều item
     const CheckListCommonActive: React.FC<CommonStatus> = ({ listCommonStatus }) => {
         let list: TabMenuItem[] = [];
-
+    
         listCommonStatus.forEach(status => {
             let listTemp: TabMenuItem[] = [];
             switch (status) {
@@ -364,19 +364,19 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                     listTemp = tabMenuActiveBlack.filter(tab => tab.content === 'Gửi duyệt' || tab.content === 'Trả về' || tab.content === 'Xóa câu hỏi');
                     break;
                 case "Gửi duyệt":
-                    listTemp = tabMenuActiveBlack.filter(tab => tab.content === 'Phê duyệt' || tab.content === 'Trả về');
+                    listTemp = tabMenuActiveBlack.filter(tab => tab.content === 'Duyệt áp dụng' || tab.content === 'Trả về');
                     break;
                 case "Duyệt áp dụng":
                     listTemp = tabMenuActiveBlack.filter(tab => tab.content === 'Ngưng hiển thị');
                     break;
                 case "Ngưng áp dụng":
-                    listTemp = tabMenuActiveBlack.filter(tab => tab.content === 'Phê duyệt' || tab.content === 'Trả về');
+                    listTemp = tabMenuActiveBlack.filter(tab => tab.content === 'Duyệt áp dụng' || tab.content === 'Trả về');
                     break;
                 case "Trả về":
                     listTemp = tabMenuActiveBlack.filter(tab => tab.content === 'Gửi duyệt');
                     break;
             }
-
+    
             // Kiểm tra từng phần tử trong listTemp trước khi thêm vào list
             listTemp.forEach(item => {
                 if (!list.some(existingItem => existingItem.content === item.content)) {
@@ -384,7 +384,13 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 }
             });
         });
-
+    
+        // Sắp xếp list theo thứ tự: Gửi duyệt, Trả về, Duyệt áp dụng, Ngừng áp dụng, Xóa câu hỏi
+        list.sort((a, b) => {
+            const order = ['Gửi duyệt', 'Trả về', 'Duyệt áp dụng', 'Ngừng áp dụng', 'Xóa câu hỏi'];
+            return order.indexOf(a.content) - order.indexOf(b.content);
+        });
+    
         return (
             <div className='flex gap-4'>
                 {list.map((item, index) => (
@@ -398,6 +404,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             </div>
         );
     };
+    
 
     // Lấy trạng thái của các câu hỏi được chọn
     const getStatusOfSelectedQuestions = () => {
