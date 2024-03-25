@@ -23,21 +23,24 @@ const Header: React.FC<HeaderProps> = ({ onTabChange }) => {
 
 
   return (
-    <div className='h-[60px] bg-white text-[16px] px-[20px] shadow2 flex justify-between relative z-10'>
-      <div className='h-full flex flex-col justify-center overflow-y-hidden w-[950px] overflow-x-auto res-tab text-nowrap'>
+    <div className='h-[60px] bg-white text-[16px] px-[20px] shadow2 flex justify-between relative z-10 text-[14px]'>
+      <div className='h-full flex flex-col justify-center w-[950px] res-tab text-nowrap'>
         <div className='flex gap-[20px]'>
           {tabMenuHeader.map((tab, index) => (
-            <div className='flex flex-col justify-between h-[60px] pt-[18px]' key={index}>
-              <div className='flex gap-5'>
+            <div className='flex flex-col justify-between h-[60px]' key={index}>
+              <div className='flex gap-5 h-[30px]'>
                 <div
-                  className={`cursor-pointer ${index === selectedTab ? 'text-[#008000] font-[600]' : 'text-[#BBBBBB] '}`}
+                  className={`hover:text-[#008000] h-[60px] cursor-pointer flex flex-col justify-center ${index === selectedTab ? 'text-[#008000] font-[600]' : 'text-[#BBBBBB] '}`}
                   onClick={() => handleTabClick(index)}
                 >
                   {tab}
                 </div>
                 {index < (tabMenuHeader.length - 1) ? (
-                  <div className='h-full w-[2px] rounded-[3px] bg-[#BBBBBB]'></div>
+                  <div className='h-[60px] flex flex-col justify-center'>
+                    <div className='w-[2px] rounded-[3px] bg-[#BBBBBB] h-[30px] flex flex-col justify-center'></div>
+                  </div>
                 ) : (<></>)}
+
               </div>
 
 

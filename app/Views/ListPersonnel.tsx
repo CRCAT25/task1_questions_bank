@@ -118,6 +118,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(25);
     const [totalPages, setTotalPages] = useState(1);
+    const [isSend, setIsSend] = useState<boolean>(false);
 
     // Reset toàn bộ nếu chuyển sang Module khác
     useEffect(() => {
@@ -175,9 +176,9 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         };
 
         return (
-            <span>
+            <div className='flex flex-col justify-center'>
                 <FontAwesomeIcon icon={classIcon} style={iconSize} />
-            </span>
+            </div>
         );
     };
 
@@ -209,7 +210,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         setStatusMessages(prevMessages => prevMessages.filter(message => message !== messageToRemove));
     };
 
-    // Hàm xử lý thay đổi trạng thái của câu hỏi dựa trên hoạt động được chọn
+    // Hàm xử lý thay đổi trạng thái của 1 câu hỏi dựa trên hoạt động được chọn
     const handleQuestionStatusChange = (questionId: string, newStatus: string) => {
         let updatedStatus: string;
 
@@ -232,8 +233,13 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                     handleButtonClick('iconreturn.svg', 'Trả về thành công');
                     break;
                 case "Gửi duyệt":
-                    updatedStatus = "Gửi duyệt";
-                    handleButtonClick('iconsend.svg', 'Gửi duyệt thành công');
+                    if (isSend) {
+                        updatedStatus = "Gửi duyệt";
+                        handleButtonClick('iconsend.svg', 'Gửi duyệt thành công');
+                    } else {
+                        handleButtonClick('iconsend.svg', 'Gửi duyệt thất bại');
+                        return; // Không cập nhật status nếu gửi duyệt thất bại
+                    }
                     break;
                 case "Chỉnh sửa":
                     questionId = ''
@@ -342,7 +348,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 break;
         }
         return (
-            <div className='absolute z-99 bg-[#BDC2D2] right-[54px] top-[23px] text-white'>
+            <div className='absolute z-99 bg-[#BDC2D2] right-[54px] top-[12px] text-white'>
                 {tabMenuTemp.map((tab, index) => (
                     <div key={index} className='flex px-3 py-2 cursor-pointer' onClick={() => { handleActivityClick(tab.content); handleActivityClickDelete(tab.content) }}>
                         <img src={'./' + tab.icon} />
@@ -438,8 +444,8 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         };
 
         return (
-            <div className='flex gap-4 text-[#959DB3]' onClick={() => handleChange(label)}>
-                <div>{label === 'Duyệt áp dụng' ? 'Đã duyệt' : label}</div>
+            <div className='flex gap-2 text-[#23282c]' onClick={() => handleChange(label)}>
+                <div className='mb-[1px] select-none'>{label === 'Duyệt áp dụng' ? 'Đã duyệt' : label}</div>
                 <label className='flex flex-col justify-center'>
                     <input className='cursor-pointer' type="checkbox" checked={checked.includes(label)} onChange={() => handleChange(label)} disabled hidden />
                     <span className={`checkmark cursor-pointer ${checked.includes(label) ? 'checked' : ''}`}></span>
@@ -506,19 +512,19 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
         // Trả về nội dung từng hàng chứa nội dung câu hỏi trong bảng
         return (
-            <div className={`grid grid-cols-12 mb-[7px] ${className} item${id}`}>
-                <div className="col-span-6 flex flex-col justify-center h-[80px]">
+            <div className={`grid grid-cols-12 mb-[4px] ${className} item${id} text-[13px] h-[58px]`}>
+                <div className="col-span-6 flex flex-col justify-center h-[58px]">
                     <div className='flex text-[#959DB3]'>
                         <label className={`flex flex-col mx-[20px] justify-center ${checked ? 'checked' : ''}`}>
                             <input type="checkbox" checked={checked} onChange={handleChange} hidden />
                             <span className={`checkmark cursor-pointer ${checked ? 'checked' : ''}`}></span>
                         </label>
                         <div className='flex flex-col justify-center gap-1'>
-                            <div className='text-[#26282E] font-[600] text-question' title={question}>{question}</div>
+                            <div className={`text-[#26282E] font-[600] text-question ${question === '' && 'invisible'}`} title={question}>{question === '' ? 'null' : question}</div>
                             <div className='flex gap-2'>
-                                <div className='text-[#26282E]' title={id}>{id}</div>
-                                <div className='w-[1px] bg-[#BDC2D2]'></div>
-                                <div className='text-[#26282E] text-type' title={typeQuestion}>Loại câu hỏi: {typeQuestion}</div>
+                                <div className={`text-[#26282E] ${id === 'null' && 'hidden'} `} title={id}>{id}</div>
+                                <div className={`w-[1px] bg-[#BDC2D2] ${id === 'null' && 'hidden'} ${typeQuestion === '' && 'invisible'}`}></div>
+                                <div className={`text-[#26282E] text-type ${typeQuestion === '' && 'invisible'}`} title={typeQuestion}>{typeQuestion === '' ? 'null' : `Loại câu hỏi:  ${typeQuestion}`}</div>
                             </div>
                         </div>
                     </div>
@@ -531,14 +537,25 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         <div className="col-span-1 flex flex-col justify-center text-center">{time}</div>
                         <div className="col-span-1 gap-[20px] text-center flex justify-end h-full">
                             <div className={`flex flex-col justify-center ${ColorStatus(status)}`}>{status}</div>
-                            <div title='Settings' className={`px-[20px] three-dots h-[80px] flex flex-col justify-center`} onClick={() => handleItemClick(id, question)}>
-                                <span>
+                            <div title='Settings' className={`px-[10px] three-dots h-[58px] flex flex-col justify-center`}
+                                onClick={() => {
+                                    handleItemClick(id, question);
+                                    if (id === 'null' || typeQuestion === '' || question === '') {
+                                        setIsSend(false);
+                                    }
+                                    else {
+                                        setIsSend(true);
+                                    }
+                                }
+                                }
+                            >
+                                <span className='flex flex-col justify-center border button-setting hover:border-[1px] hover:border-black rounded-[2px]'>
                                     <FontAwesomeIcon icon={faEllipsis} style={{
-                                        width: '20px',
-                                        height: '20px',
+                                        width: '18px',
+                                        height: '18px',
                                         color: selectedItemId === id ? 'white' : '#959DB3',
                                         cursor: "pointer",
-                                        padding: '6px',
+                                        padding: '5px',
                                         borderRadius: '0 2px 2px 0',
                                         backgroundColor: selectedItemId === id ? 'rgba(189, 194, 210, 1)' : '',
                                         border: selectedItemId === id ? '0.5px solid rgba(0, 0, 0, 0.03)' : '0.5px solid rgba(0, 0, 0, 0)'
@@ -556,7 +573,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             </div>
         );
     };
-
 
     // Kiểm tra xem có filter status nào đang được check hay không
     const isQuestionInCheckedStatus = (question: Question): boolean => {
@@ -586,7 +602,8 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const handleResetFilter = () => {
         setCheckAll(false);
         setSearchValue('');
-        setChecked([]);
+        setChecked(["Đang soạn thảo"]);
+
     }
 
     // Tạo sự kiện xóa câu hỏi được chọn
@@ -676,8 +693,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     }, [checked, questions, itemsPerPage]);
 
 
-
-
     // Chuyển trang
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -695,10 +710,10 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         }
 
         return (
-            <ul className="pagination flex gap-2">
+            <ul className="pagination flex gap-2 text-[13px]">
                 {/* Nút đầu */}
-                <li className=' flex flex-col justify-center bg-[#F4F5F7]'>
-                    <div className="px-3 py-2 rounded-[5px] shadow4 text-[#959DB3] cursor-pointer" onClick={() => paginate(1)}>
+                <li className={`flex flex-col justify-center ${currentPage > 1 ? 'text-[#5c6873] font-[600]' : 'text-[#959DB3]'}`}>
+                    <div className="px-3 py-2 rounded-[5px] cursor-pointer" onClick={() => paginate(1)}>
                         Đầu
                     </div>
                 </li>
@@ -724,7 +739,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 {/* Hiển thị các trang */}
                 {pageNumbers.slice(startPage - 1, startPage + 2).map((number) => (
                     <li key={number}>
-                        <div className={`px-2 py-2 rounded-[5px] text-[#959DB3] cursor-pointer ${number === currentPage ? 'bg-[#5c6873] text-white shadow4 active' : ''}`} onClick={() => paginate(number)}>
+                        <div className={`px-2 py-2 rounded-[5px] text-[#959DB3] cursor-pointer ${number === currentPage ? 'bg-[#5c6873] text-white shadow4 active' : 'text-[#5c6873]'}`} onClick={() => paginate(number)}>
                             {number}
                         </div>
                     </li>
@@ -740,15 +755,15 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 )}
                 {/* Nút tiếp theo */}
                 {totalPages - currentPage > 1 && (
-                    <li className=' flex flex-col justify-center bg-[#F4F5F7]'>
-                        <div className="px-2 py-2 rounded-[6px] shadow4 text-[#959DB3] cursor-pointer" onClick={() => paginate(currentPage + 1)}>
+                    <li className=' flex flex-col justify-center'>
+                        <div className="px-2 py-2 rounded-[6px] text-[#959DB3] cursor-pointer" onClick={() => paginate(currentPage + 1)}>
                             <img src='./iconnext.svg' />
                         </div>
                     </li>
                 )}
                 {/* Nút cuối */}
-                <li className=' flex flex-col justify-center bg-[#F4F5F7]'>
-                    <div className="px-3 py-2 shadow4 rounded-[6px] text-[#959DB3] cursor-pointer" onClick={() => paginate(totalPages)}>
+                <li className={`flex flex-col justify-center ${currentPage !== 1 && currentPage !== totalPages - 1 ? 'text-[#959DB3]' : 'text-[#5c6873] font-[600]'}`}>
+                    <div className="px-3 py-2 rounded-[6px] cursor-pointer" onClick={() => paginate(totalPages)}>
                         Cuối
                     </div>
                 </li>
@@ -762,11 +777,11 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 <div className='h-[100vh] mr-[20px] relative'>
                     <div className={`flex mt-[15px] justify-between ${isAnyQuestionChecked() && 'pointer-events-none'}`}>
                         {/* Phần header bao gồm các checkbox trạng thái */}
-                        <div className='flex gap-5 overflow-x-auto'>
+                        <div className='flex gap-5'>
                             {tabHeaderStatus.map((tab, index) => (
                                 <div
                                     key={index}
-                                    className={`h-[46px] bg-white flex flex-col justify-center rounded-[24px] ${checked.includes(tab) ? 'border-[2px] border-[#008000]' : 'border-[2px] border-[#fff]'} cursor-pointer px-6 flex}`}
+                                    className={`h-[36px] text-[14px] text-black bg-white flex flex-col justify-center item-tabHeader rounded-[24px] ${checked.includes(tab) ? 'border-[1px] border-[#008000]' : 'border-[1px] border-[#fff]'} cursor-pointer py-1 px-2`}
                                 >
                                     <Checkbox label={tab} />
                                 </div>
@@ -774,27 +789,35 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         </div>
 
                         {/* Phần header có import export add */}
-                        <div className='flex gap-5'>
+                        <div className='flex gap-5 text-[14px]'>
                             {/* Button export file */}
-                            <div className='flex flex-col justify-center bg-[#fff] rounded-[4px] cursor-pointer shadow3' title='Upload file here'>
-                                <div className='flex gap-2 px-[16px]'>
-                                    <Icon classIcon={faUpload} color='#959DB3' size={'20px'} />
+                            <div className='flex flex-col justify-center bg-[#fff] rounded-[5px] cursor-pointer shadow3 border-[1px] border-white hover:border-[#008000]' title='Upload file here'>
+                                <div className='flex gap-2 h-[36px] flex-col justify-center px-[9px]'>
+                                    <img className='h-[18px] w-[18px] mx-auto' src='./iconimport.png' />
                                 </div>
                             </div>
 
                             {/* Button import file */}
-                            <div className='flex flex-col justify-center bg-[#fff] rounded-[4px] cursor-pointer shadow3'>
-                                <div className='flex gap-2 px-[16px]'>
-                                    <Icon classIcon={faDownload} color='#959DB3' size={'20px'} />
-                                    <div className='font-600 text-[#959DB3]'>Template</div>
+                            <div className='flex flex-col justify-center bg-[#fff] rounded-[5px] cursor-pointer shadow3 border-[1px] border-white hover:border-[#008000]'>
+
+                                <div className='flex gap-2 h-[36px] px-[9px]'>
+                                    <div className='flex flex-col justify-center'>
+                                        <img className='h-[18px] w-[18px]' src='./iconexport.png' />
+                                    </div>
+
+                                    <div className='flex flex-col justify-center'>
+                                        <div className='font-600 text-[#23282c]'>Template</div>
+                                    </div>
                                 </div>
                             </div>
 
                             {/* Button Add */}
-                            <div className='flex flex-col justify-center bg-[#1A6634] rounded-[4px] cursor-pointer shadow-blue'>
-                                <div className='flex gap-2 px-[16px]'>
-                                    <Icon classIcon={faAdd} color='white' size={'20px'} />
-                                    <div className='text-white font-[600]'>THÊM MỚI</div>
+                            <div className='flex flex-col justify-center hover:bg-[#2e7447] bg-[#1A6634] rounded-[5px] cursor-pointer shadow-blue'>
+                                <div className='flex gap-2 px-[9px]'>
+                                    <div className='flex flex-col justify-center'>
+                                        <Icon classIcon={faAdd} color='white' size={'18px'} />
+                                    </div>
+                                    <div className='text-white font-[600] flex flex-col justify-center'>THÊM MỚI</div>
                                 </div>
                             </div>
                         </div>
@@ -814,7 +837,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                 LỌC DỮ LIỆU
                             </div>
 
-                            <div onClick={handleResetFilter} className='underline text-[#008000] h-[36px] flex flex-col justify-center cursor-pointer'>
+                            <div onClick={handleResetFilter} className='underline hover:text-[#5CB800] text-[#008000] h-[36px] flex flex-col justify-center cursor-pointer'>
                                 Reset bộ lọc
                             </div>
                         </div>
@@ -827,10 +850,12 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                             <div className='relative flex gap-3'>
                                 <img className='absolute top-1/2 -translate-y-1/2 left-2' src="./iconsearch.svg" alt="" />
                                 <input className='h-[36px] w-[480px] pl-8 rounded-[5px]' placeholder='Tìm theo mã và câu hỏi' onKeyPress={handleKeyPress} value={searchValue} onChange={handleSearchChange} />
-                                <div onClick={() => searchQuestions()} className='flex flex-col justify-center bg-[#1A6634] rounded-[4px] cursor-pointer'>
-                                    <div className='flex gap-2 px-[16px]'>
-                                        <img src="./iconsearchwhite.svg" alt="" />
-                                        <div className='text-white font-[600]'>Tìm</div>
+                                <div onClick={() => searchQuestions()} className='flex flex-col hover:bg-[#2e7447] justify-center bg-[#1A6634] rounded-[4px] cursor-pointer'>
+                                    <div className='flex gap-2 px-[9px]'>
+                                        <div className='flex flex-col justify-center'>
+                                            <img className='h-[18px] w-[18px]' src="./iconsearchwhite.svg" alt="" />
+                                        </div>
+                                        <div className='text-white text-[14px] font-[600] mb-[1px] flex flex-col justify-center'>Tìm</div>
                                     </div>
                                 </div>
                             </div>
@@ -854,7 +879,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
                         {/* Danh sách các câu hỏi */}
                         <div className='h-[63vh] overflow-y-auto mt-[7px]'>
-                            <div className='h-[80px]'>
+                            <div className='h-[58px]'>
                                 {
                                     currentItems
                                         .slice(indexOfFirstItem, indexOfLastItem)
@@ -898,7 +923,8 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         )}
 
                     </div>
-                    <div className='mt-5 ml-3 flex justify-between'>
+
+                    <div className={`mt-5 ml-3 flex justify-between ${isAnyQuestionChecked() && 'pointer-events-none'}`}>
                         <div className='flex absolute bottom-[14px] gap-5 left-0 h-[40px]'>
                             <div className='text-[#959DB3] flex flex-col justify-center'>Hiển thị mỗi trang</div>
                             <div className='flex gap-3 cursor-pointer' onClick={() => setOpenNumQues(!openNumQues)}>
@@ -922,11 +948,8 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                             )}
                         </div>
                         <div className='flex absolute  bottom-[14px] right-0'>
-                            {currentItems.map((item, index) => (
-                                <div key={index}>{/* Hiển thị thông tin của mỗi item */}</div>
-                            ))}
                             {/* Hiển thị các nút phân trang */}
-                            <div className="pagination-container">
+                            <div className={`pagination-container ${isAnyQuestionChecked() && 'pointer-events-none'}`}>
                                 {renderPagination()}
                             </div>
                         </div>
@@ -1010,7 +1033,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 }
                 {/* Render status messages */}
                 {statusMessages.map((message, index) => (
-                    <div key={index} className={`z-10 absolute bg-[#1A6634] text-white py-[6px] px-4 rounded-[10px] bottom-0 flex gap-3 status-message`}>
+                    <div key={index} className={`z-10 absolute text-white py-[6px] px-4 rounded-[10px] bottom-0 flex gap-3 status-message ${message.content.split(' ')[message.content.split(' ').length - 1] === 'bại' ? 'bg-[#FD7676]' : 'bg-[#1A6634]'}`}>
                         <img src={message.icon} />
                         {message.content}
                     </div>

@@ -56,16 +56,7 @@
                                 },
                                 {
                                     "id": "Q.004",
-                                    "question": "Hệ thống cửa hàng Hachi Hachi ra đời vào năm nào? Hiện nay số  hàng là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
-                                    "typeQuestion": "Dạng câu một lựa chọn",
-                                    "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30s",
-                                    "status": "Ngưng áp dụng",
-                                    "isChecked": false
-                                },
-                                {
-                                    "id": "Q.005",
-                                    "question": "Từ khi nào Hachi Hachi có mặt trên thị trường? Số  hàng hiện tại là bao nhiêu?",
+                                    "question": "",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
                                     "time": "30s",
@@ -73,7 +64,16 @@
                                     "isChecked": false
                                 },
                                 {
-                                    "id": "Q.006",
+                                    "id": "Q.005",
+                                    "question": "Từ khi nào Hachi Hachi có mặt trên thị trường? Số  hàng hiện tại là bao nhiêu?",
+                                    "typeQuestion": "",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về",
+                                    "isChecked": false
+                                },
+                                {
+                                    "id": "null",
                                     "question": "Từ khi nào Hachi Hachi có mặt trên thị trường? Số  hàng hiện tại là bao nhiêu? Hiện nay có bao nhiêu cửa hàng ?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",

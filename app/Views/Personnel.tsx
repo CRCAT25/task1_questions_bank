@@ -20,7 +20,7 @@ const Personnel: React.FC = () => {
     };
 
     return (
-        <div className='flex h-[100vh] gap-[7px] bg-[#EDEFF3]'>
+        <div className='flex h-[100vh] gap-[7px] bg-[#EDEFF3] text-[14px]'>
             <div className="w-[15%] bg-[#5A6276] text-white">
                 <SideBarMenu onTabChange={handleTabSideBarChange} selectedTabHeader={selectedTab} />
             </div>
