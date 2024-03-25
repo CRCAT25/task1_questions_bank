@@ -452,13 +452,19 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     // Tạo class component CheckBox check tất cả câu hỏi
     const CheckboxAllQuestions: React.FC<Checkbox> = ({ label }) => {
         const handleChange = () => {
-            const updatedQuestions = questions.map(question => ({
-                ...question,
-                isChecked: !checkAll // Đảo ngược trạng thái isChecked
-            }));
+            const updatedQuestions = questions.map(question => {
+                if (questions.filter(isQuestionInCheckedStatus).slice(indexOfFirstItem, indexOfLastItem).includes(question)) {
+                    return {
+                        ...question,
+                        isChecked: !checkAll // Đảo ngược trạng thái isChecked
+                    };
+                }
+                return question;
+            });
             setQuestions(updatedQuestions);
             setCheckAll(!checkAll);
         };
+    
         return (
             <div className='flex gap-5 pl-[20px] text-[#959DB3]'>
                 <label className={`flex flex-col justify-center ${checkAll ? 'checked' : ''}`}>
@@ -469,6 +475,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             </div>
         );
     };
+    
 
     // Tạo class component từng câu hỏi cụ thể
     const CheckboxEachQuestion: React.FC<CheckboxEachQuestion & { className: string }> = ({ id, question, typeQuestion, group, time, status, isChecked, className }) => {
@@ -586,7 +593,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
     // Tạo sự kiện xóa câu hỏi được chọn
     const deleteQuestion = () => {
-        console.log(questionDel);
         const updatedQuestions = questions.filter(question => question.question !== questionDel); // Sử dụng selectedItemId
         setQuestions(updatedQuestions);
     };
