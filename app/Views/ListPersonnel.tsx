@@ -106,8 +106,8 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const [checked, setChecked] = useState<string[]>([tabHeaderStatus[0]]); // Khởi tạo cho các checkbox tại filter
     const [checkAll, setCheckAll] = useState<boolean>(false);
     const [questions, setQuestions] = useState<Question[]>(getQuestionsFromData(jsonData));
-    const [selectedItemId, setSelectedItemId] = useState<string | null>('');
-    const [selectedItemName, setSelectedItemName] = useState<string | null>('');
+    const [selectedItemId, setSelectedItemId] = useState<string | null>('--');
+    const [selectedItemName, setSelectedItemName] = useState<string | null>('--');
     const [searchValue, setSearchValue] = useState<string>('');
     const [deleteConfirm, setDeleteConfirm] = useState<boolean>(false);
     const [listQuestionDeleted, setListQuestionDeleted] = useState<string[]>([]); // Khởi tạo danh sách các câu hỏi cần xóa
@@ -217,6 +217,13 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         if (newStatus === "Xóa câu hỏi") {
             setDeleteConfirm(true);
             setQuestionDel(selectedItemName!);
+            if(selectedItemName === '' && selectedItemId){
+                setQuestionDel(selectedItemId)
+            }
+            if(selectedItemId === 'null' && selectedItemName)
+            {
+                setQuestionDel(selectedItemName)
+            }
         }
         else {
             switch (newStatus) {
@@ -348,7 +355,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 break;
         }
         return (
-            <div className='absolute z-99 bg-[#BDC2D2] right-[54px] top-[12px] text-white'>
+            <div className='absolute z-99 bg-[#BDC2D2] right-[41px] top-[16px] text-white'>
                 {tabMenuTemp.map((tab, index) => (
                     <div key={index} className='flex px-3 py-2 cursor-pointer' onClick={() => { handleActivityClick(tab.content); handleActivityClickDelete(tab.content) }}>
                         <img src={'./' + tab.icon} />
@@ -506,7 +513,12 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             } else {
                 setSelectedItemId(id); // Select the clicked item
                 setSelectedItemName(question);
-                setQuestionDel(question);
+                if (id === 'null') {
+                    setQuestionDel(question);
+                }
+                if (question === '') {
+                    setQuestionDel(id);
+                }
             }
         };
 
@@ -608,9 +620,10 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
     // Tạo sự kiện xóa câu hỏi được chọn
     const deleteQuestion = () => {
-        const updatedQuestions = questions.filter(question => question.question !== questionDel); // Sử dụng selectedItemId
+        const updatedQuestions = questions.filter(question => question.question !== questionDel && question.id !== questionDel && question.question !== selectedItemName);
         setQuestions(updatedQuestions);
     };
+
 
     // Tạo sự kiện xóa các câu hỏi trong danh sách được chọn
     const deleteListQuestion = (list: string[]) => {
@@ -904,7 +917,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         {/* FormActions xuất hiện khi chọn 1 hoặc nhiều câu hỏi cùng 1 lúc */}
                         {isAnyQuestionChecked() && (
                             <div>
-                                <div className='absolute z-6 rounded-[10px] bg-white top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex gap-4 shadow4'>
+                                <div className='absolute z-50 rounded-[10px] bg-white top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex gap-4 shadow4'>
                                     <div className='w-[130px] h-[90px] text-center flex flex-col justify-center bg-[#008000] rounded-l-[6px] text-white'>
                                         {getNumberQuestionsChecked()}
                                         <div>Đã chọn</div>
