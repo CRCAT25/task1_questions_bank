@@ -68,7 +68,7 @@ const listNumItem = [25, 50, 75, 100];
 const tabHeaderStatus = [
     'Đang soạn thảo',
     'Gửi duyệt',
-    'Đã duyệt',
+    'Duyệt áp dụng',
     'Ngưng áp dụng',
 ];
 
@@ -81,6 +81,26 @@ const statusChangeActions: StatusChangeActions = {
     "Đang soạn thảo_Xóa câu hỏi": "Xóa câu hỏi",
     "Duyệt áp dụng_Ngưng hiển thị": "Ngưng áp dụng"
 };
+
+// Danh sách các actions
+const tabMenuActiveBlack = [
+    { icon: 'iconsendblack.svg', content: 'Gửi duyệt' },
+    { icon: 'iconcheckedblack.svg', content: 'Duyệt áp dụng' },
+    { icon: 'iconstopblack.svg', content: 'Ngưng hiển thị' },
+    { icon: 'iconreturnblack.svg', content: 'Trả về' },
+    { icon: 'icontrashred.svg', content: 'Xóa câu hỏi' },
+];
+
+// Danh sách các actions
+const tabMenuActive = [
+    { icon: 'iconeye.svg', content: 'Xem chi tiết' },
+    { icon: 'iconpencil.svg', content: 'Chỉnh sửa' },
+    { icon: 'iconsend.svg', content: 'Gửi duyệt' },
+    { icon: 'icontick.svg', content: 'Phê duyệt' },
+    { icon: 'iconstop.svg', content: 'Ngưng hiển thị' },
+    { icon: 'iconreturn.svg', content: 'Trả về' },
+    { icon: 'icontrash.svg', content: 'Xóa câu hỏi' },
+];
 
 const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const [checked, setChecked] = useState<string[]>([tabHeaderStatus[0]]); // Khởi tạo cho các checkbox tại filter
@@ -97,7 +117,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const [openNumQues, setOpenNumQues] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(25);
-
+    const [totalPages, setTotalPages] = useState(1);
 
     // Reset toàn bộ nếu chuyển sang Module khác
     useEffect(() => {
@@ -333,30 +353,10 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         );
     };
 
-    // Danh sách các actions
-    const tabMenuActive = [
-        { icon: 'iconeye.svg', content: 'Xem chi tiết' },
-        { icon: 'iconpencil.svg', content: 'Chỉnh sửa' },
-        { icon: 'iconsend.svg', content: 'Gửi duyệt' },
-        { icon: 'icontick.svg', content: 'Phê duyệt' },
-        { icon: 'iconstop.svg', content: 'Ngưng hiển thị' },
-        { icon: 'iconreturn.svg', content: 'Trả về' },
-        { icon: 'icontrash.svg', content: 'Xóa câu hỏi' },
-    ];
-
-    // Danh sách các actions
-    const tabMenuActiveBlack = [
-        { icon: 'iconsendblack.svg', content: 'Gửi duyệt' },
-        { icon: 'iconcheckedblack.svg', content: 'Duyệt áp dụng' },
-        { icon: 'iconstopblack.svg', content: 'Ngưng hiển thị' },
-        { icon: 'iconreturnblack.svg', content: 'Trả về' },
-        { icon: 'icontrashred.svg', content: 'Xóa câu hỏi' },
-    ];
-
     // Lấy danh sách các action khi chọn cùng lúc nhiều item
     const CheckListCommonActive: React.FC<CommonStatus> = ({ listCommonStatus }) => {
         let list: TabMenuItem[] = [];
-    
+
         listCommonStatus.forEach(status => {
             let listTemp: TabMenuItem[] = [];
             switch (status) {
@@ -376,7 +376,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                     listTemp = tabMenuActiveBlack.filter(tab => tab.content === 'Gửi duyệt');
                     break;
             }
-    
+
             // Kiểm tra từng phần tử trong listTemp trước khi thêm vào list
             listTemp.forEach(item => {
                 if (!list.some(existingItem => existingItem.content === item.content)) {
@@ -384,13 +384,13 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 }
             });
         });
-    
+
         // Sắp xếp list theo thứ tự: Gửi duyệt, Trả về, Duyệt áp dụng, Ngừng áp dụng, Xóa câu hỏi
         list.sort((a, b) => {
             const order = ['Gửi duyệt', 'Trả về', 'Duyệt áp dụng', 'Ngừng áp dụng', 'Xóa câu hỏi'];
             return order.indexOf(a.content) - order.indexOf(b.content);
         });
-    
+
         return (
             <div className='flex gap-4'>
                 {list.map((item, index) => (
@@ -404,7 +404,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             </div>
         );
     };
-    
 
     // Lấy trạng thái của các câu hỏi được chọn
     const getStatusOfSelectedQuestions = () => {
@@ -427,6 +426,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     // Tạo class component các checkbox của tabHeaderStatus
     const Checkbox: React.FC<CheckboxProps> = ({ label }) => {
         const handleChange = (label: string) => {
+
             const currentIndex = checked.indexOf(label);
             const newChecked = [...checked];
             if (currentIndex === -1) {
@@ -439,7 +439,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
         return (
             <div className='flex gap-4 text-[#959DB3]' onClick={() => handleChange(label)}>
-                <div>{label}</div>
+                <div>{label === 'Duyệt áp dụng' ? 'Đã duyệt' : label}</div>
                 <label className='flex flex-col justify-center'>
                     <input className='cursor-pointer' type="checkbox" checked={checked.includes(label)} onChange={() => handleChange(label)} disabled hidden />
                     <span className={`checkmark cursor-pointer ${checked.includes(label) ? 'checked' : ''}`}></span>
@@ -464,7 +464,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             setQuestions(updatedQuestions);
             setCheckAll(!checkAll);
         };
-    
+
         return (
             <div className='flex gap-5 pl-[20px] text-[#959DB3]'>
                 <label className={`flex flex-col justify-center ${checkAll ? 'checked' : ''}`}>
@@ -475,7 +475,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             </div>
         );
     };
-    
 
     // Tạo class component từng câu hỏi cụ thể
     const CheckboxEachQuestion: React.FC<CheckboxEachQuestion & { className: string }> = ({ id, question, typeQuestion, group, time, status, isChecked, className }) => {
@@ -558,16 +557,15 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         );
     };
 
+
     // Kiểm tra xem có filter status nào đang được check hay không
     const isQuestionInCheckedStatus = (question: Question): boolean => {
-        let tempChecked = checked;
-        // Nếu checked chứa "Đang soạn thảo", thêm "Trả về" vào tempChecked
+        let tempChecked = [...checked]; // Tạo một bản sao của checked để tránh thay đổi trực tiếp
+
         if (tempChecked.includes("Đang soạn thảo")) {
-            tempChecked.push("Trả về");
-        } else {
-            // Ngược lại, loại bỏ "Trả về" khỏi tempChecked
-            tempChecked = tempChecked.filter(status => status !== "Trả về");
+            checked.push("Trả về"); // Thêm "Trả về" vào tempChecked
         }
+
         // Kiểm tra xem có filter status nào đang được check hay không
         return tempChecked.length === 0 || tempChecked.includes(question.status);
     };
@@ -646,15 +644,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         }
     };
 
-    const [totalPages, setTotalPages] = useState(1);
-
-    useEffect(() => {
-        const totalPagesCount = Math.ceil(questions.length / itemsPerPage);
-        setTotalPages(totalPagesCount);
-    }, [questions, itemsPerPage]);
-
-
-
     // Tính chỉ số của item đầu tiên trên trang hiện tại
     const indexOfFirstItem = (currentPage - 1) * itemsPerPage;
 
@@ -662,9 +651,31 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const indexOfLastItem = currentPage * itemsPerPage;
 
     // Lấy dữ liệu của trang hiện tại bằng cách slice mảng dữ liệu ban đầu
-    const currentItems = questions
+    const [currentItems, setCurrentItems] = useState(questions
         .filter(isQuestionInCheckedStatus)
-        .slice(indexOfFirstItem, indexOfLastItem);
+        .filter(question => question.status === "Đang soạn thảo"));
+
+    useEffect(() => {
+        let filteredItems = questions.filter(isQuestionInCheckedStatus).filter(question => checked.includes(question.status));
+        let totalPagesCount = Math.ceil(filteredItems.length / itemsPerPage);
+
+        // Nếu chỉ có một trong hai phần tử "Đang soạn thảo" hoặc "Trả về" được chọn, loại bỏ nó khỏi checked
+        if ((!checked.includes("Đang soạn thảo") && checked.includes("Trả về")) ||
+            (checked.includes("Đang soạn thảo") && !checked.includes("Trả về"))) {
+            setChecked(prevChecked => prevChecked.filter(status => status !== "Đang soạn thảo" && status !== "Trả về"));
+        }
+
+        // Nếu không có "Đang soạn thảo", "Duyệt áp dụng", "Ngưng áp dụng" và "Gửi duyệt" trong checked, hiển thị tất cả câu hỏi
+        if (!checked.includes("Đang soạn thảo") && !checked.includes("Duyệt áp dụng") && !checked.includes("Ngưng áp dụng") && !checked.includes("Gửi duyệt")) {
+            filteredItems = questions;
+            totalPagesCount = Math.ceil(filteredItems.length / itemsPerPage);
+        }
+
+        setCurrentItems(filteredItems);
+        setTotalPages(totalPagesCount);
+    }, [checked, questions, itemsPerPage]);
+
+
 
 
     // Chuyển trang
@@ -744,9 +755,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             </ul>
         );
     };
-
-
-
 
     return (
         <>
@@ -847,19 +855,24 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         {/* Danh sách các câu hỏi */}
                         <div className='h-[63vh] overflow-y-auto mt-[7px]'>
                             <div className='h-[80px]'>
-                                {currentItems.map((question, index) => (
-                                    <CheckboxEachQuestion
-                                        key={index}
-                                        id={question.id}
-                                        question={question.question}
-                                        typeQuestion={question.typeQuestion}
-                                        group={question.group}
-                                        time={question.time}
-                                        status={question.status}
-                                        isChecked={question.isChecked}
-                                        className={question.isChecked ? 'bg-item-checked' : 'bg-white'} // Thêm className dựa trên trạng thái isChecked
-                                    />
-                                ))}
+                                {
+                                    currentItems
+                                        .slice(indexOfFirstItem, indexOfLastItem)
+                                        .map((question, index) => (
+                                            <CheckboxEachQuestion
+                                                key={index}
+                                                id={question.id}
+                                                question={question.question}
+                                                typeQuestion={question.typeQuestion}
+                                                group={question.group}
+                                                time={question.time}
+                                                status={question.status}
+                                                isChecked={question.isChecked}
+                                                className={question.isChecked ? 'bg-item-checked' : 'bg-white'} // Thêm className dựa trên trạng thái isChecked
+                                            />
+                                        ))
+                                }
+
                             </div>
                         </div>
 
