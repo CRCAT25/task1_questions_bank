@@ -76,6 +76,7 @@ const statusChangeActions: StatusChangeActions = {
     "Đang soạn thảo_Gửi duyệt": "Gửi duyệt",
     "Đang soạn thảo_Trả về": "Trả về",
     "Ngưng áp dụng_Duyệt áp dụng": "Duyệt áp dụng",
+    "Trả về_Gửi duyệt": "Gửi duyệt",
     "Gửi duyệt_Duyệt áp dụng": "Duyệt áp dụng",
     "Ngưng áp dụng_Trả về": "Trả về",
     "Đang soạn thảo_Xóa câu hỏi": "Xóa câu hỏi",
@@ -111,7 +112,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const [searchValue, setSearchValue] = useState<string>('');
     const [deleteConfirm, setDeleteConfirm] = useState<boolean>(false);
     const [listQuestionDeleted, setListQuestionDeleted] = useState<string[]>([]); // Khởi tạo danh sách các câu hỏi cần xóa
-    const [questionDel, setQuestionDel] = useState<string>('');
     const [statusMessages, setStatusMessages] = useState<TabMenuItem[]>([]);
     const [numQues, setNumQues] = useState<number>(25);
     const [openNumQues, setOpenNumQues] = useState<boolean>(false);
@@ -129,7 +129,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         setSelectedItemName('');
         setQuestions(getQuestionsFromData(jsonData));
         setCheckAll(false);
-        setQuestionDel('');
         setListQuestionDeleted([]);
         setCurrentPage(1);
         setOpenNumQues(false);
@@ -216,14 +215,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
         if (newStatus === "Xóa câu hỏi") {
             setDeleteConfirm(true);
-            setQuestionDel(selectedItemName!);
-            if(selectedItemName === '' && selectedItemId){
-                setQuestionDel(selectedItemId)
-            }
-            if(selectedItemId === 'null' && selectedItemName)
-            {
-                setQuestionDel(selectedItemName)
-            }
+            console.log(listQuestionDeleted);
         }
         else {
             switch (newStatus) {
@@ -273,26 +265,22 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         }
     };
 
-    const handleQuestionStatusChangeDelete = (questionId: string, newStatus: string) => {
-        if (newStatus === "Xóa câu hỏi") {
-            setDeleteConfirm(true);
-            setListQuestionDeleted(prevState => [...prevState, questionId]);
-        }
-    };
-
     // Hàm xử lý các action cho nhiều item cùng 1 lúc
     const handleMultipleQuestionStatusChange = (newStatus: string) => {
+        let fail = true;
         const updatedQuestions = questions.map(question => {
             if (question.isChecked) {
                 const key = `${question.status}_${newStatus}`;
                 const updatedStatus = statusChangeActions[key];
-                if (updatedStatus) {
+                if (updatedStatus && question.id !== 'null' && question.question !== '' && question.typeQuestion !== '') {
                     return {
                         ...question,
                         status: updatedStatus,
                         isChecked: false
                     };
                 } else {
+                    handleButtonClick('iconsend.svg', 'Gửi duyệt thất bại');
+                    fail = false;
                     // Trạng thái không thay đổi
                     return {
                         ...question, isChecked: false
@@ -312,13 +300,15 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 handleButtonClick('iconreturn.svg', 'Trả về thành công');
                 break;
             case "Gửi duyệt":
-                handleButtonClick('iconsend.svg', 'Gửi duyệt thành công');
+                if (fail) {
+                    handleButtonClick('iconsend.svg', 'Gửi duyệt thành công');
+                }
                 break;
             case "Xóa câu hỏi":
                 setDeleteConfirm(true);
                 // Cài đặt câu hỏi cần xóa
                 setListQuestionDeleted(questions.filter(question => question.isChecked).map(question => question.id))
-                break;
+                return;
         }
         setCheckAll(false);
         setQuestions(updatedQuestions);
@@ -327,11 +317,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const handleActivityClick = (activity: string) => {
         // Gọi hàm xử lý thay đổi trạng thái của câu hỏi
         handleQuestionStatusChange(selectedItemId!, activity); // selectedItemId! đảm bảo rằng selectedItemId không null
-    };
-
-    const handleActivityClickDelete = (activity: string) => {
-        // Gọi hàm xử lý thay đổi trạng thái của câu hỏi
-        handleQuestionStatusChangeDelete(selectedItemName!, activity); // selectedItemId! đảm bảo rằng selectedItemId không null
     };
 
     // Tạo class component checkList hiển thị các active khả dụng của 1 item
@@ -357,7 +342,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         return (
             <div className='absolute z-99 bg-[#BDC2D2] right-[41px] top-[16px] text-white'>
                 {tabMenuTemp.map((tab, index) => (
-                    <div key={index} className='flex px-3 py-2 cursor-pointer' onClick={() => { handleActivityClick(tab.content); handleActivityClickDelete(tab.content) }}>
+                    <div key={index} className='flex px-3 py-2 cursor-pointer' onClick={() => handleActivityClick(tab.content)}>
                         <img src={'./' + tab.icon} />
                         <div className={`ml-4`}>{tab.content}</div>
                     </div>
@@ -508,17 +493,11 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         // Handle click event for each item
         const handleItemClick = (id: string, question: string) => {
             if (selectedItemId === id) {
-                setSelectedItemId(null); // Unselect the item if it's already selected
-                setSelectedItemName('');
+                setSelectedItemId(null);
             } else {
-                setSelectedItemId(id); // Select the clicked item
-                setSelectedItemName(question);
-                if (id === 'null') {
-                    setQuestionDel(question);
-                }
-                if (question === '') {
-                    setQuestionDel(id);
-                }
+                setListQuestionDeleted([]);
+                setSelectedItemId(id); // Lưu id của câu hỏi được nhấp vào
+                setListQuestionDeleted(prevList => [...prevList, id]);
             }
         };
 
@@ -574,9 +553,9 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                     }
                                     } />
                                 </span>
-                                {selectedItemId === id ? (
+                                {selectedItemId === id && (
                                     <CheckListActive label={status} />
-                                ) : ('')}
+                                )}
                             </div>
 
                         </div>
@@ -618,18 +597,11 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
     }
 
-    // Tạo sự kiện xóa câu hỏi được chọn
-    const deleteQuestion = () => {
-        const updatedQuestions = questions.filter(question => question.question !== questionDel && question.id !== questionDel && question.question !== selectedItemName);
-        setQuestions(updatedQuestions);
-    };
-
-
     // Tạo sự kiện xóa các câu hỏi trong danh sách được chọn
     const deleteListQuestion = (list: string[]) => {
-        // Lọc ra danh sách câu hỏi không thuộc danh sách list
-        const updatedQuestions = questions.filter(question => !list.includes(question.id));
-        // Cập nhật danh sách chỉ với các câu hỏi không thuộc danh sách list
+        // Lọc ra danh sách câu hỏi không có id trong listQuestionDeleted
+        const updatedQuestions = questions.filter(question => !listQuestionDeleted.includes(question.id));
+        // Cập nhật danh sách chỉ với các câu hỏi không có id trong listQuestionDeleted
         setQuestions(updatedQuestions);
     };
 
@@ -681,9 +653,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const indexOfLastItem = currentPage * itemsPerPage;
 
     // Lấy dữ liệu của trang hiện tại bằng cách slice mảng dữ liệu ban đầu
-    const [currentItems, setCurrentItems] = useState(questions
-        .filter(isQuestionInCheckedStatus)
-        .filter(question => question.status === "Đang soạn thảo"));
+    const [currentItems, setCurrentItems] = useState(questions.filter(isQuestionInCheckedStatus).filter(question => question.status === "Đang soạn thảo"));
 
     useEffect(() => {
         let filteredItems = questions.filter(isQuestionInCheckedStatus).filter(question => checked.includes(question.status));
@@ -704,7 +674,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         setCurrentItems(filteredItems);
         setTotalPages(totalPagesCount);
     }, [checked, questions, itemsPerPage]);
-
 
     // Chuyển trang
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -973,7 +942,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 {
                     deleteConfirm ? (
                         <>
-                            <div className={`w-[85.05%] h-[100vh] absolute right-0 z-4 bottom-0`}>
+                            <div className={`w-[85.05%] h-[100vh] absolute right-0 z-50 bottom-0`}>
                                 {/* Nền đen khi xuất hiện form Xóa */}
                                 <div className='absolute bg-black opacity-50 w-full h-full' />
 
@@ -1010,7 +979,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                             onClick={() => {
                                                 setDeleteConfirm(false);
                                                 setListQuestionDeleted([]);
-                                                setQuestionDel('');
                                             }}
                                         >
                                             KHÔNG XÓA
@@ -1019,17 +987,9 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                             <div
                                                 className='flex justify-center gap-[10px]'
                                                 onClick={() => {
-                                                    if (listQuestionDeleted.length > 0 && questionDel === '') {
-                                                        deleteListQuestion(listQuestionDeleted);
-                                                        setDeleteConfirm(false); // Đóng giao diện xác nhận xóa
-                                                        handleButtonClick('icondelete.svg', 'Xóa thành công');
-                                                    }
-                                                    else {
-                                                        deleteQuestion();
-                                                        setDeleteConfirm(false); // Đóng giao diện xác nhận xóa
-                                                        handleButtonClick('icondelete.svg', 'Xóa thành công');
-                                                    }
-
+                                                    deleteListQuestion(listQuestionDeleted);
+                                                    setDeleteConfirm(false); // Đóng giao diện xác nhận xóa
+                                                    handleButtonClick('icondelete.svg', 'Xóa thành công');
                                                 }}
                                             >
                                                 <img className='w-[20px]' src='./icondelete.svg' />
