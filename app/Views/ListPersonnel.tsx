@@ -442,6 +442,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 }
                 return question;
             });
+            console.log(currentItems.slice(indexOfFirstItem, indexOfLastItem).length)
             setQuestions(updatedQuestions);
             setCheckAll(!checkAll);
         };
@@ -600,7 +601,13 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         );
         // Cập nhật danh sách câu hỏi hiển thị sau khi tìm kiếm
         setCurrentItems(filteredQuestions);
-        if (searchValue === '') setQuestions(getQuestionsFromData(jsonData));
+        setTotalPages(filteredQuestions.length / itemsPerPage + 1);
+        if (searchValue === '') {
+            setQuestions(getQuestionsFromData(jsonData));
+        }
+        if (filteredQuestions.length === 0) {
+            setTotalPages(0);
+        }
     };
 
     // Kiểm tra xem có câu hỏi nào đang được check hay không
@@ -677,17 +684,14 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     useEffect(() => {
         // Lấy số lượng các mục được kiểm tra
         const checkedItemCount = currentItems.filter(question => question.isChecked).slice(indexOfFirstItem, indexOfLastItem).length;
-        if (currentItems.length > itemsPerPage) {
-            if (checkedItemCount === itemsPerPage && currentItems.length !== 0) {
-                setCheckAll(true);
-            }
+        if (checkedItemCount === currentItems.slice(indexOfFirstItem, indexOfLastItem).length) {
+            setCheckAll(true);
         }
         else {
-            if (checkedItemCount === currentItems.length && currentItems.length !== 0) {
-                setCheckAll(true);
-            }
+            setCheckAll(false);
         }
-
+        const isAllChecked = currentItems.slice(indexOfFirstItem, indexOfLastItem).every(question => question.isChecked);
+        setCheckAll(isAllChecked);
     }, [currentItems, currentPage]);
 
     useEffect(() => {
@@ -698,11 +702,11 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
     }, [questions, checked]);
 
-    useEffect(() => {
-        if (currentItems.filter(question => question.isChecked).slice(indexOfFirstItem, indexOfLastItem).length !== currentItems.slice(indexOfFirstItem, indexOfLastItem).length) {
-            setCheckAll(false);
-        }
-    }, [currentItems, currentPage]);
+    // useEffect(() => {
+    //     if (currentItems.filter(question => question.isChecked).slice(indexOfFirstItem, indexOfLastItem).length !== currentItems.slice(indexOfFirstItem, indexOfLastItem).length) {
+    //         setCheckAll(false);
+    //     }
+    // }, [currentItems, currentPage]);
 
     // Chuyển trang
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -773,7 +777,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                     </li>
                 )}
                 {/* Nút cuối */}
-                <li className={`flex flex-col justify-center ${currentPage !== 1 && currentPage !== totalPages - 1 ? 'text-[#959DB3]' : 'text-[#5c6873] font-[600]'}`}>
+                <li className={`flex flex-col justify-center ${totalPages <= 1 && 'pointer-events-none'} ${currentPage !== 1 && currentPage !== totalPages - 1 ? 'text-[#959DB3]' : 'text-[#5c6873] font-[600]'}`}>
                     <div className="px-3 py-2 rounded-[6px] cursor-pointer" onClick={() => paginate(totalPages)}>
                         Cuối
                     </div>
@@ -791,7 +795,9 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         {/* Phần header bao gồm các checkbox trạng thái */}
                         <div className='flex gap-5'>
                             {tabHeaderStatus.map((tab, index) => (
-                                <Checkbox label={tab} />
+                                <div key={index}>
+                                    <Checkbox label={tab} />
+                                </div>
                             ))}
                         </div>
 
