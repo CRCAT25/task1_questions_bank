@@ -233,7 +233,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         handleButtonClick('iconsend.svg', questionId + ' gửi duyệt thất bại');
                         return; // Không cập nhật status nếu gửi duyệt thất bại
                     }
-                    
+
                     break;
                 case "Chỉnh sửa":
                     questionId = ''
@@ -324,7 +324,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         return (
             <div className='absolute z-99 bg-[#BDC2D2] right-[41px] top-[16px] text-white'>
                 {tabMenuTemp.map((tab, index) => (
-                    <div key={index} className='flex px-3 py-2 cursor-pointer' onClick={() => {handleActivityClick(tab.content); unCheckAllQuestion}}>
+                    <div key={index} className='flex px-3 py-2 cursor-pointer' onClick={() => { handleActivityClick(tab.content); unCheckAllQuestion }}>
                         <img src={'./' + tab.icon} />
                         <div className={`ml-4`}>{tab.content}</div>
                     </div>
@@ -376,7 +376,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 {list.map((item, index) => (
                     <div key={index}>
                         <div className='w-[120px] h-[80px] flex flex-col gap-3 justify-center hover:bg-[#dddddd]' onClick={() => handleMultipleQuestionStatusChange(item.content)}>
-                            <img className='h-[20px] flex justify-center' src={item.icon}/>
+                            <img className='h-[20px] flex justify-center' src={item.icon} />
                             <div className={`text-center ${item.content === 'Xóa câu hỏi' ? 'text-[#FD7676]' : 'text-black'}`}>{item.content}</div>
                         </div>
                     </div>
@@ -418,14 +418,15 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         };
 
         return (
-            <div className='flex gap-2 text-[#23282c]' onClick={() => handleChange(label)}>
-                <div className='mb-[1px] select-none'>{label === 'Duyệt áp dụng' ? 'Đã duyệt' : label}</div>
-                <label className='flex flex-col justify-center'>
-                    <input className='cursor-pointer' type="checkbox" checked={checked.includes(label)} onChange={() => handleChange(label)} disabled hidden />
-                    <span className={`checkmark cursor-pointer ${checked.includes(label) ? 'checked' : ''}`}></span>
-                </label>
+            <div className={`h-[36px] text-nowrap cursor-pointer text-[14px] text-black bg-white flex flex-col justify-center item-tabHeader rounded-[24px] ${checked.includes(label) ? 'border-[1px] border-[#008000]' : 'border-[1px] border-[#fff]'} cursor-pointer py-1 px-2`} onClick={() => handleChange(label)}>
+                <div className='flex gap-2 text-[#23282c]'>
+                    <div className='mb-[1px] select-none'>{label === 'Duyệt áp dụng' ? 'Đã duyệt' : label}</div>
+                    <label className='flex flex-col justify-center'>
+                        <input className='cursor-pointer' type="checkbox" checked={checked.includes(label)} onChange={() => handleChange(label)} disabled hidden />
+                        <span className={`checkmark cursor-pointer ${checked.includes(label) ? 'checked' : ''}`}></span>
+                    </label>
+                </div>
             </div>
-
         );
     };
 
@@ -512,7 +513,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                             <div className={`flex flex-col justify-center ${ColorStatus(status)}`}>{status}</div>
                             <div title='Settings' className={`px-[10px] three-dots h-[58px] flex flex-col justify-center`}
                                 onClick={() => {
-                                    if(!isAnyQuestionChecked()){
+                                    if (!isAnyQuestionChecked()) {
                                         handleItemClick(id, question);
                                         if (id === 'null' || typeQuestion === '' || question === '') {
                                             setIsSend(false);
@@ -676,12 +677,12 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     useEffect(() => {
         // Lấy số lượng các mục được kiểm tra
         const checkedItemCount = currentItems.filter(question => question.isChecked).slice(indexOfFirstItem, indexOfLastItem).length;
-        if(currentItems.length > itemsPerPage){
+        if (currentItems.length > itemsPerPage) {
             if (checkedItemCount === itemsPerPage && currentItems.length !== 0) {
                 setCheckAll(true);
             }
         }
-        else{
+        else {
             if (checkedItemCount === currentItems.length && currentItems.length !== 0) {
                 setCheckAll(true);
             }
@@ -698,7 +699,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     }, [questions, checked]);
 
     useEffect(() => {
-        if(currentItems.filter(question => question.isChecked).slice(indexOfFirstItem, indexOfLastItem).length !== currentItems.slice(indexOfFirstItem, indexOfLastItem).length){
+        if (currentItems.filter(question => question.isChecked).slice(indexOfFirstItem, indexOfLastItem).length !== currentItems.slice(indexOfFirstItem, indexOfLastItem).length) {
             setCheckAll(false);
         }
     }, [currentItems, currentPage]);
@@ -790,12 +791,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         {/* Phần header bao gồm các checkbox trạng thái */}
                         <div className='flex gap-5'>
                             {tabHeaderStatus.map((tab, index) => (
-                                <div
-                                    key={index}
-                                    className={`h-[36px] text-nowrap text-[14px] text-black bg-white flex flex-col justify-center item-tabHeader rounded-[24px] ${checked.includes(tab) ? 'border-[1px] border-[#008000]' : 'border-[1px] border-[#fff]'} cursor-pointer py-1 px-2`}
-                                >
-                                    <Checkbox label={tab} />
-                                </div>
+                                <Checkbox label={tab} />
                             ))}
                         </div>
 
