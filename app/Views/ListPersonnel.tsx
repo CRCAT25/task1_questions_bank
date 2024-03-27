@@ -3,12 +3,11 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faAdd,
-    faDownload,
-    faUpload,
     faEllipsis,
     faXmark
 } from "@fortawesome/free-solid-svg-icons";
 import jsonData from '../Models/newdata.json';
+import LoadingIcon from "./Loading"
 
 interface CheckboxProps {
     label: string;
@@ -105,6 +104,7 @@ const tabMenuActive = [
 const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const [checked, setChecked] = useState<string[]>([tabHeaderStatus[0]]); // Khởi tạo cho các checkbox tại filter
     const [checkAll, setCheckAll] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [questions, setQuestions] = useState<Question[]>(getQuestionsFromData(jsonData));
     const [selectedItemId, setSelectedItemId] = useState<string | null>('--');
     const [searchValue, setSearchValue] = useState<string>('');
@@ -121,7 +121,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     // Reset toàn bộ nếu chuyển sang Module khác
     useEffect(() => {
         setDeleteConfirm(false);
-        setListQuestionDeleted([]);
         setSearchValue('');
         setSelectedItemId('');
         setQuestions(getQuestionsFromData(jsonData));
@@ -260,7 +259,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             setQuestions(updatedQuestions);
         }
 
-        setListQuestionDeleted([]);
         setSelectedItemId('');
     };
 
@@ -453,7 +451,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             <div className='flex gap-5 pl-[20px] text-[#959DB3]'>
                 <label className={`flex flex-col justify-center ${checkAll ? 'checked' : ''}`}>
                     <input type="checkbox" checked={checkAll} onChange={handleChange} hidden />
-                    <span className={`checkmark cursor-pointer ${checkAll ? 'checked' : ''}`}></span>
+                    <span className={`checkmark cursor-pointer hover:bg-[#008000] border-[1px] hover:border-[#008000] ${checkAll ? 'checked' : ''}`}></span>
                 </label>
                 <div className='pt-[1.5px] font-[600] text-[#5A6276]'>{label}</div>
             </div>
@@ -492,9 +490,9 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             <div className={`grid grid-cols-12 mb-[4px] ${className} item${id} text-[13px] h-[58px] hover:bg-[#9ABBA8] par-ques`}>
                 <div className="col-span-6 flex flex-col justify-center h-[58px]">
                     <div className='flex text-[#959DB3]'>
-                        <label className={`flex flex-col mx-[20px] justify-center ${checked ? 'checked' : ''}`}>
+                        <label className={`flex flex-col mx-[20px] justify-center  ${checked ? 'checked' : ''}`}>
                             <input type="checkbox" checked={checked} onChange={handleChange} hidden />
-                            <span className={`checkmark cursor-pointer ${checked ? 'checked' : ''}`}></span>
+                            <span className={`checkmark cursor-pointer hover:bg-[#008000] border-[1px] hover:border-[#008000] ${checked ? 'checked' : ''}`}></span>
                         </label>
                         <div className='flex flex-col justify-center gap-1'>
                             <div className={`text-[#26282E] font-[600] text-question ${question === '' && 'invisible'}`} title={question}>{question === '' ? 'null' : question}</div>
@@ -684,6 +682,14 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
     }, [currentItems]);
 
+    useEffect(() => {
+        // Lấy số lượng các mục được kiểm tra
+        if(questions){
+            setIsLoading(false);
+        }
+
+    }, [questions]);
+
 
 
     // Chuyển trang
@@ -765,7 +771,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     };
 
 
-    return (
+    return isLoading ? (<LoadingIcon/>) : (
         <>
             {selectedSideBar === "Ngân hàng câu hỏi" ? (<>
                 <div className='h-[100vh] mr-[20px] relative'>
@@ -775,7 +781,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                             {tabHeaderStatus.map((tab, index) => (
                                 <div
                                     key={index}
-                                    className={`h-[36px] text-[14px] text-black bg-white flex flex-col justify-center item-tabHeader rounded-[24px] ${checked.includes(tab) ? 'border-[1px] border-[#008000]' : 'border-[1px] border-[#fff]'} cursor-pointer py-1 px-2`}
+                                    className={`h-[36px] text-nowrap text-[14px] text-black bg-white flex flex-col justify-center item-tabHeader rounded-[24px] ${checked.includes(tab) ? 'border-[1px] border-[#008000]' : 'border-[1px] border-[#fff]'} cursor-pointer py-1 px-2`}
                                 >
                                     <Checkbox label={tab} />
                                 </div>
@@ -892,8 +898,8 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                                 />
                                             ))
                                     ) : (
-                                        <div className='h-['>
-
+                                        <div className='h-[58px] w-full bg-white text-center flex flex-col justify-center'>
+                                            Không tìm thấy dữ liệu nào
                                         </div>
                                     )
                                     
@@ -905,7 +911,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         {/* FormActions xuất hiện khi chọn 1 hoặc nhiều câu hỏi cùng 1 lúc */}
                         {isAnyQuestionChecked() && (
                             <div>
-                                <div className='absolute z-50 rounded-[10px] bg-white top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex gap-4 shadow4'>
+                                <div className='absolute z-50 rounded-[10px] bg-white top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex gap-4 shadow5'>
                                     <div className='w-[130px] h-[90px] text-center flex flex-col justify-center bg-[#008000] rounded-l-[6px] text-white'>
                                         {getNumberQuestionsChecked()}
                                         <div>Đã chọn</div>
@@ -1025,7 +1031,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 }
                 {/* Render status messages */}
                 {statusMessages.map((message, index) => (
-                    <div key={index} className={`z-10 absolute text-white py-[6px] px-4 rounded-[10px] bottom-0 flex gap-3 status-message ${message.content.split(' ')[message.content.split(' ').length - 1] === 'bại' ? 'bg-[#FD7676]' : 'bg-[#1A6634]'}`}>
+                    <div key={index} className={`z-10 text-white py-[6px] px-4 rounded-[10px] bottom-0 flex gap-3 status-message ${message.content.split(' ')[message.content.split(' ').length - 1] === 'bại' ? 'bg-[#FD7676]' : 'bg-[#1A6634]'}`}>
                         <img src={message.icon} />
                         {message.content}
                     </div>
