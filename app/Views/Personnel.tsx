@@ -21,10 +21,10 @@ const Personnel: React.FC = () => {
 
     return (
         <div className='flex h-[100vh] gap-[3px] bg-[#EDEFF3] text-[14px]'>
-            <div className="w-[15%] bg-[#5A6276] text-white">
+            <div className="w-[15vw] bg-[#5A6276] text-white">
                 <SideBarMenu onTabChange={handleTabSideBarChange} selectedTabHeader={selectedTab} />
             </div>
-            <div className="w-[85%] flex flex-col">
+            <div className="w-[85vw] flex flex-col">
                 <Header onTabChange={handleTabChange} />
                 <ListPersonnel selectedSideBar={selectedSideBar}/>
             </div>

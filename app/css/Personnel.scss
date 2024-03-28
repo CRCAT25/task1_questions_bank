@@ -90,6 +90,17 @@ input[type="checkbox"]:checked+.checkmark:after {
     /* Thêm dấu "..." khi vượt quá */
 }
 
+.text-status{
+    max-width: 100px;
+    /* Độ rộng của div */
+    white-space: nowrap;
+    /* Ngăn không cho văn bản xuống dòng */
+    overflow: hidden;
+    /* Ẩn nội dung vượt quá chiều rộng */
+    text-overflow: ellipsis;
+    /* Thêm dấu "..." khi vượt quá */
+}
+
 .text-group {
     max-width: 250px;
     /* Độ rộng của div */
@@ -133,7 +144,7 @@ input[type="checkbox"]:checked+.checkmark:after {
     align-items: center;
     left: 263px;
     gap: 8px;
-    
+
     animation: slideInFromBottomPass 0.4s ease-out forwards, fadeOut 0.7s ease-in forwards 0.5s;
     z-index: 10;
 }
@@ -193,3 +204,4 @@ input[type="checkbox"]:checked+.checkmark:after {
 .box-display-eachpage:hover > div {
     color: white;
 }
+

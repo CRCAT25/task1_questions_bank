@@ -23,8 +23,8 @@ const Header: React.FC<HeaderProps> = ({ onTabChange }) => {
 
 
   return (
-    <div className='h-[60px] bg-white text-[16px] px-[20px] shadow2 flex justify-between relative z-50'>
-      <div className='h-full flex flex-col justify-center w-[950px] res-tab text-nowrap'>
+    <div className='h-[60px] bg-white text-[16px] px-[20px] w-full shadow2 flex justify-between relative z-50'>
+      <div className='header h-full flex flex-col justify-center'>
         <div className='flex gap-[20px]'>
           {tabMenuHeader.map((tab, index) => (
             <div className='flex flex-col justify-between h-[60px]' key={index}>
@@ -53,8 +53,8 @@ const Header: React.FC<HeaderProps> = ({ onTabChange }) => {
 
       </div>
 
-      <div className='h-full flex flex-col justify-center'>
-        <div className='flex gap-[40px]'>
+      <div className='h-full flex flex-col justify-center '>
+        <div className='flex gap-[40px] notifi'>
           <div className='flex flex-col justify-center cursor-pointer' title='Tìm kiếm'>
             <img className='w-[20px]' src='./iconsearch.svg' />
           </div>
@@ -63,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({ onTabChange }) => {
             <div className='absolute text-[12px] text-white top-[-5px] right-[-16px] w-[22px] h-[22px] flex flex-col justify-center text-center bg-[#F1802E] rounded-[100px]'>15</div>
           </div>
           <div className='w-[40px] h-[40px] rounded-[100px] cursor-pointer relative' title='Thông tin cá nhân'>
-            <img className='w-full h-full' src="./dark-eyes-face-865636.png" alt="" />
+            <img className='w-[40px] h-[40px] object-cover' src="./dark-eyes-face-865636.png" alt="" />
             <div className='absolute bottom-[-2px] right-[2px] w-[12px] h-[12px] bg-[#05D103] rounded-[100px]'></div>
           </div>
         </div>

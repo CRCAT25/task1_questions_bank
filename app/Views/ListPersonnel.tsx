@@ -333,7 +333,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 break;
         }
         return (
-            <div className='absolute z-30 bg-[#BDC2D2] right-[41px] top-[16px] text-white'>
+            <div className='absolute z-30 bg-[#BDC2D2] right-[38px] top-[17px] text-white'>
                 {tabMenuTemp.map((tab, index) => (
                     <div key={index} className='flex px-3 py-2 cursor-pointer' onClick={() => { handleActivityClick(tab.content); unCheckAllQuestion }}>
                         <img src={'./' + tab.icon} />
@@ -500,9 +500,9 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         // Trả về nội dung từng hàng chứa nội dung câu hỏi trong bảng
         return (
             <div className={`grid grid-cols-12 mb-[4px] ${className} item${id} text-[13px] h-[58px] hover:bg-[#9ABBA8] par-ques`}>
-                <div className="col-span-6 flex flex-col justify-center h-[58px]">
+                <div className="col-span-6 flex flex-col justify-center h-[58px] box1">
                     <div className='flex text-[#959DB3]'>
-                        <label className={`flex flex-col mx-[20px] justify-center  ${checked ? 'checked' : ''}`}>
+                        <label className={`flex flex-col mx-[20px] justify-center ${checked ? 'checked' : ''}`}>
                             <input type="checkbox" checked={checked} onChange={handleChange} hidden />
                             <span className={`checkmark cursor-pointer hover:bg-[#008000] border-[1px] hover:border-[#008000] ${checked ? 'checked' : ''}`}></span>
                         </label>
@@ -521,10 +521,10 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         <div className="col-span-1 flex flex-col justify-center">
                             <div className='text-group' title={group}>{group}</div>
                         </div>
-                        <div className="col-span-1 flex flex-col justify-center text-center text-[#000] font-[600]">{time}</div>
+                        <div className="col-span-1 flex flex-col justify-center text-center text-[#000] font-[600] time">{time}</div>
                         <div className="col-span-1 gap-[20px] text-center flex justify-end h-full">
-                            <div className={`flex flex-col justify-center ${ColorStatus(status)}`}>{status}</div>
-                            <div title='Settings' className={`px-[10px] three-dots h-[58px] flex flex-col justify-center`}
+                            <div className={`flex flex-col justify-center ${ColorStatus(status)} text-status`}>{status}</div>
+                            <div title='Settings' className={`px-[10px] three-dots h-[58px] flex flex-col justify-center setting`}
                                 onClick={() => {
                                     setIsCheckListActiveOpen(true);
                                     if (!isAnyQuestionChecked()) {
@@ -539,7 +539,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                 }
                                 }
                             >
-                                <span className={`flex flex-col justify-center border button-setting hover:border-[1px] hover:border-black rounded-[2px]`}>
+                                <span className={`flex flex-col justify-center button-setting rounded-[2px] hover:bg-[#e5e7eb]`}>
                                     <FontAwesomeIcon icon={faEllipsis} style={{
                                         width: '18px',
                                         height: '18px',
@@ -548,7 +548,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                         padding: '5px',
                                         borderRadius: '0 2px 2px 0',
                                         backgroundColor: isCheckListActiveOpen && selectedItemId === id ? 'rgba(189, 194, 210, 1)' : '',
-                                        border: isCheckListActiveOpen && selectedItemId === id ? '0.5px solid rgba(0, 0, 0, 0.03)' : '0.5px solid rgba(0, 0, 0, 0)'
                                     }
                                     } />
                                 </span>
@@ -944,7 +943,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         </div>
 
                         {/* Danh sách các câu hỏi */}
-                        <div className='h-[63vh] overflow-y-auto mt-[7px]'>
+                        <div className='h-[63vh] overflow-y-auto mt-[7px] listPer'>
                             <div className='h-[58px]'>
                                 {
                                     currentItems.length !== 0 ? (
@@ -1078,15 +1077,15 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                         >
                                             KHÔNG XÓA
                                         </div>
-                                        <div className='w-1/2 py-6 font-[600] cursor-pointer flex flex-col justify-center text-center border-t-[0.5px] border-[#C3C3C3] bg-[#FD7676] text-white'>
-                                            <div
-                                                className='flex justify-center gap-[10px]'
-                                                onClick={() => {
-                                                    deleteListQuestion(listQuestionDeleted);
-                                                    setDeleteConfirm(false); // Đóng giao diện xác nhận xóa
-                                                    handleButtonClick('icondelete.svg', `Xóa ${listQuestionDeleted.slice(0, 3)} ${listQuestionDeleted.length > 3 &&'...'} thành công`);
-                                                }}
-                                            >
+                                        <div
+                                            className='w-1/2 py-6 font-[600] cursor-pointer flex flex-col justify-center text-center border-t-[0.5px] border-[#C3C3C3] bg-[#FD7676] text-white'
+                                            onClick={() => {
+                                                deleteListQuestion(listQuestionDeleted);
+                                                setDeleteConfirm(false); // Đóng giao diện xác nhận xóa
+                                                handleButtonClick('icondelete.svg', `Xóa ${listQuestionDeleted.slice(0, 3)} ${listQuestionDeleted.length > 3 && '...'} thành công`);
+                                            }}
+                                        >
+                                            <div className='flex justify-center gap-[10px]'>
                                                 <img className='w-[20px]' src='./icondelete.svg' />
                                                 <div>XÓA</div>
                                             </div>

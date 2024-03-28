@@ -131,7 +131,7 @@ const SideBarMenu: React.FC<ListItemMenu> = ({ selectedTabHeader, onTabChange })
                                 </div>
 
                                 <div className='flex flex-col justify-center pt-[1px]'>
-                                    <span>{tab}</span>
+                                    <span className='text-menu' title={tab}>{tab}</span>
                                 </div>
 
                                 <div className='flex flex-col justify-center'>
@@ -147,7 +147,7 @@ const SideBarMenu: React.FC<ListItemMenu> = ({ selectedTabHeader, onTabChange })
                             {selectedTab == 0 ?
                                 (<>
                                     {tabMenuDanhGiaNhanSu.map((tabMenu, i) => (
-                                        <div key={i} className='item-con'>
+                                        <div key={i}>
                                             <div
                                                 className={`h-[50px] cursor-pointer px-5 flex ${selectedSubTab === i ? 'border-l-[5px] border-[#fff] bg-[#474F63]' : 'border-l-[5px] border-[#5A6276]'}`}
                                                 onClick={() => {
@@ -161,7 +161,7 @@ const SideBarMenu: React.FC<ListItemMenu> = ({ selectedTabHeader, onTabChange })
                                                 </div>
 
                                                 <div className='flex flex-col justify-center pt-[1px] mx-auto'>
-                                                    <span>{tabMenu.content}</span>
+                                                    <span className='item-con' title={tabMenu.content}>{tabMenu.content}</span>
                                                 </div>
                                             </div>
                                         </div>

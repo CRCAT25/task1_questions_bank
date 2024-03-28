@@ -1,5 +1,115 @@
+@media (max-width: 4200px) {
+    .listPer{
+        height: 82vh;
+    }
+}
+
+@media (max-width: 2900px) {
+    .listPer{
+        height: 76vh;
+    }
+}
+
+@media (max-width: 2600px) {
+    .listPer{
+        height: 73vh;
+    }
+}
+
+@media (max-width: 2400px) {
+    .listPer{
+        height: 71vh;
+    }
+}
+
+@media (max-width: 2200px) {
+    .listPer{
+        height: 67vh;
+    }
+}
+
+@media (max-width: 1975px) {
+    .header{
+        text-wrap: nowrap;
+        font-size: 14px;
+    }
+
+    .listPer{
+        height: 63vh;
+    }
+}
+
+@media (max-width: 1800px) {
+    .listPer{
+        height: 60vh;
+    }
+
+    .text-question{
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 1600px) {
+    .listPer{
+        height: 56vh;
+    }
+
+    .text-question{
+        max-width: 530px;
+    }
+    .text-menu, .item-con{
+        font-size: 14px;
+    }
+}
+
 @media (max-width: 1500px) {
-    .res-tab{
+    .header{
+        text-wrap: nowrap;
         font-size: 13px;
+    }
+    .listPer{
+        height: 46vh;
+    }
+}
+
+@media (max-width: 1350px) {
+    .text-question{
+        max-width: 420px;
+    }
+    .text-menu, .item-con{
+        max-width: 100px;
+        white-space: nowrap;
+        /* Ngăn không cho văn bản xuống dòng */
+        overflow: hidden;
+        /* Ẩn nội dung vượt quá chiều rộng */
+        text-overflow: ellipsis;
+        /* Thêm dấu "..." khi vượt quá */
+    }
+}
+
+
+@media (max-width: 1150px) {
+    .header{
+        text-wrap: nowrap;
+        font-size: 10px;
+    }
+    .notifi{
+        gap: 30px;
+    }
+    .listPer{
+        height: 37vh;
+    }
+    .text-question{
+        max-width: 350px;
+    }
+    .text-menu, .item-con{
+        max-width: 90px;
+        white-space: nowrap;
+        /* Ngăn không cho văn bản xuống dòng */
+        overflow: hidden;
+        /* Ẩn nội dung vượt quá chiều rộng */
+        text-overflow: ellipsis;
+        /* Thêm dấu "..." khi vượt quá */
+        font-size: 11px;
     }
 }
