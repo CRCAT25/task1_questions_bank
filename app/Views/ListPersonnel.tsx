@@ -62,7 +62,6 @@ interface StatusChangeActions {
 
 const listNumItem = [25, 50, 75, 100];
 
-
 // Tạo danh sách các trạng thái tại filter
 const tabHeaderStatus = [
     'Đang soạn thảo',
@@ -264,6 +263,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
     // Hàm xử lý các action cho nhiều item cùng 1 lúc
     const handleMultipleQuestionStatusChange = (newStatus: string) => {
+        const listfail: string[] = [];
         let fail = true;
         const updatedQuestions = questions.map(question => {
             if (question.isChecked) {
@@ -278,7 +278,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                             isChecked: false
                         };
                     } else {
-                        handleButtonClick('iconsend.svg', 'Gửi duyệt thất bại');
+                        listfail.push(question.id)
                         fail = false;
                         // Trạng thái không thay đổi
                         return {
@@ -293,6 +293,15 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             }
             return question;
         });
+        if (newStatus !== "Xóa câu hỏi") {
+            let listFailDisplay = '';
+            if (listfail.length <= 3) {
+                listFailDisplay = listfail.join(', ');
+            } else {
+                listFailDisplay = `${listfail.slice(0, 3).join(', ')} ...`;
+            }
+            handleButtonClick('iconsend.svg', `${listFailDisplay} gửi duyệt thất bại`);
+        }
         setQuestions(updatedQuestions);
         setCheckAll(false);
         setSelectedItemId('');
@@ -324,7 +333,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 break;
         }
         return (
-            <div className='absolute z-99 bg-[#BDC2D2] right-[41px] top-[16px] text-white'>
+            <div className='absolute z-30 bg-[#BDC2D2] right-[41px] top-[16px] text-white'>
                 {tabMenuTemp.map((tab, index) => (
                     <div key={index} className='flex px-3 py-2 cursor-pointer' onClick={() => { handleActivityClick(tab.content); unCheckAllQuestion }}>
                         <img src={'./' + tab.icon} />
@@ -486,7 +495,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 setListQuestionDeleted(prevList => [...prevList, id]);
             }
         };
-        
+
 
         // Trả về nội dung từng hàng chứa nội dung câu hỏi trong bảng
         return (
@@ -810,16 +819,16 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 )}
 
                 {/* Nút tiếp theo */}
-                <li className={`flex flex-col justify-center select-none ${currentPage === totalPages && 'pointer-events-none'}`}>
+                <li className={`flex flex-col justify-center select-none ${currentItems.length === 0 && 'pointer-events-none'} ${currentPage === totalPages && 'pointer-events-none'}`}>
                     <div className="px-2 py-2 rounded-[6px] cursor-pointer" onClick={() => paginate(currentPage + 1)}>
                         <svg width="8" height="15" viewBox="0 0 8 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path className={`${currentPage === totalPages && 'fill-[#959DB3]'}`} d="M7.41108 8.55183C7.44576 8.50183 7.47654 8.44867 7.50308 8.39293C7.54652 8.33212 7.58437 8.2667 7.61608 8.19762C7.63672 8.12579 7.65079 8.05186 7.65808 7.97693C7.70056 7.83543 7.70056 7.68257 7.65808 7.54107C7.65079 7.46614 7.63672 7.39221 7.61608 7.32038C7.58432 7.25168 7.54646 7.18663 7.50308 7.12617C7.47674 7.06891 7.44596 7.01427 7.41108 6.96286V6.96286L1.77007 1.13334C1.56344 0.934477 1.29492 0.831889 1.02109 0.8472C0.74726 0.862511 0.48951 0.994525 0.302158 1.21542C0.114807 1.43632 0.0124869 1.72884 0.0167611 2.03135C0.0210353 2.33386 0.13157 2.62272 0.325071 2.83707L5.14107 7.82465L0.325071 12.8122C0.13157 13.0266 0.0210353 13.3154 0.0167611 13.618C0.0124869 13.9205 0.114807 14.213 0.302158 14.4339C0.48951 14.6548 0.74726 14.7868 1.02109 14.8021C1.29492 14.8174 1.56344 14.7148 1.77007 14.516L7.41108 8.55183Z" fill="black" />
+                            <path className={`${currentPage === totalPages && 'fill-[#959DB3]'} ${currentItems.length === 0 && 'fill-[#959DB3]'}`} d="M7.41108 8.55183C7.44576 8.50183 7.47654 8.44867 7.50308 8.39293C7.54652 8.33212 7.58437 8.2667 7.61608 8.19762C7.63672 8.12579 7.65079 8.05186 7.65808 7.97693C7.70056 7.83543 7.70056 7.68257 7.65808 7.54107C7.65079 7.46614 7.63672 7.39221 7.61608 7.32038C7.58432 7.25168 7.54646 7.18663 7.50308 7.12617C7.47674 7.06891 7.44596 7.01427 7.41108 6.96286V6.96286L1.77007 1.13334C1.56344 0.934477 1.29492 0.831889 1.02109 0.8472C0.74726 0.862511 0.48951 0.994525 0.302158 1.21542C0.114807 1.43632 0.0124869 1.72884 0.0167611 2.03135C0.0210353 2.33386 0.13157 2.62272 0.325071 2.83707L5.14107 7.82465L0.325071 12.8122C0.13157 13.0266 0.0210353 13.3154 0.0167611 13.618C0.0124869 13.9205 0.114807 14.213 0.302158 14.4339C0.48951 14.6548 0.74726 14.7868 1.02109 14.8021C1.29492 14.8174 1.56344 14.7148 1.77007 14.516L7.41108 8.55183Z" fill="black" />
                         </svg>
                     </div>
                 </li>
 
                 {/* Nút cuối */}
-                <li className={`flex flex-col justify-center select-none font-[600] hover:bg-[#5c6873] hover:text-white duration-200 rounded-[5px] ${currentPage === totalPages ? 'pointer-events-none text-[#959DB3]' : 'text-black'}`}>
+                <li className={`flex flex-col justify-center select-none font-[600] hover:bg-[#5c6873] hover:text-white duration-200 rounded-[5px] ${currentPage === totalPages || currentItems.length === 0 ? 'pointer-events-none text-[#959DB3]' : 'text-black'}`}>
                     <div className="px-2 py-2 rounded-[6px] cursor-pointer" onClick={() => {
                         if (totalPages > 1) {
                             paginate(totalPages);
@@ -968,7 +977,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         {/* FormActions xuất hiện khi chọn 1 hoặc nhiều câu hỏi cùng 1 lúc */}
                         {isAnyQuestionChecked() && (
                             <div>
-                                <div className='absolute z-50 rounded-[10px] bg-white top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex shadow5'>
+                                <div className='absolute z-30 rounded-[10px] bg-white top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 flex shadow5'>
                                     <div className='w-[100px] h-[80px] text-center flex flex-col justify-center bg-[#008000] rounded-l-[6px] text-white'>
                                         {getNumberQuestionsChecked()}
                                         <div>Đã chọn</div>
@@ -1049,14 +1058,14 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                             <div className='question text-[#36C8CF] w-full'>
                                                 {listQuestionDeleted.map((ques, i) => (
                                                     <div className='font-[600]' key={i}>
-                                                        {ques}
+                                                        {i < 2 ? questions.find(question => question.id === ques)?.question : i === 2 ? '...' : null}
                                                     </div>
                                                 ))}
                                             </div>
-
                                         </div>
                                         <span>Đơn vị bị xóa sẽ <span className='text-[#FD7676]'>KHÔNG</span> thể khôi phục lại.</span>
                                     </div>
+
 
                                     {/* Nút KHÔNG XÓA và XÓA cụ thể 1 câu hỏi */}
                                     <div className='h-[25%] flex'>
@@ -1075,7 +1084,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                                 onClick={() => {
                                                     deleteListQuestion(listQuestionDeleted);
                                                     setDeleteConfirm(false); // Đóng giao diện xác nhận xóa
-                                                    handleButtonClick('icondelete.svg', `Xóa ${listQuestionDeleted} thành công`);
+                                                    handleButtonClick('icondelete.svg', `Xóa ${listQuestionDeleted.slice(0, 3)} ${listQuestionDeleted.length > 3 &&'...'} thành công`);
                                                 }}
                                             >
                                                 <img className='w-[20px]' src='./icondelete.svg' />
@@ -1092,15 +1101,13 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 }
                 {/* Render status messages */}
                 {statusMessages.map((message, index) => (
-                    <div key={index} className={`z-10 text-white py-[6px] px-4 rounded-[10px] bottom-0 flex gap-3 status-message ${message.content.split(' ')[message.content.split(' ').length - 1] === 'bại' ? 'bg-[#FD7676]' : 'bg-[#1A6634]'}`}>
+                    <div key={index} className={`z-10 text-white py-[6px] px-4 rounded-[10px] bottom-0 opacity-0 flex gap-3 ${message.content.split(' ')[message.content.split(' ').length - 1] === 'bại' ? 'bg-[#FD7676] status-message-fail' : 'bg-[#1A6634] status-message-pass'}`}>
                         <img src={message.icon} />
                         {message.content}
                     </div>
                 ))}
 
-                {
-                    isLoading && (<LoadingIcon />)
-                }
+                {isLoading && (<LoadingIcon />)}
             </>)}
 
         </>

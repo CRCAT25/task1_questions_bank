@@ -125,7 +125,20 @@ input[type="checkbox"]:checked+.checkmark:after {
     overflow-y: auto; /* Cho phép nội dung tràn dòng và cuộn */
 }
 
-.status-message {
+.status-message-pass {
+    transform: translateX(-50%);
+    color: white;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    left: 263px;
+    gap: 8px;
+    
+    animation: slideInFromBottomPass 0.4s ease-out forwards, fadeOut 0.7s ease-in forwards 0.5s;
+    z-index: 10;
+}
+
+.status-message-fail {
     transform: translateX(-50%);
     color: white;
     display: flex;
@@ -133,18 +146,30 @@ input[type="checkbox"]:checked+.checkmark:after {
     align-items: center;
     left: 230px;
     gap: 8px;
-    animation: slideInFromBottom 0.4s ease-out forwards, fadeOut 0.7s ease-in forwards 0.5s;
+    animation: slideInFromBottomFail 0.4s ease-out forwards, fadeOut 0.7s ease-in forwards 0.5s;
     z-index: 10;
 }
 
-@keyframes slideInFromBottom {
+
+@keyframes slideInFromBottomPass {
     0% {
         opacity: 0;
         bottom: 0;
     }
     100% {
         opacity: 1;
-        bottom: 70px;
+        bottom: 80px;
+    }
+}
+
+@keyframes slideInFromBottomFail {
+    0% {
+        opacity: 0;
+        bottom: 0;
+    }
+    100% {
+        opacity: 1;
+        bottom: 40px;
     }
 }
 
