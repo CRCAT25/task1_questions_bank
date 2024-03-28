@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -114,9 +114,11 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const [numQues, setNumQues] = useState<number>(25);
     const [openNumQues, setOpenNumQues] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(5);
+    const [itemsPerPage, setItemsPerPage] = useState(25);
     const [totalPages, setTotalPages] = useState(1);
     const [isSend, setIsSend] = useState<boolean>(false);
+    const boxRefNumPage = useRef<HTMLDivElement>(null);
+    const [isCheckListActiveOpen, setIsCheckListActiveOpen] = useState(false);
 
     // Reset toàn bộ nếu chuyển sang Module khác
     useEffect(() => {
@@ -461,6 +463,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const CheckboxEachQuestion: React.FC<CheckboxEachQuestion & { className: string }> = ({ id, question, typeQuestion, group, time, status, isChecked, className }) => {
         const [checked, setChecked] = useState<boolean>(isChecked);
 
+
         const handleChange = () => {
             const newChecked = !checked;
             setChecked(newChecked);
@@ -476,13 +479,14 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         // Handle click event for each item
         const handleItemClick = (id: string, question: string) => {
             if (selectedItemId === id) {
-                setSelectedItemId(null);
+                setSelectedItemId('');
             } else {
                 setListQuestionDeleted([]);
                 setSelectedItemId(id); // Lưu id của câu hỏi được nhấp vào
                 setListQuestionDeleted(prevList => [...prevList, id]);
             }
         };
+        
 
         // Trả về nội dung từng hàng chứa nội dung câu hỏi trong bảng
         return (
@@ -513,6 +517,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                             <div className={`flex flex-col justify-center ${ColorStatus(status)}`}>{status}</div>
                             <div title='Settings' className={`px-[10px] three-dots h-[58px] flex flex-col justify-center`}
                                 onClick={() => {
+                                    setIsCheckListActiveOpen(true);
                                     if (!isAnyQuestionChecked()) {
                                         handleItemClick(id, question);
                                         if (id === 'null' || typeQuestion === '' || question === '') {
@@ -529,16 +534,16 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                     <FontAwesomeIcon icon={faEllipsis} style={{
                                         width: '18px',
                                         height: '18px',
-                                        color: selectedItemId === id ? 'white' : '#959DB3',
+                                        color: isCheckListActiveOpen && selectedItemId === id ? 'white' : '#959DB3',
                                         cursor: "pointer",
                                         padding: '5px',
                                         borderRadius: '0 2px 2px 0',
-                                        backgroundColor: selectedItemId === id ? 'rgba(189, 194, 210, 1)' : '',
-                                        border: selectedItemId === id ? '0.5px solid rgba(0, 0, 0, 0.03)' : '0.5px solid rgba(0, 0, 0, 0)'
+                                        backgroundColor: isCheckListActiveOpen && selectedItemId === id ? 'rgba(189, 194, 210, 1)' : '',
+                                        border: isCheckListActiveOpen && selectedItemId === id ? '0.5px solid rgba(0, 0, 0, 0.03)' : '0.5px solid rgba(0, 0, 0, 0)'
                                     }
                                     } />
                                 </span>
-                                {selectedItemId === id && (
+                                {isCheckListActiveOpen && selectedItemId === id && (
                                     <CheckListActive label={status} />
                                 )}
                             </div>
@@ -712,6 +717,37 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
     }, [currentItems]);
 
+
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (boxRefNumPage.current && !boxRefNumPage.current.contains(event.target as Node)) {
+                setOpenNumQues(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            const target = event.target as HTMLElement;
+            if (!target.closest('[title="Settings"]')) {
+                setIsCheckListActiveOpen(false);
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
+
+
     // Chuyển trang
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -731,7 +767,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         return (
             <ul className="pagination flex gap-1 text-[13px]">
                 {/* Nút đầu */}
-                <li className={`flex flex-col justify-center select-none font-[600] ${currentPage === 1 && 'pointer-events-none text-[#959DB3]'}`}>
+                <li className={`flex flex-col justify-center select-none font-[600] hover:bg-[#5c6873] hover:text-white duration-200 rounded-[5px] ${currentPage === 1 && 'pointer-events-none text-[#959DB3]'}`}>
                     <div className="px-2 py-2 rounded-[5px] cursor-pointer" onClick={() => paginate(1)}>
                         Đầu
                     </div>
@@ -767,14 +803,14 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 {/* Nút ... tiếp theo */}
                 {(totalPages > 3 && totalPages - currentPage > 1) && (
                     <li className=' flex flex-col justify-center select-none'>
-                        <div className="px-2 py-2 rounded-[5px] cursor-pointer" onClick={() => {paginate(currentPage + 3);}}>
+                        <div className="px-2 py-2 rounded-[5px] cursor-pointer" onClick={() => { paginate(currentPage + 3); }}>
                             ...
                         </div>
                     </li>
                 )}
 
                 {/* Nút tiếp theo */}
-                <li className={`flex flex-col justify-center select-none hover:bg-[#5c6873] duration-200 rounded-[5px] ${currentPage === totalPages && 'pointer-events-none'}`}>
+                <li className={`flex flex-col justify-center select-none ${currentPage === totalPages && 'pointer-events-none'}`}>
                     <div className="px-2 py-2 rounded-[6px] cursor-pointer" onClick={() => paginate(currentPage + 1)}>
                         <svg width="8" height="15" viewBox="0 0 8 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path className={`${currentPage === totalPages && 'fill-[#959DB3]'}`} d="M7.41108 8.55183C7.44576 8.50183 7.47654 8.44867 7.50308 8.39293C7.54652 8.33212 7.58437 8.2667 7.61608 8.19762C7.63672 8.12579 7.65079 8.05186 7.65808 7.97693C7.70056 7.83543 7.70056 7.68257 7.65808 7.54107C7.65079 7.46614 7.63672 7.39221 7.61608 7.32038C7.58432 7.25168 7.54646 7.18663 7.50308 7.12617C7.47674 7.06891 7.44596 7.01427 7.41108 6.96286V6.96286L1.77007 1.13334C1.56344 0.934477 1.29492 0.831889 1.02109 0.8472C0.74726 0.862511 0.48951 0.994525 0.302158 1.21542C0.114807 1.43632 0.0124869 1.72884 0.0167611 2.03135C0.0210353 2.33386 0.13157 2.62272 0.325071 2.83707L5.14107 7.82465L0.325071 12.8122C0.13157 13.0266 0.0210353 13.3154 0.0167611 13.618C0.0124869 13.9205 0.114807 14.213 0.302158 14.4339C0.48951 14.6548 0.74726 14.7868 1.02109 14.8021C1.29492 14.8174 1.56344 14.7148 1.77007 14.516L7.41108 8.55183Z" fill="black" />
@@ -796,10 +832,9 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         );
     };
 
-
-    return isLoading ? (<LoadingIcon />) : (
+    return (
         <>
-            {selectedSideBar === "Ngân hàng câu hỏi" ? (<>
+            {selectedSideBar === "Ngân hàng câu hỏi" && (<>
                 <div className='h-[100vh] mr-[20px] relative'>
                     <div className={`flex mt-[15px] justify-between ${isAnyQuestionChecked() && 'pointer-events-none'}`}>
                         {/* Phần header bao gồm các checkbox trạng thái */}
@@ -845,7 +880,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                             </div>
                         </div>
                     </div>
-
 
                     {/* Phần search */}
                     <div className={`flex gap-4 field-search mt-[15px] ${isAnyQuestionChecked() && 'pointer-events-none'}`}>
@@ -957,17 +991,19 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                     </div>
 
                     <div className={`mt-5 ml-3 flex justify-between`}>
-                        <div className='flex absolute bottom-[14px] gap-5 left-0 h-[40px]'>
-                            <div className='text-[#000] flex flex-col justify-center'>Hiển thị mỗi trang</div>
-                            <div className='flex gap-3 cursor-pointer' onClick={() => setOpenNumQues(!openNumQues)}>
-                                <div className='flex flex-col justify-center'>{numQues}</div>
+                        <div className='flex absolute bottom-[14px] gap-5 left-0'>
+                            <div className='text-[#000] flex flex-col justify-center select-none'>Hiển thị mỗi trang</div>
+                            <div className='flex gap-3 cursor-pointer select-none hover:bg-[#5c6873] p-1 rounded-[5px] box-display-eachpage' onClick={() => setOpenNumQues(!openNumQues)}>
+                                <div className='flex flex-col justify-center select-none'>{numQues}</div>
                                 <div className='flex flex-col justify-center'>
-                                    <img className='h-[10px]' src='./iconhienlen.svg' />
+                                    <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path className={`fill-[#000]`} d="M7.42215 0.296473C7.37684 0.261786 7.32867 0.231008 7.27815 0.204473C7.22304 0.16103 7.16375 0.123177 7.10115 0.091473C7.03606 0.0708259 6.96905 0.0567556 6.90115 0.049473C6.77291 0.0069872 6.63439 0.0069872 6.50615 0.049473C6.43825 0.0567556 6.37125 0.0708259 6.30615 0.091473C6.2439 0.123234 6.18494 0.161086 6.13015 0.204473C6.07826 0.23081 6.02874 0.261591 5.98215 0.296473L0.699151 5.93747C0.518928 6.1441 0.425958 6.41262 0.439833 6.68645C0.453709 6.96028 0.573347 7.21803 0.773534 7.40539C0.973721 7.59274 1.23882 7.69506 1.51297 7.69078C1.78712 7.68651 2.0489 7.57597 2.24315 7.38247L6.76315 2.56647L11.2832 7.38247C11.4774 7.57597 11.7392 7.68651 12.0133 7.69078C12.2875 7.69506 12.5526 7.59274 12.7528 7.40539C12.953 7.21803 13.0726 6.96028 13.0865 6.68645C13.1003 6.41262 13.0074 6.1441 12.8272 5.93747L7.42215 0.296473Z" fill="#959DB3" />
+                                    </svg>
                                 </div>
                             </div>
 
                             {openNumQues && (
-                                <div className='absolute flex flex-col rounded-[6px] bottom-[45px] left-[131px] bg-white shadow5'>
+                                <div ref={boxRefNumPage} className='absolute flex flex-col rounded-[6px] bottom-[45px] left-[134px] bg-white shadow5'>
                                     {listNumItem
                                         .filter(num => num !== numQues)
                                         .sort((a, b) => b - a) // Sắp xếp giảm dần
@@ -992,7 +1028,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 {
                     deleteConfirm ? (
                         <>
-                            <div className={`w-[85.05%] h-[100vh] absolute right-0 z-50 bottom-0`}>
+                            <div className={`w-[85.05%] h-[100vh] absolute right-0 z-40 bottom-0`}>
                                 {/* Nền đen khi xuất hiện form Xóa */}
                                 <div className='absolute bg-black opacity-50 w-full h-full' />
 
@@ -1061,7 +1097,11 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         {message.content}
                     </div>
                 ))}
-            </>) : (<></>)}
+
+                {
+                    isLoading && (<LoadingIcon />)
+                }
+            </>)}
 
         </>
     );

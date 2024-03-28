@@ -7,7 +7,7 @@
     display: inline-block;
     width: 18px;
     height: 18px;
-    border: 1px solid #ccc;
+    border: 1px solid #363636;
     border-radius: 5px;
     /* Bo góc */
 }
@@ -159,4 +159,12 @@ input[type="checkbox"]:checked+.checkmark:after {
 
 .button-setting{
     box-shadow: 1px 3px 6px 1px rgba(143, 155, 166, 0.2);
+}
+
+.box-display-eachpage:hover > div path {
+    fill: white;
+}
+
+.box-display-eachpage:hover > div {
+    color: white;
 }
