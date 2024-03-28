@@ -114,7 +114,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const [numQues, setNumQues] = useState<number>(25);
     const [openNumQues, setOpenNumQues] = useState<boolean>(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(25);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
     const [totalPages, setTotalPages] = useState(1);
     const [isSend, setIsSend] = useState<boolean>(false);
 
@@ -447,12 +447,12 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         };
 
         return (
-            <div className='flex gap-5 pl-[20px] text-[#959DB3]'>
+            <div className='flex gap-5 pl-[20px]'>
                 <label className={`flex flex-col justify-center ${checkAll ? 'checked' : ''}`}>
                     <input type="checkbox" checked={checkAll} onChange={handleChange} hidden />
                     <span className={`checkmark cursor-pointer hover:bg-[#008000] border-[1px] hover:border-[#008000] ${checkAll ? 'checked' : ''}`}></span>
                 </label>
-                <div className='pt-[1.5px] font-[600] text-[#5A6276]'>{label}</div>
+                <div className='pt-[1.5px] font-[600] text-[#000]'>{label}</div>
             </div>
         );
     };
@@ -508,7 +508,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         <div className="col-span-1 flex flex-col justify-center">
                             <div className='text-group' title={group}>{group}</div>
                         </div>
-                        <div className="col-span-1 flex flex-col justify-center text-center">{time}</div>
+                        <div className="col-span-1 flex flex-col justify-center text-center text-[#000] font-[600]">{time}</div>
                         <div className="col-span-1 gap-[20px] text-center flex justify-end h-full">
                             <div className={`flex flex-col justify-center ${ColorStatus(status)}`}>{status}</div>
                             <div title='Settings' className={`px-[10px] three-dots h-[58px] flex flex-col justify-center`}
@@ -596,7 +596,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const searchQuestions = () => {
         const filteredQuestions = questions.filter((question) =>
             question.id.toLowerCase().includes(searchValue.toLowerCase()) ||
-            question.question.toLowerCase().includes(searchValue.toLowerCase()) && 
+            question.question.toLowerCase().includes(searchValue.toLowerCase()) &&
             checked.includes(question.status)
         );
         // Cập nhật danh sách câu hỏi hiển thị sau khi tìm kiếm
@@ -694,6 +694,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         setCheckAll(isAllChecked);
     }, [currentItems, currentPage]);
 
+    // Nếu fetch xong data tắt loading
     useEffect(() => {
         // Lấy số lượng các mục được kiểm tra
         if (questions) {
@@ -702,6 +703,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
     }, [questions, checked]);
 
+    // Kiểm tra nếu list không có item nào bỏ checkAll
     useEffect(() => {
         // Lấy số lượng các mục được kiểm tra
         if (currentItems.length === 0) {
@@ -727,27 +729,27 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         }
 
         return (
-            <ul className="pagination flex gap-2 text-[13px]">
+            <ul className="pagination flex gap-1 text-[13px]">
                 {/* Nút đầu */}
-                <li className={`flex flex-col justify-center ${currentPage > 1 ? 'text-[#5c6873] font-[600]' : 'text-[#959DB3]'}`}>
-                    <div className="px-3 py-2 rounded-[5px] cursor-pointer" onClick={() => paginate(1)}>
+                <li className={`flex flex-col justify-center select-none font-[600] ${currentPage === 1 && 'pointer-events-none text-[#959DB3]'}`}>
+                    <div className="px-2 py-2 rounded-[5px] cursor-pointer" onClick={() => paginate(1)}>
                         Đầu
                     </div>
                 </li>
 
                 {/* Nút quay lại */}
-                {currentPage > 1 && (
-                    <li className=' flex flex-col justify-center'>
-                        <div className="px-2 py-2 rounded-[5px] text-[#959DB3] cursor-pointer" onClick={() => paginate(currentPage - 1)}>
-                            <img src='./iconback.svg' />
-                        </div>
-                    </li>
-                )}
+                <li className={`flex flex-col justify-center select-none ${currentPage === 1 && 'pointer-events-none'}`}>
+                    <div className="px-2 py-2 rounded-[5px] cursor-pointer" onClick={() => paginate(currentPage - 1)}>
+                        <svg width="8" height="15" viewBox="0 0 8 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path className={`${currentPage === 1 && 'fill-[#959DB3]'}`} d="M0.278864 7.09743C0.244177 7.14743 0.2134 7.20059 0.186864 7.25633C0.143421 7.31714 0.105568 7.38256 0.0738643 7.45164C0.0532173 7.52347 0.039147 7.5974 0.0318643 7.67233C-0.0106214 7.81384 -0.0106214 7.96669 0.0318643 8.10819C0.039147 8.18312 0.0532173 8.25705 0.0738643 8.32888C0.105625 8.39758 0.143477 8.46263 0.186864 8.52309C0.213201 8.58035 0.243983 8.635 0.278864 8.6864V8.6864L5.91986 14.5159C6.12649 14.7148 6.39501 14.8174 6.66884 14.8021C6.94267 14.7868 7.20042 14.6547 7.38778 14.4338C7.57513 14.2129 7.67745 13.9204 7.67317 13.6179C7.6689 13.3154 7.55836 13.0265 7.36486 12.8122L2.54886 7.82461L7.36486 2.83702C7.55836 2.62268 7.6689 2.33381 7.67317 2.0313C7.67745 1.7288 7.57513 1.43627 7.38778 1.21537C7.20042 0.994478 6.94267 0.862463 6.66884 0.847152C6.39501 0.831841 6.12649 0.934429 5.91986 1.1333L0.278864 7.09743Z" fill="black" />
+                        </svg>
+                    </div>
+                </li>
 
                 {/* Nút ... quay lại */}
                 {currentPage > 3 && (
-                    <li className=' flex flex-col justify-center'>
-                        <div className="px-2 py-2 rounded-[5px] text-[#959DB3] cursor-pointer" onClick={() => paginate(currentPage - 3)}>
+                    <li className=' flex flex-col justify-center select-none'>
+                        <div className="px-2 py-2 rounded-[5px] cursor-pointer" onClick={() => paginate(currentPage - 3)}>
                             ...
                         </div>
                     </li>
@@ -756,7 +758,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 {/* Hiển thị các trang */}
                 {pageNumbers.slice(startPage - 1, startPage + 2).map((number) => (
                     <li key={number}>
-                        <div className={`px-2 py-2 rounded-[5px] text-[#959DB3] cursor-pointer ${number === currentPage ? 'bg-[#5c6873] text-white shadow4 active' : 'text-[#5c6873]'}`} onClick={() => paginate(number)}>
+                        <div className={`px-2 py-2 select-none rounded-[5px] cursor-pointer hover:bg-[#5c6873] hover:text-white duration-200 ${number === currentPage ? 'bg-[#5c6873] text-white shadow4 active' : 'text-[#000]'}`} onClick={() => paginate(number)}>
                             {number}
                         </div>
                     </li>
@@ -764,24 +766,26 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
                 {/* Nút ... tiếp theo */}
                 {(totalPages > 3 && totalPages - currentPage > 1) && (
-                    <li className=' flex flex-col justify-center'>
-                        <div className="px-2 py-2 rounded-[5px] text-[#959DB3] cursor-pointer" onClick={() => paginate(currentPage + 3)}>
+                    <li className=' flex flex-col justify-center select-none'>
+                        <div className="px-2 py-2 rounded-[5px] cursor-pointer" onClick={() => {paginate(currentPage + 3);}}>
                             ...
                         </div>
                     </li>
                 )}
+
                 {/* Nút tiếp theo */}
-                {totalPages - currentPage > 1 && (
-                    <li className=' flex flex-col justify-center'>
-                        <div className="px-2 py-2 rounded-[6px] text-[#959DB3] cursor-pointer" onClick={() => paginate(currentPage + 1)}>
-                            <img src='./iconnext.svg' />
-                        </div>
-                    </li>
-                )}
+                <li className={`flex flex-col justify-center select-none hover:bg-[#5c6873] duration-200 rounded-[5px] ${currentPage === totalPages && 'pointer-events-none'}`}>
+                    <div className="px-2 py-2 rounded-[6px] cursor-pointer" onClick={() => paginate(currentPage + 1)}>
+                        <svg width="8" height="15" viewBox="0 0 8 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path className={`${currentPage === totalPages && 'fill-[#959DB3]'}`} d="M7.41108 8.55183C7.44576 8.50183 7.47654 8.44867 7.50308 8.39293C7.54652 8.33212 7.58437 8.2667 7.61608 8.19762C7.63672 8.12579 7.65079 8.05186 7.65808 7.97693C7.70056 7.83543 7.70056 7.68257 7.65808 7.54107C7.65079 7.46614 7.63672 7.39221 7.61608 7.32038C7.58432 7.25168 7.54646 7.18663 7.50308 7.12617C7.47674 7.06891 7.44596 7.01427 7.41108 6.96286V6.96286L1.77007 1.13334C1.56344 0.934477 1.29492 0.831889 1.02109 0.8472C0.74726 0.862511 0.48951 0.994525 0.302158 1.21542C0.114807 1.43632 0.0124869 1.72884 0.0167611 2.03135C0.0210353 2.33386 0.13157 2.62272 0.325071 2.83707L5.14107 7.82465L0.325071 12.8122C0.13157 13.0266 0.0210353 13.3154 0.0167611 13.618C0.0124869 13.9205 0.114807 14.213 0.302158 14.4339C0.48951 14.6548 0.74726 14.7868 1.02109 14.8021C1.29492 14.8174 1.56344 14.7148 1.77007 14.516L7.41108 8.55183Z" fill="black" />
+                        </svg>
+                    </div>
+                </li>
+
                 {/* Nút cuối */}
-                <li className={`flex flex-col justify-center ${totalPages <= 1 && 'pointer-events-none'}`}>
-                    <div className="px-3 py-2 rounded-[6px] cursor-pointer" onClick={() => {
-                        if(totalPages > 1){
+                <li className={`flex flex-col justify-center select-none font-[600] hover:bg-[#5c6873] hover:text-white duration-200 rounded-[5px] ${currentPage === totalPages ? 'pointer-events-none text-[#959DB3]' : 'text-black'}`}>
+                    <div className="px-2 py-2 rounded-[6px] cursor-pointer" onClick={() => {
+                        if (totalPages > 1) {
                             paginate(totalPages);
                         }
                     }}>
@@ -889,9 +893,9 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                 <div className="col-span-6">
                                     <CheckboxAllQuestions label='Câu hỏi' />
                                 </div>
-                                <div className="col-span-2 font-[600] text-[#5A6276]">Phân nhóm</div>
-                                <div className="col-span-2 font-[600] text-[#5A6276] text-center">Thời gian làm</div>
-                                <div className="col-span-2 font-[600] text-[#5A6276] text-center">Tình trạng</div>
+                                <div className="col-span-2 font-[600] text-[#000]">Phân nhóm</div>
+                                <div className="col-span-2 font-[600] text-[#000] text-center">Thời gian làm</div>
+                                <div className="col-span-2 font-[600] text-[#000] text-center">Tình trạng</div>
                             </div>
                             {/* Nội dung được đọc từ jsonData */}
                         </div>
@@ -954,7 +958,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
                     <div className={`mt-5 ml-3 flex justify-between`}>
                         <div className='flex absolute bottom-[14px] gap-5 left-0 h-[40px]'>
-                            <div className='text-[#959DB3] flex flex-col justify-center'>Hiển thị mỗi trang</div>
+                            <div className='text-[#000] flex flex-col justify-center'>Hiển thị mỗi trang</div>
                             <div className='flex gap-3 cursor-pointer' onClick={() => setOpenNumQues(!openNumQues)}>
                                 <div className='flex flex-col justify-center'>{numQues}</div>
                                 <div className='flex flex-col justify-center'>
