@@ -426,6 +426,9 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 newChecked.splice(currentIndex, 1);
             }
             setChecked(newChecked);
+        
+            // Lưu vào localStorage
+            localStorage.setItem('checkedItems', JSON.stringify(newChecked.filter(status => status !== 'Trả về')));
         };
 
         return (
@@ -709,12 +712,13 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
     // Nếu fetch xong data tắt loading
     useEffect(() => {
-        // Lấy số lượng các mục được kiểm tra
         if (questions) {
             setIsLoading(false);
+            const storedCheckedItems = localStorage.getItem("checkedItems");
+            setChecked(storedCheckedItems ? JSON.parse(storedCheckedItems) : []);
         }
-
-    }, [questions, checked]);
+    }, [questions]);
+    
 
     // Kiểm tra nếu list không có item nào bỏ checkAll
     useEffect(() => {
