@@ -442,7 +442,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 }
                 return question;
             });
-            console.log(currentItems.slice(indexOfFirstItem, indexOfLastItem).length)
             setQuestions(updatedQuestions);
             setCheckAll(!checkAll);
         };
@@ -597,10 +596,11 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const searchQuestions = () => {
         const filteredQuestions = questions.filter((question) =>
             question.id.toLowerCase().includes(searchValue.toLowerCase()) ||
-            question.question.toLowerCase().includes(searchValue.toLowerCase())
+            question.question.toLowerCase().includes(searchValue.toLowerCase()) && 
+            checked.includes(question.status)
         );
         // Cập nhật danh sách câu hỏi hiển thị sau khi tìm kiếm
-        setCurrentItems(filteredQuestions);
+        setQuestions(filteredQuestions);
         setTotalPages(filteredQuestions.length / itemsPerPage + 1);
         if (searchValue === '') {
             setQuestions(getQuestionsFromData(jsonData));
@@ -702,11 +702,13 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
     }, [questions, checked]);
 
-    // useEffect(() => {
-    //     if (currentItems.filter(question => question.isChecked).slice(indexOfFirstItem, indexOfLastItem).length !== currentItems.slice(indexOfFirstItem, indexOfLastItem).length) {
-    //         setCheckAll(false);
-    //     }
-    // }, [currentItems, currentPage]);
+    useEffect(() => {
+        // Lấy số lượng các mục được kiểm tra
+        if (currentItems.length === 0) {
+            setCheckAll(false);
+        }
+
+    }, [currentItems]);
 
     // Chuyển trang
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -777,8 +779,12 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                     </li>
                 )}
                 {/* Nút cuối */}
-                <li className={`flex flex-col justify-center ${totalPages <= 1 && 'pointer-events-none'} ${currentPage !== 1 && currentPage !== totalPages - 1 ? 'text-[#959DB3]' : 'text-[#5c6873] font-[600]'}`}>
-                    <div className="px-3 py-2 rounded-[6px] cursor-pointer" onClick={() => paginate(totalPages)}>
+                <li className={`flex flex-col justify-center ${totalPages <= 1 && 'pointer-events-none'}`}>
+                    <div className="px-3 py-2 rounded-[6px] cursor-pointer" onClick={() => {
+                        if(totalPages > 1){
+                            paginate(totalPages);
+                        }
+                    }}>
                         Cuối
                     </div>
                 </li>
@@ -957,12 +963,12 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                             </div>
 
                             {openNumQues && (
-                                <div className='absolute flex flex-col gap-2 rounded-[6px] bottom-[45px] left-[158px] bg-white shadow4'>
+                                <div className='absolute flex flex-col rounded-[6px] bottom-[45px] left-[131px] bg-white shadow5'>
                                     {listNumItem
                                         .filter(num => num !== numQues)
                                         .sort((a, b) => b - a) // Sắp xếp giảm dần
                                         .map((num, i) => (
-                                            <div className='cursor-pointer w-[60px] py-[1px] pl-2 hover:bg-slate-200' key={i} onClick={() => { handleItemsPerPageChange(num); setOpenNumQues(!openNumQues); }}>
+                                            <div className='cursor-pointer w-[60px] py-[4px] pl-2 hover:bg-slate-200' key={i} onClick={() => { handleItemsPerPageChange(num); setOpenNumQues(!openNumQues); }}>
                                                 {num}
                                             </div>
                                         ))}
