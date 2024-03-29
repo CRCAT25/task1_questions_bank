@@ -429,7 +429,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
         };
 
         return (
-            <div className={`h-[36px] text-nowrap cursor-pointer text-[14px] text-black bg-white flex flex-col justify-center item-tabHeader rounded-[24px] ${checked.includes(label) ? 'border-[1px] border-[#008000]' : 'border-[1px] border-[#fff]'} cursor-pointer py-1 px-2`} onClick={() => handleChange(label)}>
+            <div className={`h-[36px] text-nowrap cursor-pointer text-[14px] text-black bg-white flex flex-col justify-center item-tabHeader rounded-[24px] shadow2 ${checked.includes(label) ? 'border-[1px] border-[#008000]' : 'border-[1px] border-[#fff]'} cursor-pointer py-1 px-2`} onClick={() => handleChange(label)}>
                 <div className='flex gap-2 text-[#23282c]'>
                     <div className='mb-[1px] select-none'>{label === 'Duyệt áp dụng' ? 'Đã duyệt' : label}</div>
                     <label className='flex flex-col justify-center'>
@@ -499,7 +499,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
         // Trả về nội dung từng hàng chứa nội dung câu hỏi trong bảng
         return (
-            <div className={`grid grid-cols-12 mb-[4px] ${className} item${id} text-[13px] h-[58px] hover:bg-[#9ABBA8] par-ques`}>
+            <div className={`grid grid-cols-12 mb-[4px] ${className} item${id} text-[13px] h-[58px] par-ques`}>
                 <div className="col-span-6 flex flex-col justify-center h-[58px] box1">
                     <div className='flex text-[#959DB3]'>
                         <label className={`flex flex-col mx-[20px] justify-center ${checked ? 'checked' : ''}`}>
@@ -516,15 +516,15 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         </div>
                     </div>
                 </div>
-                <div className={`col-span-6 relative ${selectedItemId === id ? 'z-10' : 'z-0'}`}>
+                <div className={`col-span-6 relative box1 ${selectedItemId === id ? 'z-10' : 'z-0'}`}>
                     <div className='grid grid-cols-3 w-full'>
-                        <div className="col-span-1 flex flex-col justify-center">
-                            <div className='text-group' title={group}>{group}</div>
+                        <div className="col-span-1 flex flex-col justify-center h-[58px]">
+                            <div className='text-group font-[600]' title={group}>{group}</div>
                         </div>
                         <div className="col-span-1 flex flex-col justify-center text-center text-[#000] font-[600] time">{time}</div>
                         <div className="col-span-1 gap-[20px] text-center flex justify-end h-full">
                             <div className={`flex flex-col justify-center ${ColorStatus(status)} text-status`}>{status}</div>
-                            <div title='Settings' className={`px-[10px] three-dots h-[58px] flex flex-col justify-center setting`}
+                            <div title='Settings' className={`px-[10px] three-dots h-[58px] flex flex-col justify-center box2 shadow-left`}
                                 onClick={() => {
                                     setIsCheckListActiveOpen(true);
                                     if (!isAnyQuestionChecked()) {
@@ -548,6 +548,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                         padding: '5px',
                                         borderRadius: '0 2px 2px 0',
                                         backgroundColor: isCheckListActiveOpen && selectedItemId === id ? 'rgba(189, 194, 210, 1)' : '',
+                                        boxShadow: 'rgba(0, 0, 0, 0.15) 0px 2px 8px'
                                     }
                                     } />
                                 </span>
@@ -614,13 +615,18 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             checked.includes(question.status)
         );
         // Cập nhật danh sách câu hỏi hiển thị sau khi tìm kiếm
-        setQuestions(filteredQuestions);
         setTotalPages(filteredQuestions.length / itemsPerPage + 1);
         if (searchValue === '') {
             setQuestions(getQuestionsFromData(jsonData));
+            setCurrentPage(1);
+
+        }
+        else {
+            setCurrentPage(1);
+            setCurrentItems(filteredQuestions);
         }
         if (filteredQuestions.length === 0) {
-            setTotalPages(0);
+            setCurrentPage(1);
         }
     };
 
@@ -821,16 +827,16 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 )}
 
                 {/* Nút tiếp theo */}
-                <li className={`flex flex-col justify-center select-none ${currentItems.length === 0 && 'pointer-events-none'} ${currentPage === totalPages && 'pointer-events-none'}`}>
+                <li className={`flex flex-col justify-center select-none ${totalPages < 2 && 'pointer-events-none'} ${currentItems.length === 0 && 'pointer-events-none'} ${currentPage === totalPages && 'pointer-events-none'}`}>
                     <div className="px-2 py-2 rounded-[6px] cursor-pointer" onClick={() => paginate(currentPage + 1)}>
                         <svg width="8" height="15" viewBox="0 0 8 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path className={`${currentPage === totalPages && 'fill-[#959DB3]'} ${currentItems.length === 0 && 'fill-[#959DB3]'}`} d="M7.41108 8.55183C7.44576 8.50183 7.47654 8.44867 7.50308 8.39293C7.54652 8.33212 7.58437 8.2667 7.61608 8.19762C7.63672 8.12579 7.65079 8.05186 7.65808 7.97693C7.70056 7.83543 7.70056 7.68257 7.65808 7.54107C7.65079 7.46614 7.63672 7.39221 7.61608 7.32038C7.58432 7.25168 7.54646 7.18663 7.50308 7.12617C7.47674 7.06891 7.44596 7.01427 7.41108 6.96286V6.96286L1.77007 1.13334C1.56344 0.934477 1.29492 0.831889 1.02109 0.8472C0.74726 0.862511 0.48951 0.994525 0.302158 1.21542C0.114807 1.43632 0.0124869 1.72884 0.0167611 2.03135C0.0210353 2.33386 0.13157 2.62272 0.325071 2.83707L5.14107 7.82465L0.325071 12.8122C0.13157 13.0266 0.0210353 13.3154 0.0167611 13.618C0.0124869 13.9205 0.114807 14.213 0.302158 14.4339C0.48951 14.6548 0.74726 14.7868 1.02109 14.8021C1.29492 14.8174 1.56344 14.7148 1.77007 14.516L7.41108 8.55183Z" fill="black" />
+                            <path className={`${totalPages < 2 && 'pointer-events-none'} ${totalPages < 2 && 'fill-[#959DB3]'} ${currentPage === totalPages && 'fill-[#959DB3]'} ${currentItems.length === 0 && 'fill-[#959DB3]'}`} d="M7.41108 8.55183C7.44576 8.50183 7.47654 8.44867 7.50308 8.39293C7.54652 8.33212 7.58437 8.2667 7.61608 8.19762C7.63672 8.12579 7.65079 8.05186 7.65808 7.97693C7.70056 7.83543 7.70056 7.68257 7.65808 7.54107C7.65079 7.46614 7.63672 7.39221 7.61608 7.32038C7.58432 7.25168 7.54646 7.18663 7.50308 7.12617C7.47674 7.06891 7.44596 7.01427 7.41108 6.96286V6.96286L1.77007 1.13334C1.56344 0.934477 1.29492 0.831889 1.02109 0.8472C0.74726 0.862511 0.48951 0.994525 0.302158 1.21542C0.114807 1.43632 0.0124869 1.72884 0.0167611 2.03135C0.0210353 2.33386 0.13157 2.62272 0.325071 2.83707L5.14107 7.82465L0.325071 12.8122C0.13157 13.0266 0.0210353 13.3154 0.0167611 13.618C0.0124869 13.9205 0.114807 14.213 0.302158 14.4339C0.48951 14.6548 0.74726 14.7868 1.02109 14.8021C1.29492 14.8174 1.56344 14.7148 1.77007 14.516L7.41108 8.55183Z" fill="black" />
                         </svg>
                     </div>
                 </li>
 
                 {/* Nút cuối */}
-                <li className={`flex flex-col justify-center select-none font-[600] hover:bg-[#5c6873] hover:text-white duration-200 rounded-[5px] ${currentPage === totalPages || currentItems.length === 0 ? 'pointer-events-none text-[#959DB3]' : 'text-black'}`}>
+                <li className={`flex flex-col justify-center select-none font-[600] hover:bg-[#5c6873] hover:text-white duration-200 rounded-[5px] ${totalPages < 2 && 'pointer-events-none text-[#959DB3]'} ${currentPage === totalPages && 'pointer-events-none text-[#959DB3]'} ${currentItems.length === 0 && 'pointer-events-none text-[#959DB3]'}`}>
                     <div className="px-2 py-2 rounded-[6px] cursor-pointer" onClick={() => {
                         if (totalPages > 1) {
                             paginate(totalPages);
@@ -860,14 +866,14 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         {/* Phần header có import export add */}
                         <div className='flex gap-5 text-[14px]'>
                             {/* Button export file */}
-                            <div className='flex flex-col justify-center bg-[#fff] rounded-[5px] cursor-pointer shadow3 border-[1px] border-white hover:border-[#008000]' title='Upload file here'>
+                            <div className='flex flex-col justify-center bg-[#fff] rounded-[5px] cursor-pointer shadow2 border-[1px] border-white hover:border-[#008000]' title='Upload file here'>
                                 <div className='flex gap-2 h-[36px] flex-col justify-center px-[9px]'>
                                     <img className='h-[18px] w-[18px] mx-auto' src='./iconimport.png' />
                                 </div>
                             </div>
 
                             {/* Button import file */}
-                            <div className='flex flex-col justify-center bg-[#fff] rounded-[5px] cursor-pointer shadow3 border-[1px] border-white hover:border-[#008000]'>
+                            <div className='flex flex-col justify-center bg-[#fff] rounded-[5px] cursor-pointer shadow2 border-[1px] border-white hover:border-[#008000]'>
 
                                 <div className='flex gap-2 h-[36px] px-[9px]'>
                                     <div className='flex flex-col justify-center'>
@@ -916,12 +922,12 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                             </div>
 
                             <div className='relative flex gap-3'>
-                                <img className='absolute top-1/2 -translate-y-1/2 left-2' src="./iconsearch.svg" alt="" />
-                                <input className='h-[36px] w-[480px] pl-8 rounded-[5px]' placeholder='Tìm theo mã và câu hỏi' onKeyPress={handleKeyPress} value={searchValue} onChange={handleSearchChange} />
+                                <img className='absolute top-1/2 -translate-y-1/2 left-2 h-[16px] w-[16px]' src="./iconsearch.svg" alt="" />
+                                <input className='h-[36px] w-[480px] pl-8 rounded-[5px] border-[1px] hover:border-[#2e7447] shadow3' placeholder='Tìm theo mã và câu hỏi' onKeyPress={handleKeyPress} value={searchValue} onChange={handleSearchChange} />
                                 <div onClick={() => searchQuestions()} className='flex flex-col hover:bg-[#2e7447] justify-center bg-[#1A6634] rounded-[4px] cursor-pointer shadow-blue'>
                                     <div className='flex gap-2 px-[9px]'>
                                         <div className='flex flex-col justify-center'>
-                                            <img className='h-[18px] w-[18px]' src="./iconsearchwhite.svg" alt="" />
+                                            <img className='h-[16px] w-[16px]' src="./iconsearchwhite.svg" alt="" />
                                         </div>
                                         <div className='text-white text-[14px] font-[600] mb-[1px] flex flex-col justify-center'>Tìm</div>
                                     </div>
@@ -1004,8 +1010,8 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
                     <div className={`mt-5 ml-3 flex justify-between`}>
                         <div className='flex absolute bottom-[14px] gap-5 left-5'>
-                            <div className='text-[#000] flex flex-col justify-center select-none'>Hiển thị mỗi trang</div>
-                            <div className='flex gap-3 cursor-pointer select-none hover:bg-[#5c6873] p-1 rounded-[5px] box-display-eachpage' onClick={() => setOpenNumQues(!openNumQues)}>
+                            <div className='text-[#000] flex flex-col justify-center select-none font-[600]'>Hiển thị mỗi trang</div>
+                            <div className='flex gap-3 cursor-pointer select-none hover:bg-[#5c6873] py-1 px-[7px] rounded-[5px] box-display-eachpage shadow2' onClick={() => setOpenNumQues(!openNumQues)}>
                                 <div className='flex flex-col justify-center select-none'>{numQues}</div>
                                 <div className='flex flex-col justify-center'>
                                     <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1015,7 +1021,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                             </div>
 
                             {openNumQues && (
-                                <div ref={boxRefNumPage} className='absolute flex flex-col rounded-[6px] bottom-[45px] left-[134px] bg-white shadow5'>
+                                <div ref={boxRefNumPage} className='absolute flex flex-col rounded-[6px] bottom-[35px] left-[137px] bg-white shadow5'>
                                     {listNumItem
                                         .filter(num => num !== numQues)
                                         .sort((a, b) => b - a) // Sắp xếp giảm dần

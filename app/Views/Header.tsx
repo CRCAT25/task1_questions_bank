@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({ onTabChange }) => {
 
 
   return (
-    <div className='h-[60px] bg-white text-[16px] px-[20px] w-full shadow2 flex justify-between relative z-50'>
+    <div className='h-[60px] bg-white text-[16px] px-[20px] w-full shadow3 flex justify-between relative z-50'>
       <div className='header h-full flex flex-col justify-center'>
         <div className='flex gap-[20px]'>
           {tabMenuHeader.map((tab, index) => (

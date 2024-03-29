@@ -12,9 +12,6 @@
     /* Bo góc */
 }
 
-.item-tabHeader{
-    box-shadow: rgba(156, 156, 165, 0.2) 0px 5px 20px 0px;
-}
 
 .item-tabHeader:hover{
     border: 1px solid #008000;
@@ -202,3 +199,10 @@ input[type="checkbox"]:checked+.checkmark:after {
     color: white;
 }
 
+.par-ques:hover >.box1{
+    background-color: #9ABBA8;
+}
+
+.box2{
+    background-color: #fff !important;
+}
