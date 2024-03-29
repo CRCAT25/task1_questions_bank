@@ -101,7 +101,7 @@ const tabMenuActive = [
 ];
 
 const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
-    const [checked, setChecked] = useState<string[]>([tabHeaderStatus[0]]); // Khởi tạo cho các checkbox tại filter
+    const [checked, setChecked] = useState<string[]>(JSON.parse(localStorage.getItem("checkedItems") ?? "[]"));
     const [checkAll, setCheckAll] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [questions, setQuestions] = useState<Question[]>(getQuestionsFromData(jsonData));
@@ -426,7 +426,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
             setChecked(newChecked);
 
             // Lưu vào localStorage
-            localStorage.setItem('checkedItems', JSON.stringify(newChecked.filter(status => status !== 'Trả về')));
         };
 
         return (
@@ -591,6 +590,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     // Tạo sự kiện xóa toàn bộ filters
     const handleResetFilter = () => {
         localStorage.removeItem("checkedItems");
+        setChecked(["Đang soạn thảo"]);
         setCheckAll(false);
         setSearchValue('');
         setListQuestionDeleted([]);
@@ -661,7 +661,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     const indexOfLastItem = currentPage * itemsPerPage;
 
     // Lấy dữ liệu của trang hiện tại bằng cách slice mảng dữ liệu ban đầu
-    const [currentItems, setCurrentItems] = useState(questions.filter(isQuestionInCheckedStatus).filter(question => question.status === "Đang soạn thảo"));
+    const [currentItems, setCurrentItems] = useState(questions.filter(isQuestionInCheckedStatus));
 
     useEffect(() => {
         let filteredItems = questions.filter(isQuestionInCheckedStatus).filter(question => checked.includes(question.status));
@@ -693,6 +693,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     // Nếu check vào tabHeader sẽ quay về mặc định trang hiện tại là 1
     useEffect(() => {
         setCurrentPage(1);
+        localStorage.setItem('checkedItems', JSON.stringify(checked.filter((item, index) => checked.indexOf(item) === index)));
     }, [checked]);
 
     useEffect(() => {
@@ -711,15 +712,9 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     // Nếu fetch xong data tắt loading
     useEffect(() => {
         if (questions) {
-            setIsLoading(false);
-            if(localStorage.getItem("checkedItems") === null || localStorage.getItem("checkedItems")?.length === 0){
-                setChecked(["Đang soạn thảo"]);
-            }
-            else{
-                const storedCheckedItems = localStorage.getItem("checkedItems");
-                setChecked(storedCheckedItems ? JSON.parse(storedCheckedItems) : []);
-            }
-
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 1000);
         }
     }, [questions]);
 
