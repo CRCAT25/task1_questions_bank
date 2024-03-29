@@ -264,7 +264,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     // Hàm xử lý các action cho nhiều item cùng 1 lúc
     const handleMultipleQuestionStatusChange = (newStatus: string) => {
         const listfail: string[] = [];
-        let fail = true;
         const updatedQuestions = questions.map(question => {
             if (question.isChecked) {
                 if (newStatus !== "Xóa câu hỏi") {
@@ -279,7 +278,6 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         };
                     } else {
                         listfail.push(question.id)
-                        fail = false;
                         // Trạng thái không thay đổi
                         return {
                             ...question, isChecked: false
@@ -426,7 +424,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                 newChecked.splice(currentIndex, 1);
             }
             setChecked(newChecked);
-        
+
             // Lưu vào localStorage
             localStorage.setItem('checkedItems', JSON.stringify(newChecked.filter(status => status !== 'Trả về')));
         };
@@ -592,7 +590,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
 
     // Tạo sự kiện xóa toàn bộ filters
     const handleResetFilter = () => {
-        setChecked(["Đang soạn thảo"]);
+        localStorage.removeItem("checkedItems");
         setCheckAll(false);
         setSearchValue('');
         setListQuestionDeleted([]);
@@ -714,11 +712,17 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     useEffect(() => {
         if (questions) {
             setIsLoading(false);
-            const storedCheckedItems = localStorage.getItem("checkedItems");
-            setChecked(storedCheckedItems ? JSON.parse(storedCheckedItems) : []);
+            if(localStorage.getItem("checkedItems") === null || localStorage.getItem("checkedItems")?.length === 0){
+                setChecked(["Đang soạn thảo"]);
+            }
+            else{
+                const storedCheckedItems = localStorage.getItem("checkedItems");
+                setChecked(storedCheckedItems ? JSON.parse(storedCheckedItems) : []);
+            }
+
         }
     }, [questions]);
-    
+
 
     // Kiểm tra nếu list không có item nào bỏ checkAll
     useEffect(() => {
@@ -847,7 +851,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
     return (
         <>
             {selectedSideBar === "Ngân hàng câu hỏi" && (<>
-                <div className='h-[100vh] mr-[20px] relative'>
+                <div className='h-[100vh] mr-6 pl-5 relative'>
                     <div className={`flex mt-[15px] justify-between ${isAnyQuestionChecked() && 'pointer-events-none'}`}>
                         {/* Phần header bao gồm các checkbox trạng thái */}
                         <div className='flex gap-5'>
@@ -912,14 +916,14 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                         </div>
 
                         <div className='flex flex-col justify-between ml-8 gap-3'>
-                            <div className='text-[#959DB3] font-[600]'>
+                            <div className='text-[#000] font-[600] text-shadow'>
                                 Tìm kiếm
                             </div>
 
                             <div className='relative flex gap-3'>
                                 <img className='absolute top-1/2 -translate-y-1/2 left-2' src="./iconsearch.svg" alt="" />
                                 <input className='h-[36px] w-[480px] pl-8 rounded-[5px]' placeholder='Tìm theo mã và câu hỏi' onKeyPress={handleKeyPress} value={searchValue} onChange={handleSearchChange} />
-                                <div onClick={() => searchQuestions()} className='flex flex-col hover:bg-[#2e7447] justify-center bg-[#1A6634] rounded-[4px] cursor-pointer'>
+                                <div onClick={() => searchQuestions()} className='flex flex-col hover:bg-[#2e7447] justify-center bg-[#1A6634] rounded-[4px] cursor-pointer shadow-blue'>
                                     <div className='flex gap-2 px-[9px]'>
                                         <div className='flex flex-col justify-center'>
                                             <img className='h-[18px] w-[18px]' src="./iconsearchwhite.svg" alt="" />
@@ -988,8 +992,9 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                     <div className='flex flex-col justify-center cursor-pointer'>
                                         <CheckListCommonActive listCommonStatus={getStatusOfSelectedQuestions()} />
                                     </div>
+                                    <div className='h-[80px] flex flex-col justify-center'><div className='w-[2px] rounded-[3px] bg-[#BBBBBB] h-[50px]'></div></div>
                                     <div
-                                        className='flex flex-col justify-center w-[100px] h-[80px] mx-auto border-l-[1px] border-[#BDC2D2] hover:bg-[#dddddd] cursor-pointer ring-inset'
+                                        className='flex flex-col justify-center w-[100px] h-[80px] mx-auto hover:bg-[#dddddd] cursor-pointer ring-inset'
                                         onClick={unCheckAllQuestion} // Thêm sự kiện onClick và gọi hàm unCheckAllQuestion khi phần tử được nhấn
                                     >
                                         <div className='flex justify-center'>
@@ -1003,7 +1008,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                     </div>
 
                     <div className={`mt-5 ml-3 flex justify-between`}>
-                        <div className='flex absolute bottom-[14px] gap-5 left-0'>
+                        <div className='flex absolute bottom-[14px] gap-5 left-5'>
                             <div className='text-[#000] flex flex-col justify-center select-none'>Hiển thị mỗi trang</div>
                             <div className='flex gap-3 cursor-pointer select-none hover:bg-[#5c6873] p-1 rounded-[5px] box-display-eachpage' onClick={() => setOpenNumQues(!openNumQues)}>
                                 <div className='flex flex-col justify-center select-none'>{numQues}</div>
@@ -1086,7 +1091,7 @@ const ListPersonnel: React.FC<TabSelected> = ({ selectedSideBar }) => {
                                             onClick={() => {
                                                 deleteListQuestion(listQuestionDeleted);
                                                 setDeleteConfirm(false); // Đóng giao diện xác nhận xóa
-                                                handleButtonClick('icondelete.svg', `Xóa ${listQuestionDeleted.slice(0, 3)} ${listQuestionDeleted.length > 3 && '...'} thành công`);
+                                                handleButtonClick('icondelete.svg', `Xóa ${listQuestionDeleted.slice(0, 3)}${listQuestionDeleted.length > 3 ? ' ...' : ''} thành công`);
                                             }}
                                         >
                                             <div className='flex justify-center gap-[10px]'>

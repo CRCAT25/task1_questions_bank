@@ -31,14 +31,14 @@
                                     "id": "Q.001",
                                     "question": "Hệ thống cửa hàng Hachi Hachi có mặt từ năm nào? Hiện nay có bao nhiêu cửa hàng ?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
-                                    "group": "Thương hiệu, văn hóa cty thương hiệu, văn hóa ctyy thương hiệu, văn hóa ct",
+                                    "group": "Thương hiệu, văn hóa cty thương hiệu, hệ thống cửa hàng Hachi Hachi bắt đầu hoạt động",
                                     "time": "30s",
                                     "status": "Đang soạn thảo",
                                     "isChecked": false
                                 },
                                 {
                                     "id": "Q.002",
-                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa  tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
                                     "time": "30s",
@@ -85,7 +85,7 @@
                                     "id": "Q.007",
                                     "question": "Từ khi nào Hachi Hachi có mặt trên thị trường? Số  hàng hiện tại là bao nhiêu?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
-                                    "group": "Thương hiệu, văn hóa cty",
+                                    "group": "Thương hiệu, văn hóa cty thương hiệu, hệ thống cửa hàng Hachi Hachi bắt đầu hoạt động",
                                     "time": "30s",
                                     "status": "Trả về",
                                     "isChecked": false
@@ -114,7 +114,7 @@
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
                                     "time": "30s",
-                                    "status": "Trả về",
+                                    "status": "Đang soạn thảo",
                                     "isChecked": false
                                 },
                                 {
@@ -132,7 +132,7 @@
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
                                     "time": "30s",
-                                    "status": "Trả về",
+                                    "status": "Đang soạn thảo",
                                     "isChecked": false
                                 },
                                 {

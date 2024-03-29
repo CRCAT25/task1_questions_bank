@@ -8,7 +8,7 @@
     width: 18px;
     height: 18px;
     border: 1px solid #363636;
-    border-radius: 5px;
+    border-radius: 3px;
     /* Bo góc */
 }
 
@@ -137,25 +137,22 @@ input[type="checkbox"]:checked+.checkmark:after {
 }
 
 .status-message-pass {
-    transform: translateX(-50%);
     color: white;
     display: flex;
     position: absolute;
     align-items: center;
-    left: 263px;
+    left: 200px;
     gap: 8px;
-
     animation: slideInFromBottomPass 0.4s ease-out forwards, fadeOut 0.7s ease-in forwards 0.5s;
     z-index: 10;
 }
 
 .status-message-fail {
-    transform: translateX(-50%);
     color: white;
     display: flex;
     position: absolute;
     align-items: center;
-    left: 230px;
+    left: 200px;
     gap: 8px;
     animation: slideInFromBottomFail 0.4s ease-out forwards, fadeOut 0.7s ease-in forwards 0.5s;
     z-index: 10;
