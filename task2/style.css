@@ -1,0 +1,174 @@
+body{
+    padding: 0;
+    margin: 0;
+    background-color: #EDEFF3;
+}
+
+.body-matrix{
+    width: 100vw;
+    font-size: 14px;
+    font-family: 'Mulish', sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.table-data{
+    width: 80%;
+    display: flex;
+    margin: auto;
+    height: 800px;
+}
+
+.position-name-main{
+    width: 300px;
+    background-color: rgba(26, 102, 52, 0.2);
+    border: 1px solid rgba(26, 102, 52, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.positionName{
+    height: 47px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20px;
+    color: #26282E;
+}
+
+.tab-header, .table-content, .header-table{
+    display: flex;
+    user-select: none;
+}
+
+.header-table{
+    justify-content: space-between;
+    background-color: rgba(26, 102, 52, 0.2);
+    font-weight: 600;
+    border-top: 1px solid rgba(26, 102, 52, 0.2);
+    border-bottom: 1px solid rgba(26, 102, 52, 0.3);
+}
+
+.competence-name-main{
+    width: 90vw;
+    height: 800px;
+}
+
+.competenceName{
+    width: 120px;
+    text-align: center;
+    height: 47px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+}
+
+.competenceName input{
+    border: 1px solid #EDEFF3;
+    font-family: 'Mulish', sans-serif;
+    background-color: #EDEFF3;
+}
+
+.competenceName input:hover{
+    border: 1px solid black !important;
+}
+
+.competenceName input:focus-within{
+    border: 1px solid black !important;
+}
+
+.competenceName span{
+    width: 50%;
+    font-weight: normal;
+}
+
+.content-all-column{
+    width: 120px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 753px;
+}
+
+.figure-title{
+    font-weight: 600;
+    color: #5A6276;
+}
+
+.figure{
+    height: 47px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+    padding: 0 10px;
+    gap: 10px;
+}
+
+.figure input{
+    width: 90%;
+    height: 60%;
+    border-radius: 5px;
+    border: 1px solid none;
+    padding: auto 10px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+input:focus {
+    outline: none;
+}
+
+.figure div{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.btn-add-ability{
+    display: flex;
+    gap: 5px;
+    padding: 0 10px;
+    color: #1A6634;
+    cursor: pointer;
+    user-select: none;
+    height: 47px;
+    font-weight: normal !important;
+}
+
+.btn-add-ability span{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.btn-add-ability:hover{
+    background-color: rgba(26, 102, 52, 0.1);
+}
+
+.line-between-position{
+    height: 18px;
+    width: 2px;
+    background: #BDC2D2;
+}
+
+.box-diagonal-line{
+    position: absolute;
+    border: 1px dashed #000;
+    transform: translate(-50%, -50%) rotate(11deg);
+    display: block;
+    width: 100%;
+    right: 0;
+    top: 50%;
+    left: 50%;
+}
