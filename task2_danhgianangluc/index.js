@@ -308,8 +308,8 @@ const renderFigure = () => {
         htmlFigure += `<div class='content-all-column' style="${i % 2 == 1 && 'background-color: #DBDEE7'}">`
         listPosition.forEach(item => {
             htmlFigure += `
-                <div class='competenceName'>
-                    <div data-code=${!!findValue(item.name, comID.id) ? findValue(item.name, comID.id).Code : ''} class='figure'>
+                <div class='competenceName' style='${!!findValue(item.name, comID.id) ?  'none' : 'pointer-events: none;'}'>
+                    <div data-code=${!!findValue(item.name, comID.id) ? 'none' : findValue(item.name, comID.id)} class='figure'>
                         <div><input style="${i % 2 == 1 && 'background-color: #DBDEE7; border: 1px solid #DBDEE7'}" id='${item.name + '-' + comID.id}-min' onblur="updateData(event, '${item.name}', '${comID.id}', 'min')" type='number' min='1' value='${!!findValue(item.name, comID.id) ? (!!findValue(item.name, comID.id).CompetenceLevel && !!findValue(item.name, comID.id).CompetenceLevel ? findValue(item.name, comID.id).CompetenceLevel : '') : ''}'/></div>
                         <div><input style="${i % 2 == 1 && 'background-color: #DBDEE7; border: 1px solid #DBDEE7'}" id='${item.name + '-' + comID.id}-max' onblur="updateData(event, '${item.name}', '${comID.id}', 'max')" type='number' min='1' value='${!!findValue(item.name, comID.id) ? (!!findValue(item.name, comID.id).CompetenceLevelMax && !!findValue(item.name, comID.id).CompetenceLevelMax ? findValue(item.name, comID.id).CompetenceLevelMax : '') : ''}'/></div>
                     </div>
@@ -389,28 +389,35 @@ const updateData = (event, pos, com, level) => {
                 data.CompetenceLevelMax = newValue;
                 valueMin.value = newValue;
                 valueMax.value = newValue;
-                alert(`MIN và MAX của ID: ${data.Code} được thay đổi`);
+                showNotify(data.Code, "MIN và MAX");
             }
             if (level === "min" && data.CompetenceLevel !== newValue && typeof (newValue) === typeof (data.CompetenceLevel)) {
                 if (newValue > 0 && newValue <= data.CompetenceLevelMax) {
                     data.CompetenceLevel = newValue;
-                    alert(`MIN của ID: ${data.Code} được thay đổi`);
-                }
-                else if (newValue > data.CompetenceLevelMax) {
+                    showNotify(data.Code, "MIN");
+                } else if (newValue > data.CompetenceLevelMax) {
                     event.target.value = data.CompetenceLevelMax;
                     data.CompetenceLevel = Number(event.target.value);
-                }
-                else if (newValue <= 0) {
+                } else if (newValue <= 0) {
                     event.target.value = findValue(pos, com).CompetenceLevel;
                     data.CompetenceLevel = findValue(pos, com).CompetenceLevel;
                 }
-            }
-            else if (level === "max" && data.CompetenceLevelMax !== newValue && typeof (newValue) === typeof (data.CompetenceLevel)) {
+            } else if (level === "max" && data.CompetenceLevelMax !== newValue && typeof (newValue) === typeof (data.CompetenceLevel)) {
                 data.CompetenceLevelMax = newValue;
-                alert(`MAX của ID: ${data.Code} được thay đổi`);
+                showNotify(data.Code, "MAX");
             }
         }
     });
+}
+
+// Thông báo thành công
+const showNotify = (text, type) => {
+    const notify = document.querySelector(`.box-notify`);
+    notify.innerText = `${type} của ID: ${text} được thay đổi`;
+    notify.classList.add("show");
+    setTimeout(() => {
+        notify.classList.remove("show");
+    }, 1200);
 }
 
 // Thực hiện các hàm bên trong để render ra table
