@@ -9,16 +9,12 @@ body{
     font-size: 14px;
     font-family: 'Mulish', sans-serif;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .table-data{
-    width: 80%;
+    width: 90%;
     display: flex;
-    margin: auto;
-    height: 800px;
+    height: 80vh;
 }
 
 .position-name-main{
@@ -54,7 +50,7 @@ body{
 
 .competence-name-main{
     width: 90vw;
-    height: 800px;
+    height: 80vh;
 }
 
 .competenceName{
@@ -91,7 +87,7 @@ body{
     text-align: center;
     display: flex;
     flex-direction: column;
-    height: 753px;
+    height: calc(80vh - 49px);
 }
 
 .figure-title{

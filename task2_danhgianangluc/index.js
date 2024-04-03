@@ -309,9 +309,9 @@ const renderFigure = () => {
         listPosition.forEach(item => {
             htmlFigure += `
                 <div class='competenceName'>
-                    <div data-code=${findValue(item.name, comID.id).Code} class='figure'>
-                        <div><input style="${i % 2 == 1 && 'background-color: #DBDEE7; border: 1px solid #DBDEE7'}" id='${item.name + '-' + comID.id}-min' onblur="updateData(event, '${item.name}', '${comID.id}', 'min')" type='number' min='1' value='${!!findValue(item.name, comID.id) ? (!!findValue(item.name, comID.id).CompetenceLevel && !!findValue(item.name, comID.id) ? findValue(item.name, comID.id).CompetenceLevel : '') : ''}'/></div>
-                        <div><input style="${i % 2 == 1 && 'background-color: #DBDEE7; border: 1px solid #DBDEE7'}" id='${item.name + '-' + comID.id}-max' onblur="updateData(event, '${item.name}', '${comID.id}', 'max')" type='number' min='1' value='${!!findValue(item.name, comID.id) ? (!!findValue(item.name, comID.id).CompetenceLevelMax && !!findValue(item.name, comID.id) ? findValue(item.name, comID.id).CompetenceLevelMax : '') : ''}'/></div>
+                    <div data-code=${!!findValue(item.name, comID.id) ? findValue(item.name, comID.id).Code : ''} class='figure'>
+                        <div><input style="${i % 2 == 1 && 'background-color: #DBDEE7; border: 1px solid #DBDEE7'}" id='${item.name + '-' + comID.id}-min' onblur="updateData(event, '${item.name}', '${comID.id}', 'min')" type='number' min='1' value='${!!findValue(item.name, comID.id) ? (!!findValue(item.name, comID.id).CompetenceLevel && !!findValue(item.name, comID.id).CompetenceLevel ? findValue(item.name, comID.id).CompetenceLevel : '') : ''}'/></div>
+                        <div><input style="${i % 2 == 1 && 'background-color: #DBDEE7; border: 1px solid #DBDEE7'}" id='${item.name + '-' + comID.id}-max' onblur="updateData(event, '${item.name}', '${comID.id}', 'max')" type='number' min='1' value='${!!findValue(item.name, comID.id) ? (!!findValue(item.name, comID.id).CompetenceLevelMax && !!findValue(item.name, comID.id).CompetenceLevelMax ? findValue(item.name, comID.id).CompetenceLevelMax : '') : ''}'/></div>
                     </div>
                 </div>`
         })
