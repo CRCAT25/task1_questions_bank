@@ -10,10 +10,13 @@ body{
     font-family: 'Mulish', sans-serif;
     height: 100vh;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .table-data{
-    width: 80%;
+    width: 90%;
     display: flex;
     height: 80vh;
     margin: auto;
@@ -22,10 +25,10 @@ body{
 .position-name-main{
     width: 300px;
     background-color: rgba(26, 102, 52, 0.2);
-    border: 1px solid rgba(26, 102, 52, 0.3);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
 }
 
 .positionName{
@@ -46,19 +49,19 @@ body{
     justify-content: space-between;
     background-color: rgba(26, 102, 52, 0.2);
     font-weight: 600;
-    border-top: 1px solid rgba(26, 102, 52, 0.2);
+    /* border-top: 1px solid rgba(26, 102, 52, 0.2); */
     border-bottom: 1px solid rgba(26, 102, 52, 0.3);
 }
 
 .competence-name-main{
     width: 90vw;
     height: 80vh;
+    position: relative;
 }
 
 .competenceName{
-    width: 120px;
+    width: 140px;
     text-align: center;
-    height: 47px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -85,11 +88,12 @@ body{
 }
 
 .content-all-column{
-    width: 120px;
+    width: 140px;
     text-align: center;
     display: flex;
     flex-direction: column;
     height: calc(80vh - 49px);
+    border-right: 1px solid #fff;
 }
 
 .figure-title{
@@ -174,7 +178,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .box-notify {
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 10px;
     background-color: #1A6634;
     color: #fff;
     padding: 10px 20px;
@@ -187,5 +191,136 @@ input[type="number"]::-webkit-outer-spin-button {
     opacity: 1;
     margin-bottom: 30px;
 }
+.header-table{
+    position: relative;
+}
+
+.tab-header{
+    height: 94px;
+    top: -47px;
+    position: absolute;
+    max-width: 85%;
+}
+
+.header-table-fake{
+    height: 47px;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    position: relative;
+    z-index: 10;
+}
+
+.item-compe{
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+}
+
+.compe{
+    text-align: center;
+    height: 94px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.compe-cate{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 47px;
+}
+
+.compe-list-ability{
+    display: flex;
+}
+
+.box-divide-title{
+    /* background-color: rgba(26, 102, 52, 0.2); 
+    border-top: 1px solid rgba(26, 102, 52, 0.3); 
+    border-left: 1px solid rgba(26, 102, 52, 0.3);  */
+    position: relative
+}
+
+.box-divide-title .title-nangluc{
+    position: absolute; 
+    top: 5px; 
+    right: 20px; 
+    font-weight: 600; 
+    color: #5A6276
+}
+
+.box-divide-title .title-chucdanh{
+    position: absolute; 
+    bottom: 5px; 
+    left: 20px; 
+    font-weight: 600; 
+    color: #5A6276
+}
+
+.list-item-position{
+    right: 0;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(26, 102, 52, 0.3); 
+    height: calc(100% - 48px);
+}
+
+.item-position{
+    width: 300px;
+    display: flex;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    height: fit-content;
+}
+
+.department-name{
+    width: 47px;
+    rotate: -90deg;
+    height: 20px;
+    text-align: center;
+    text-wrap: nowrap;
+    margin: auto 0;
+}
+
+.btn-add-chucdanh{
+    padding-left: 20px; 
+    position: absolute; 
+    bottom: 0; 
+    width: 88.5%;
+}
 
 
+@media screen and (max-width: 1800px) {
+    .positionName-particular{
+        padding-left: 5px;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    .positionName-particular{
+        padding-left: 8px;
+    }
+    .btn-add-chucdanh{
+        width: 88%;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .item-position{
+        width: 291px;
+    }
+    .btn-add-chucdanh{
+        width: 87.5%;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .item-position{
+        width: 283px;
+    }
+    .btn-add-chucdanh{
+        width: 87.2%;
+    }
+}
