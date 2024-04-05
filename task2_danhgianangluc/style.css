@@ -24,7 +24,7 @@ body{
 
 .position-name-main{
     width: 300px;
-    background-color: rgba(26, 102, 52, 0.2);
+    background-color: #d6e5dc;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -45,16 +45,14 @@ body{
 }
 
 .table-content{
-    padding-left: 140px;
+    padding-left: 170px;
     height: 60px;
 }
 
 .header-table{
     justify-content: space-between;
-    background-color: rgba(26, 102, 52, 0.2);
+    background-color: #d6e5dc;
     font-weight: 600;
-    /* border-top: 1px solid rgba(26, 102, 52, 0.2); */
-    /* border-bottom: 1px solid rgba(26, 102, 52); */
 }
 
 .competence-name-main{
@@ -71,6 +69,7 @@ body{
     justify-content: center;
     gap: 3px;
     position: relative;
+    z-index: 100;
 }
 
 .competenceName input{
@@ -98,12 +97,17 @@ body{
     display: flex;
     flex-direction: column;
     height: calc(80vh - 49px);
-    border-right: 1px solid #fff;
+    border-right: 1px solid rgba(219, 222, 231, 0);
 }
 
 .figure-title{
     font-weight: 600;
+    margin: 0 auto;
     color: #5A6276;
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
 }
 
 .figure{
@@ -159,10 +163,6 @@ input[type="number"]::-webkit-outer-spin-button {
     justify-content: center;
 }
 
-.btn-add-ability:hover{
-    background-color: rgba(26, 102, 52, 0.1);
-}
-
 .line-between-position{
     height: 18px;
     width: 2px;
@@ -172,7 +172,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .box-diagonal-line{
     position: absolute;
     border: 1px dashed #000;
-    transform: translate(-50%, -50%) rotate(10deg);
+    transform: translate(-50%, -50%) rotate(13deg);
     display: block;
     width: 100%;
     right: 0;
@@ -201,15 +201,14 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .tab-header{
-    height: 94px;
+    height: 107px;
     top: -47px;
     position: absolute;
     max-width: 85%;
 }
 
 .header-table-fake{
-    height: 47px;
-    width: 100%;
+    height: 60px;
     display: flex;
     justify-content: end;
     position: relative;
@@ -223,7 +222,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .compe{
     text-align: center;
-    height: 93px;
+    height: 106px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -240,12 +239,14 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .compe-list-ability{
     display: flex;
-    height: 47px;
+    height: 60px;
+    border-bottom: 1px solid rgba(26, 102, 52, 0.2);
 }
 
 .box-divide-title{
-    background-color: rgba(26, 102, 52, 0.2); 
-    position: relative
+    background-color: #acc8b6; 
+    position: relative;
+    height: 60px;
 }
 
 .box-divide-title .title-nangluc{
@@ -266,7 +267,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .list-item-position{
     right: 0;
-    top: 107px;
+    top: 120px;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -278,6 +279,7 @@ input[type="number"]::-webkit-outer-spin-button {
     display: flex;
     border-top: 1px solid rgba(26, 102, 52);
     border-left: 1px solid rgba(26, 102, 52);
+    border-right: 1px solid rgba(26, 102, 52, 0.2);
     height: fit-content;
 }
 
@@ -300,7 +302,14 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .btn-add-chucdanh:hover, .btn-add-ability:hover{
-    background-color: #d6e5dc;
+    background-color: #e6fff0;
+}
+
+.btn-add{
+    height: 60px;
+    width: 150px;
+    display: flex;
+    justify-content: center;
 }
 
 
@@ -337,7 +346,7 @@ input[type="number"]::-webkit-outer-spin-button {
         width: 46px;
     }
     .box-diagonal-line{
-        transform: translate(-50%, -50%) rotate(11deg);
+        transform: translate(-50%, -50%) rotate(13deg);
     }
 }
 
@@ -348,13 +357,23 @@ input[type="number"]::-webkit-outer-spin-button {
     .btn-add-chucdanh{
         width: 87.2%;
     }
+    .box-diagonal-line{
+        transform: translate(-50%, -50%) rotate(14deg);
+    }
 }
 
 .icon-i{
     position: absolute;
-    right: 2px;
-    top: 0;
+    right: 6px;
+    top: 4px;
 }
 .positionid, .position-name{
     font-weight: 600 !important;
+}
+
+.position-name{
+    max-width: 150px;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

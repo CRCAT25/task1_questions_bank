@@ -355,14 +355,14 @@ const renderFigure = () => {
     const contentTable = document.querySelector('.table-content')
     let htmlFigure = ``
     listCompetence.forEach((comID, i) => {
-        htmlFigure += `<div class='content-all-column' style="${i % 2 == 1 && 'background-color: #DBDEE7'}">
+        htmlFigure += `<div class='content-all-column' style="${i % 2 == 1 && 'background-color: rgba(219, 222, 231, 0.4)'}">
         <div style='width: 100%; height: 60px'></div>`
         listPosition.forEach(item => {
             htmlFigure += `
                 <div class='competenceName' style='${!!findValue(item.positionName, comID.id) ? 'none' : 'pointer-events: none;'}'>
                     <div class='figure'>
-                        <div><input style="${i % 2 == 1 && 'background-color: #DBDEE7; border: 1px solid #DBDEE7'}" id='${item.positionName + '-' + comID.id}-min' onblur="updateData(event, '${item.positionName}', '${comID.id}', 'min')" type='number' min='1' value='${!!findValue(item.positionName, comID.id) ? (!!findValue(item.positionName, comID.id).CompetenceLevel && !!findValue(item.positionName, comID.id).CompetenceLevel ? findValue(item.positionName, comID.id).CompetenceLevel : '') : ''}'/></div>
-                        <div><input style="${i % 2 == 1 && 'background-color: #DBDEE7; border: 1px solid #DBDEE7'}" id='${item.positionName + '-' + comID.id}-max' onblur="updateData(event, '${item.positionName}', '${comID.id}', 'max')" type='number' min='1' value='${!!findValue(item.positionName, comID.id) ? (!!findValue(item.positionName, comID.id).CompetenceLevelMax && !!findValue(item.positionName, comID.id).CompetenceLevelMax ? findValue(item.positionName, comID.id).CompetenceLevelMax : '') : ''}'/></div>
+                        <div><input style="${i % 2 == 1 && 'background-color: rgba(219, 222, 231, 0); border: 1px solid rgba(219, 222, 231, 0)'}" id='${item.positionName + '-' + comID.id}-min' onblur="updateData(event, '${item.positionName}', '${comID.id}', 'min')" type='number' min='1' value='${!!findValue(item.positionName, comID.id) ? (!!findValue(item.positionName, comID.id).CompetenceLevel && !!findValue(item.positionName, comID.id).CompetenceLevel ? findValue(item.positionName, comID.id).CompetenceLevel : '') : ''}'/></div>
+                        <div><input style="${i % 2 == 1 && 'background-color: rgba(219, 222, 231, 0); border: 1px solid rgba(219, 222, 231, 0)'}" id='${item.positionName + '-' + comID.id}-max' onblur="updateData(event, '${item.positionName}', '${comID.id}', 'max')" type='number' min='1' value='${!!findValue(item.positionName, comID.id) ? (!!findValue(item.positionName, comID.id).CompetenceLevelMax && !!findValue(item.positionName, comID.id).CompetenceLevelMax ? findValue(item.positionName, comID.id).CompetenceLevelMax : '') : ''}'/></div>
                     </div>
                 </div>`
         })
@@ -384,9 +384,9 @@ const renderCompetenceName = () => {
     });
 
     const rowCompetenceName = document.querySelector('.tab-header');
-    let htmlListCompetenceID = `<div class='compe'><div></div><div class="btn-add-ability btn-add">
+    let htmlListCompetenceID = `<div class='compe' style='height: 107px'><div></div><div class="btn-add-ability btn-add">
     <span>
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+        <svg width="25" height="25" viewBox="0 0 20 20" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M19.5 10C19.5 15.2467 15.2467 19.5 10 19.5C4.75329 19.5 0.5 15.2467 0.5 10C0.5 4.7533 4.7533 0.5 10 0.5C15.2467 0.5 19.5 4.75329 19.5 10Z"
@@ -407,7 +407,7 @@ const renderCompetenceName = () => {
         item[1].forEach(com => {
             htmlListCompetenceID += `
             <div class='competenceName'>
-                <div class='figure-title'>${com.id}</div>
+                <div class='figure-title' title='${com.id}'>${com.id}</div>
                 <div style="display: flex;">
                     <span>Min</span>
                     <span>Max</span>
@@ -455,7 +455,7 @@ const renderPositionName = () => {
             htmlListPositionName += `</div> 
             <div class="btn-add-ability btn-add-chucdanh">
             <span>
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                <svg width="25" height="25" viewBox="0 0 20 20" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M19.5 10C19.5 15.2467 15.2467 19.5 10 19.5C4.75329 19.5 0.5 15.2467 0.5 10C0.5 4.7533 4.7533 0.5 10 0.5C15.2467 0.5 19.5 4.75329 19.5 10Z"
@@ -481,7 +481,7 @@ const renderPositionName = () => {
                         <div style="display: flex; gap: 5px">
                             <div class='positionid' title='${pos.positionID}'>${pos.positionID}</div>
                             <div class="line-between-position"></div>
-                            <div class='position-name'>${pos.positionName}</div>
+                            <div class='position-name' title='${pos.positionName}'>${pos.positionName}</div>
                         </div>
                     </div>
             `
