@@ -66,6 +66,7 @@ body{
     flex-direction: column;
     justify-content: center;
     gap: 3px;
+    position: relative;
 }
 
 .competenceName input{
@@ -218,7 +219,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .compe{
     text-align: center;
-    height: 94px;
+    height: 93px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -332,4 +333,10 @@ input[type="number"]::-webkit-outer-spin-button {
     .btn-add-chucdanh{
         width: 87.2%;
     }
+}
+
+.icon-i{
+    position: absolute;
+    right: 2px;
+    top: 0;
 }

@@ -387,7 +387,7 @@ const renderCompetenceName = () => {
     Object.entries(competenceByCategory).forEach((item, index) => {
         htmlListCompetenceID += `<div class='item-compe'>
             <div class='compe' style='${index === Object.entries(competenceByCategory).length - 1 ? 'border-right: 1px solid rgba(26, 102, 52);' : ''}'>
-                <div class='compe-cate'>${item[0]}</div>
+                <div class='compe-cate' title='${item[0]}'>${item[0]}</div>
                 <div class='compe-list-ability'>`
         item[1].forEach(com => {
             htmlListCompetenceID += `
@@ -397,6 +397,15 @@ const renderCompetenceName = () => {
                     <span>Min</span>
                     <span>Max</span>
                 </div>
+                <div class='icon-i'>
+                    <svg width="12" height="12" viewBox="0 0 6 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 0C2.40666 0 1.82664 0.175947 1.33329 0.505591C0.839943 0.835235 0.455426 1.30377 0.228363 1.85195C0.00129984 2.40013 -0.0581101 3.00333 0.0576455 3.58527C0.173401 4.16721 0.459123 4.70176 0.878681 5.12132C1.29824 5.54088 1.83279 5.8266 2.41473 5.94235C2.99667 6.05811 3.59987 5.9987 4.14805 5.77164C4.69623 5.54457 5.16476 5.16006 5.49441 4.66671C5.82405 4.17336 6 3.59334 6 3C5.99921 2.20459 5.68288 1.44199 5.12044 0.879557C4.55801 0.31712 3.79541 0.000794215 3 0V0ZM3 5.45456C2.51453 5.45456 2.03997 5.3106 1.63632 5.04089C1.23267 4.77118 0.918061 4.38783 0.732281 3.93932C0.546501 3.49081 0.497893 2.99728 0.592602 2.52114C0.687312 2.045 0.921087 1.60764 1.26436 1.26436C1.60764 0.921085 2.045 0.687311 2.52114 0.592601C2.99728 0.497891 3.49081 0.5465 3.93932 0.73228C4.38783 0.91806 4.77118 1.23267 5.04089 1.63632C5.31061 2.03997 5.45456 2.51453 5.45456 3C5.45412 3.65085 5.19537 4.27492 4.73514 4.73514C4.27492 5.19537 3.65085 5.45411 3 5.45456Z" fill="#31ADFF"/>
+                        <path d="M3.0001 1.26392C2.92456 1.26392 2.85072 1.28632 2.78791 1.32828C2.7251 1.37025 2.67615 1.4299 2.64724 1.49969C2.61833 1.56948 2.61077 1.64628 2.6255 1.72037C2.64024 1.79445 2.67662 1.86251 2.73003 1.91592C2.78345 1.96934 2.8515 2.00571 2.92559 2.02045C2.99968 2.03519 3.07647 2.02763 3.14626 1.99872C3.21605 1.96981 3.2757 1.92086 3.31767 1.85805C3.35964 1.79524 3.38204 1.72139 3.38204 1.64585C3.38174 1.54465 3.34141 1.44767 3.26985 1.37611C3.19828 1.30455 3.10131 1.26421 3.0001 1.26392Z" fill="#31ADFF"/>
+                        <path d="M2.99988 2.47253C2.92396 2.47273 2.8512 2.50298 2.79751 2.55667C2.74383 2.61035 2.71358 2.68311 2.71338 2.75903V4.47747C2.71338 4.55343 2.74355 4.62628 2.79727 4.67999C2.85098 4.7337 2.92382 4.76388 2.99978 4.76388C3.07574 4.76388 3.14859 4.7337 3.2023 4.67999C3.25602 4.62628 3.28619 4.55343 3.28619 4.47747V2.75903C3.28599 2.68314 3.25577 2.61041 3.20212 2.55673C3.14848 2.50305 3.07577 2.47278 2.99988 2.47253Z" fill="#31ADFF"/>
+                    </svg>
+                </div>
+                
+
             </div>
             `})
         htmlListCompetenceID += `</div></div></div>`
@@ -438,7 +447,7 @@ const renderPositionName = () => {
             htmlListPositionName += `
                     <div class='positionName' style='border-left: 1px solid rgba(26, 102, 52);'>
                         <div style="display: flex; gap: 5px">
-                            <div>${pos.positionID}</div>
+                            <div title='${pos.positionID}'>${pos.positionID}</div>
                             <div class="line-between-position"></div>
                             <div>${pos.positionName}</div>
                         </div>
@@ -477,26 +486,45 @@ const updateData = (event, pos, com, level) => {
     datas.forEach(data => {
         if (data.PositionName === pos && data.CompetenceID === com) {
             if (!(!!data.CompetenceLevel && !!data.CompetenceLevelMax) && newValue > 0) {
-                data.CompetenceLevel = newValue;
-                data.CompetenceLevelMax = newValue;
-                valueMin.value = newValue;
-                valueMax.value = newValue;
-                showNotify(data.Code, "MIN và MAX");
+                if(newValue < 5){
+                    data.CompetenceLevel = newValue;
+                    data.CompetenceLevelMax = newValue;
+                    valueMin.value = newValue;
+                    valueMax.value = newValue;
+                    showNotify(data.Code, "MIN và MAX");
+                }
+                else{
+                    data.CompetenceLevel = 5;
+                    data.CompetenceLevelMax = 5;
+                    valueMin.value = 5;
+                    valueMax.value = 5;
+                    showNotify(data.Code, "MIN và MAX");
+                }
             }
             if (level === "min" && data.CompetenceLevel !== newValue && typeof (newValue) === typeof (data.CompetenceLevel)) {
-                if (newValue > 0 && newValue <= data.CompetenceLevelMax) {
-                    data.CompetenceLevel = newValue;
-                    showNotify(data.Code, "MIN");
-                } else if (newValue > data.CompetenceLevelMax) {
-                    event.target.value = data.CompetenceLevelMax;
-                    data.CompetenceLevel = Number(event.target.value);
-                } else if (newValue <= 0) {
+                if (newValue <= 0 || newValue > 5) {
                     event.target.value = findValue(pos, com).CompetenceLevel;
                     data.CompetenceLevel = findValue(pos, com).CompetenceLevel;
                 }
+                else{
+                    if (newValue > 0 && newValue <= data.CompetenceLevelMax) {
+                        data.CompetenceLevel = newValue;
+                        showNotify(data.Code, "MIN");
+                    } else if (newValue > data.CompetenceLevelMax) {
+                        event.target.value = data.CompetenceLevelMax;
+                        data.CompetenceLevel = Number(event.target.value);
+                    }
+                }
+                
             } else if (level === "max" && data.CompetenceLevelMax !== newValue && typeof (newValue) === typeof (data.CompetenceLevel)) {
-                data.CompetenceLevelMax = newValue;
-                showNotify(data.Code, "MAX");
+                if (newValue < data.CompetenceLevel || newValue < 0 || newValue > 5){
+                    event.target.value = data.CompetenceLevelMax;
+                    data.CompetenceLevelMax = Number(event.target.value);
+                }
+                else{
+                    data.CompetenceLevelMax = newValue;
+                    showNotify(data.Code, "MAX");
+                }
             }
         }
     });
