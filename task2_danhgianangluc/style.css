@@ -2,23 +2,19 @@ body{
     padding: 0;
     margin: 0;
     background-color: #EDEFF3;
+    font-family: 'Mulish', sans-serif;
 }
 
 .body-matrix{
     width: 100vw;
     font-size: 14px;
-    font-family: 'Mulish', sans-serif;
-    height: 100vh;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    padding-top: 100px;
 }
 
 .table-data{
     width: 90%;
     display: flex;
-    height: 80vh;
     margin: auto;
 }
 
@@ -46,7 +42,6 @@ body{
 
 .table-content{
     padding-left: 170px;
-    height: 60px;
 }
 
 .header-table{
@@ -57,7 +52,6 @@ body{
 
 .competence-name-main{
     width: 90vw;
-    height: 80vh;
     position: relative;
 }
 
@@ -96,7 +90,7 @@ body{
     text-align: center;
     display: flex;
     flex-direction: column;
-    height: calc(80vh - 49px);
+    margin-top: 60px;
     border-right: 1px solid rgba(219, 222, 231, 0);
 }
 
@@ -155,6 +149,7 @@ input[type="number"]::-webkit-outer-spin-button {
     user-select: none;
     height: 47px;
     font-weight: normal !important;
+    background-color: #d6e5dc;
 }
 
 .btn-add-ability span{
@@ -271,7 +266,6 @@ input[type="number"]::-webkit-outer-spin-button {
     position: absolute;
     display: flex;
     flex-direction: column;
-    height: calc(100% - 48px);
 }
 
 .item-position{
@@ -280,7 +274,6 @@ input[type="number"]::-webkit-outer-spin-button {
     border-top: 1px solid rgba(26, 102, 52);
     border-left: 1px solid rgba(26, 102, 52);
     border-right: 1px solid rgba(26, 102, 52, 0.2);
-    height: fit-content;
 }
 
 .department-name{
@@ -291,6 +284,10 @@ input[type="number"]::-webkit-outer-spin-button {
     text-wrap: nowrap;
     margin: auto 0;
     font-weight: 600;
+}
+
+.item-position .positionName{
+    height: 46px;
 }
 
 .btn-add-chucdanh{
