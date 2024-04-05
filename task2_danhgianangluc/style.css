@@ -50,7 +50,7 @@ body{
     background-color: rgba(26, 102, 52, 0.2);
     font-weight: 600;
     /* border-top: 1px solid rgba(26, 102, 52, 0.2); */
-    border-bottom: 1px solid rgba(26, 102, 52, 0.3);
+    /* border-bottom: 1px solid rgba(26, 102, 52); */
 }
 
 .competence-name-main{
@@ -75,11 +75,11 @@ body{
 }
 
 .competenceName input:hover{
-    border: 1px solid black !important;
+    border: 1px solid rgba(26, 102, 52) !important;
 }
 
 .competenceName input:focus-within{
-    border: 1px solid black !important;
+    border: 1px solid rgba(26, 102, 52) !important;
 }
 
 .competenceName span{
@@ -212,8 +212,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .item-compe{
-    border-top: 1px solid black;
-    border-left: 1px solid black;
+    border-top: 1px solid rgba(26, 102, 52);
+    border-left: 1px solid rgba(26, 102, 52);
 }
 
 .compe{
@@ -228,17 +228,19 @@ input[type="number"]::-webkit-outer-spin-button {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 47px;
+    height: 46px;
+    border-bottom: 1px solid rgba(26, 102, 52);
 }
 
 .compe-list-ability{
     display: flex;
+    height: 47px;
 }
 
 .box-divide-title{
     /* background-color: rgba(26, 102, 52, 0.2); 
-    border-top: 1px solid rgba(26, 102, 52, 0.3); 
-    border-left: 1px solid rgba(26, 102, 52, 0.3);  */
+    border-top: 1px solid rgba(26, 102, 52); 
+    border-left: 1px solid rgba(26, 102, 52);  */
     position: relative
 }
 
@@ -263,25 +265,26 @@ input[type="number"]::-webkit-outer-spin-button {
     position: absolute;
     display: flex;
     flex-direction: column;
-    border-right: 1px solid rgba(26, 102, 52, 0.3); 
+    /* border-right: 1px solid rgba(26, 102, 52);  */
     height: calc(100% - 48px);
 }
 
 .item-position{
     width: 300px;
     display: flex;
-    border-top: 1px solid black;
-    border-left: 1px solid black;
+    border-top: 1px solid rgba(26, 102, 52);
+    border-left: 1px solid rgba(26, 102, 52);
     height: fit-content;
 }
 
 .department-name{
-    width: 47px;
+    width: 45px;
     rotate: -90deg;
     height: 20px;
     text-align: center;
     text-wrap: nowrap;
     margin: auto 0;
+    font-weight: 600;
 }
 
 .btn-add-chucdanh{
@@ -305,6 +308,9 @@ input[type="number"]::-webkit-outer-spin-button {
     .btn-add-chucdanh{
         width: 88%;
     }
+    .department-name{
+        width: 47px;
+    }
 }
 
 @media screen and (max-width: 1300px) {
@@ -313,6 +319,9 @@ input[type="number"]::-webkit-outer-spin-button {
     }
     .btn-add-chucdanh{
         width: 87.5%;
+    }
+    .department-name{
+        width: 46px;
     }
 }
 

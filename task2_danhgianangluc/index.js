@@ -350,7 +350,6 @@ const findValue = (pos, com) => {
     return datas.find(data => data.PositionName === pos && data.CompetenceID === com);
 }
 
-
 // render ra các thông số table
 const renderFigure = () => {
     const contentTable = document.querySelector('.table-content')
@@ -387,7 +386,7 @@ const renderCompetenceName = () => {
     let htmlListCompetenceID = ``
     Object.entries(competenceByCategory).forEach((item, index) => {
         htmlListCompetenceID += `<div class='item-compe'>
-            <div class='compe' style='${index === Object.entries(competenceByCategory).length - 1 ? 'border-right: 1px solid black;' : ''}'>
+            <div class='compe' style='${index === Object.entries(competenceByCategory).length - 1 ? 'border-right: 1px solid rgba(26, 102, 52);' : ''}'>
                 <div class='compe-cate'>${item[0]}</div>
                 <div class='compe-list-ability'>`
         item[1].forEach(com => {
@@ -418,9 +417,6 @@ const renderPositionName = () => {
         console.log(position.departmentName)
     });
 
-
-    console.log(positionByDepartmentID)
-
     const columnPositionName = document.querySelector('.position-name-main');
     let htmlListPositionName =
         `<div class='box-list-position'>
@@ -434,13 +430,13 @@ const renderPositionName = () => {
 
     Object.entries(positionByDepartmentID).forEach((item, index) => {
         htmlListPositionName += `
-            <div class='item-position' style='${index === Object.entries(positionByDepartmentID).length - 1 ? 'border-bottom: 1px solid black;' : ''}'>
+            <div class='item-position' style='${index === Object.entries(positionByDepartmentID).length - 1 ? 'border-bottom: 1px solid rgba(26, 102, 52);' : ''}'>
                 <div class='department-name' title='${datas.find(data => data.DepartmentID === item[0]).DepartmentName}'>${item[0]}</div>
                 <div class='positionName-particular'>
         `
         item[1].forEach(pos => {
             htmlListPositionName += `
-                    <div class='positionName'>
+                    <div class='positionName' style='border-left: 1px solid rgba(26, 102, 52);'>
                         <div style="display: flex; gap: 5px">
                             <div>${pos.positionID}</div>
                             <div class="line-between-position"></div>
