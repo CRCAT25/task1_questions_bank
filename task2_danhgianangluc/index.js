@@ -355,7 +355,8 @@ const renderFigure = () => {
     const contentTable = document.querySelector('.table-content')
     let htmlFigure = ``
     listCompetence.forEach((comID, i) => {
-        htmlFigure += `<div class='content-all-column' style="${i % 2 == 1 && 'background-color: #DBDEE7'}">`
+        htmlFigure += `<div class='content-all-column' style="${i % 2 == 1 && 'background-color: #DBDEE7'}">
+        <div style='width: 100%; height: 60px'></div>`
         listPosition.forEach(item => {
             htmlFigure += `
                 <div class='competenceName' style='${!!findValue(item.positionName, comID.id) ? 'none' : 'pointer-events: none;'}'>
@@ -383,7 +384,21 @@ const renderCompetenceName = () => {
     });
 
     const rowCompetenceName = document.querySelector('.tab-header');
-    let htmlListCompetenceID = ``
+    let htmlListCompetenceID = `<div class='compe'><div></div><div class="btn-add-ability btn-add">
+    <span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M19.5 10C19.5 15.2467 15.2467 19.5 10 19.5C4.75329 19.5 0.5 15.2467 0.5 10C0.5 4.7533 4.7533 0.5 10 0.5C15.2467 0.5 19.5 4.75329 19.5 10Z"
+                stroke="#1A6634" />
+            <path d="M10 5.71436V14.2858" stroke="#1A6634" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            <path d="M5.71436 10.0001H14.2858" stroke="#1A6634" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </span>
+    <span>Thêm năng lực</span>
+</div></div>`
     Object.entries(competenceByCategory).forEach((item, index) => {
         htmlListCompetenceID += `<div class='item-compe'>
             <div class='compe' style='${index === Object.entries(competenceByCategory).length - 1 ? 'border-right: 1px solid rgba(26, 102, 52);' : ''}'>
@@ -434,8 +449,25 @@ const renderPositionName = () => {
                 <div class='title-nangluc'>Năng lực</div>
                 <div class='title-chucdanh'>Chức danh</div>
             </div>
-            <div class='list-item-position'>
+            
             `;
+
+            htmlListPositionName += `</div> 
+            <div class="btn-add-ability btn-add-chucdanh">
+            <span>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M19.5 10C19.5 15.2467 15.2467 19.5 10 19.5C4.75329 19.5 0.5 15.2467 0.5 10C0.5 4.7533 4.7533 0.5 10 0.5C15.2467 0.5 19.5 4.75329 19.5 10Z"
+                        stroke="#1A6634" />
+                    <path d="M10 5.71436V14.2858" stroke="#1A6634" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M5.71436 10.0001H14.2858" stroke="#1A6634" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </span>
+            <span>Thêm chức danh</span>
+        </div><div class='list-item-position'>`
 
     Object.entries(positionByDepartmentID).forEach((item, index) => {
         htmlListPositionName += `
@@ -447,9 +479,9 @@ const renderPositionName = () => {
             htmlListPositionName += `
                     <div class='positionName' style='border-left: 1px solid rgba(26, 102, 52);'>
                         <div style="display: flex; gap: 5px">
-                            <div title='${pos.positionID}'>${pos.positionID}</div>
+                            <div class='positionid' title='${pos.positionID}'>${pos.positionID}</div>
                             <div class="line-between-position"></div>
-                            <div>${pos.positionName}</div>
+                            <div class='position-name'>${pos.positionName}</div>
                         </div>
                     </div>
             `
@@ -458,23 +490,7 @@ const renderPositionName = () => {
     })
     htmlListPositionName += `</div></div></div>`
 
-    htmlListPositionName += `</div> 
-    <div class="btn-add-ability btn-add-chucdanh">
-    <span>
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M19.5 10C19.5 15.2467 15.2467 19.5 10 19.5C4.75329 19.5 0.5 15.2467 0.5 10C0.5 4.7533 4.7533 0.5 10 0.5C15.2467 0.5 19.5 4.75329 19.5 10Z"
-                stroke="#1A6634" />
-            <path d="M10 5.71436V14.2858" stroke="#1A6634" stroke-width="1.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-            <path d="M5.71436 10.0001H14.2858" stroke="#1A6634" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-    </span>
-    <span>Thêm chức danh</span>
-</div>
-    `
+
     columnPositionName.innerHTML = htmlListPositionName;
 }
 

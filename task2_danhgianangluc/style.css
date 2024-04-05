@@ -27,7 +27,6 @@ body{
     background-color: rgba(26, 102, 52, 0.2);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     position: relative;
 }
 
@@ -43,6 +42,11 @@ body{
 .tab-header, .table-content, .header-table{
     display: flex;
     user-select: none;
+}
+
+.table-content{
+    padding-left: 140px;
+    height: 60px;
 }
 
 .header-table{
@@ -168,7 +172,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .box-diagonal-line{
     position: absolute;
     border: 1px dashed #000;
-    transform: translate(-50%, -50%) rotate(9deg);
+    transform: translate(-50%, -50%) rotate(10deg);
     display: block;
     width: 100%;
     right: 0;
@@ -223,6 +227,7 @@ input[type="number"]::-webkit-outer-spin-button {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    z-index: 100;
 }
 
 .compe-cate{
@@ -239,9 +244,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .box-divide-title{
-    /* background-color: rgba(26, 102, 52, 0.2); 
-    border-top: 1px solid rgba(26, 102, 52); 
-    border-left: 1px solid rgba(26, 102, 52);  */
+    background-color: rgba(26, 102, 52, 0.2); 
     position: relative
 }
 
@@ -263,10 +266,10 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .list-item-position{
     right: 0;
+    top: 107px;
     position: absolute;
     display: flex;
     flex-direction: column;
-    /* border-right: 1px solid rgba(26, 102, 52);  */
     height: calc(100% - 48px);
 }
 
@@ -290,15 +293,24 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .btn-add-chucdanh{
     padding-left: 20px; 
-    position: absolute; 
-    bottom: 0; 
+    height: 60px;
     width: 88.5%;
+    display: flex;
+    justify-content: center;
 }
+
+.btn-add-chucdanh:hover, .btn-add-ability:hover{
+    background-color: #d6e5dc;
+}
+
 
 
 @media screen and (max-width: 1800px) {
     .positionName-particular{
         padding-left: 5px;
+    }
+    .department-name{
+        width: 44px;
     }
 }
 
@@ -310,7 +322,7 @@ input[type="number"]::-webkit-outer-spin-button {
         width: 88%;
     }
     .department-name{
-        width: 47px;
+        width: 46px;
     }
 }
 
@@ -323,6 +335,9 @@ input[type="number"]::-webkit-outer-spin-button {
     }
     .department-name{
         width: 46px;
+    }
+    .box-diagonal-line{
+        transform: translate(-50%, -50%) rotate(11deg);
     }
 }
 
@@ -339,4 +354,7 @@ input[type="number"]::-webkit-outer-spin-button {
     position: absolute;
     right: 2px;
     top: 0;
+}
+.positionid, .position-name{
+    font-weight: 600 !important;
 }
